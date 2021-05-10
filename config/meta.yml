@@ -1,0 +1,5 @@
+meta_product_name: "Trouve ma Ville"
+meta_title: "Trouve ma Ville - Trouvez votre future Ville, selon vos critères !"
+meta_description: "www.trouvemaville.com est une application que vous permet de trouver votre future ville selon des critères précis."
+meta_image: "styled-map.jpg" # should exist in `app/assets/images/`
+twitter_account: "@trouvemaville"   # required for Twitter Cards

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_142729) do
+ActiveRecord::Schema.define(version: 2021_05_10_144902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,6 @@ ActiveRecord::Schema.define(version: 2021_05_10_142729) do
     t.boolean "supermarket"
     t.boolean "network"
     t.boolean "fibre"
-    t.boolean "commodity"
     t.integer "min_surface"
     t.integer "max_distance_km"
     t.integer "max_distance_minutes"

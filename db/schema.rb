@@ -10,10 +10,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_10_131910) do
+ActiveRecord::Schema.define(version: 2021_05_10_142729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "photo"
+    t.integer "population"
+    t.integer "commodity_count"
+    t.integer "house_marketprice"
+    t.boolean "primary_school"
+    t.boolean "secondary_school"
+    t.boolean "doctor"
+    t.integer "age_average"
+    t.boolean "supermarket"
+    t.integer "land_marketprice"
+    t.integer "flat_marketprice"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "fibre"
+    t.string "network"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "favorite_cities", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "city_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_favorite_cities_on_city_id"
+    t.index ["user_id"], name: "index_favorite_cities_on_user_id"
+  end
+
+  create_table "saved_searches", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "budget_max"
+    t.boolean "primary_school"
+    t.boolean "secondary_school"
+    t.integer "age_average"
+    t.boolean "supermarket"
+    t.boolean "network"
+    t.boolean "fibre"
+    t.boolean "commodity"
+    t.integer "min_surface"
+    t.integer "max_distance_km"
+    t.integer "max_distance_minutes"
+    t.string "property_type"
+    t.string "start_city"
+    t.boolean "doctor"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_saved_searches_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +79,7 @@ ActiveRecord::Schema.define(version: 2021_05_10_131910) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "favorite_cities", "cities"
+  add_foreign_key "favorite_cities", "users"
+  add_foreign_key "saved_searches", "users"
 end

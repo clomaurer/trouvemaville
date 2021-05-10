@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_43365b92-c562-41e5-9c20-0bb97e19fc1c",
+      "org_id": "user_d7573f5f-10f2-4b0a-a615-d3701415a399",
+      "deploy_url": "https://push-n2-par-clevercloud-customers.services.clever-cloud.com/app_43365b92-c562-41e5-9c20-0bb97e19fc1c.git",
+      "name": "trouvemaville",
+      "alias": "trouvemaville"
+    }
+  ]
+}

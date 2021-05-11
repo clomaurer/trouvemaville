@@ -1,2 +1,13 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="home-wraper">
+  <h1>Trouvez votre futur cocon selon vos critères !</h1>
+  <%= form_tag cities_path, method: :get do %>
+  <%= text_field_tag :name, nil, required: true,
+   placeholder: "Recherche une ville" %>
+  <div class="d-flex">
+    A quelle distance ou temps maximum de cette ville ?
+    <%= number_field_tag :distance, nil, min: 1, width: 1 %>
+    km
+  </div>
+  <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
+<% end %>
+</div>

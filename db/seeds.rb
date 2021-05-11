@@ -1,6 +1,18 @@
 City.destroy_all
 User.destroy_all
 
+chantepie = City.create!(
+  name: "Chantepie",
+  latitude: 48.0867,
+  longitude: -1.6161
+  )
+
+vézin_le_coquet = City.create!(
+  name: "Vézin-le-Coquet",
+  latitude: 48.118,
+  longitude: -1.756
+  )
+
 rennes = City.create!(
   name: "Rennes",
   description: "Rennes est la préfecture de la région Bretagne, au nord-ouest de la France. Elle est connue pour ses maisons médiévales à colombages et son immense cathédrale. Le parc du Thabor dispose d'une roseraie et d'une volière. Au sud de la Vilaine, le musée des Beaux-Arts expose des œuvres de Boticelli, Rubens et Picasso. Le centre culturel des Champs Libres abrite le musée de Bretagne et l'espace des Sciences, doté d'un planétarium.",

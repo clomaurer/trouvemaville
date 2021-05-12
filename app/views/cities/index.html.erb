@@ -1,3 +1,20 @@
+  <%= form_tag cities_path, method: :get do %>
+  <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville" %>
+  <div>
+    A quelle distance ou temps maximum de cette ville ?
+    <%= number_field_tag :distance, nil, min: 1, width: 1, value: @distance %>
+    km
+    </div>
+  <div class="checkboxes">
+    <%= check_box_tag "supermarket" %> Supermarchés
+    <%= check_box_tag "fibre" %> Fibre
+    <%= check_box_tag "doctor" %> Médecin
+    <%= check_box_tag "secondary_school" %> Enseignement secondaire
+    <%= check_box_tag "primary_school" %> Ecole primaire
+    <%= check_box_tag "network" %> 4G
+  </div>
+  <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
+<% end %>
 <div id="map"
      style="width: 100%; height: 100vh;"
      data-markers="<%= @markers.to_json %>"

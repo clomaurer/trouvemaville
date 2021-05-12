@@ -1,4 +1,20 @@
 body {
   background-image: asset-url('map-background.png');
   background-size: cover;
+  overflow: hidden;
+}
+
+.home-wraper {
+  margin: 100px auto;
+  width: 50%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+#name {
+  height: 56px;
 }

@@ -1,3 +1,10 @@
+  <%= form_tag cities_path, method: :get do %>
+  <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville" %>
+    A quelle distance ou temps maximum de cette ville ?
+    <%= number_field_tag :distance, nil, min: 1, width: 1, value: @distance %>
+    km
+  <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
+<% end %>
 <div id="map"
      style="width: 100%; height: 100vh;"
      data-markers="<%= @markers.to_json %>"

@@ -11,7 +11,7 @@ chantepie = City.create!(
   secondary_school: true,
   doctor: true,
   age_average: 38,
-  supermarket: true,
+  supermarket: false,
   flat_marketprice: 3400,
   fibre: "85%",
   network: "100%",

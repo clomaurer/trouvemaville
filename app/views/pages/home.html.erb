@@ -2,11 +2,19 @@
   <h1>Trouvez votre futur cocon selon vos critères !</h1>
   <%= form_tag cities_path, method: :get do %>
   <%= text_field_tag :name, nil, required: true,
-   placeholder: "Rechercher une ville" %>
+   placeholder: "Recherche une ville" %>
   <div class="d-flex">
     A quelle distance ou temps maximum de cette ville ?
-    <%= number_field_tag :distance, nil, min: 1, width: 1, value: 1 %>
+    <%= number_field_tag :distance, nil, min: 1, width: 1, value: 10 %>
     km
+  </div>
+  <div class="checkboxes">
+    <%= check_box_tag "supermarket" %> Supermarchés
+    <%= check_box_tag "fibre" %> Fibre
+    <%= check_box_tag "doctor" %> Médecin
+    <%= check_box_tag "secondary_school" %> Enseignement secondaire
+    <%= check_box_tag "primary_school" %> Ecole primaire
+    <%= check_box_tag "network" %> 4G
   </div>
   <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
 <% end %>

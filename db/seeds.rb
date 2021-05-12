@@ -45,17 +45,17 @@ City.destroy_all
 #   password: "12345678",
 #   )
 
-
-
 # # seeds generation upon CSV files
 
 # Ouvrir le fichier population.csv
+p "Population seeds incoming"
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath    = 'db/fixtures/population.csv'
 
 @geocode_population = []
 
 # Pour chaque ligne du fichier
+@geocode_population = []
 CSV.foreach(filepath, csv_options) do |row|
   # je prends le geocode
   geocode = row['geocode']
@@ -75,8 +75,42 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
+p "Latitude & Longitude seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/communes-coords-gps.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], latitude: row['latitude'], longitude: row['longitude'])
+  city.save!
+end
+
+p "4G seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/couverture-4G.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], network: row['4G_rate'])
+  city.save!
+end
 
 
+p "Fibre seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/couverture-fibre.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], fibre: row['fiber_rate'])
+  city.save!
+end
 p "Medical services seeds incoming"
 # Ouvrir le fichier service-medicaux.csv
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
@@ -101,6 +135,7 @@ CSV.foreach(filepath, csv_options) do |row|
   # je sauve
   city.save!
 end
+
 
 
 

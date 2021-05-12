@@ -9,6 +9,9 @@ class CitiesController < ApplicationController
         lng: city.longitude
       }
     end
+
+    @city = params[:name]
+    @distance = params[:distance]
   end
 
   def show

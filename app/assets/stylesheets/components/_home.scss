@@ -4,19 +4,42 @@
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-}
 
-.home-form {
-  margin: 100px auto;
-  width: 50%;
-  text-align: center;
-}
+  .home-form {
+    margin: 100px auto;
+    width: 50%;
+    text-align: center;
+    box-shadow: 0px 8px 34px rgba(0, 0, 0, 0.12);
+    background-color: #FFFFFF;
+    padding: 0px;
+    border-radius: $border-radius;
+    overflow:hidden;
+  }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
+  .form-wrap {
+    padding:30px;
+  }
 
-#name {
-  height: 56px;
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #name {
+    height: 56px;
+  }
+
+  .text-center {
+    margin: 100px auto;
+    width: 1000px;
+  }
+
+  .btn {
+    width:100%;
+    height:56px;
+  }
+
+  #distance {
+    margin: 0px 10px 0px 10px;
+  }
 }

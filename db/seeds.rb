@@ -1,7 +1,6 @@
 require 'csv'
 
-# City.destroy_all
-
+City.destroy_all
 # User.destroy_all
 
 # rennes = City.create!(
@@ -46,22 +45,23 @@ require 'csv'
 #   password: "12345678",
 #   )
 
-
-
 # # seeds generation upon CSV files
 
 # Ouvrir le fichier population.csv
+p "Population seeds incoming"
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath    = 'db/fixtures/population.csv'
 
 # Pour chaque ligne du fichier
+@geocode_population = []
 CSV.foreach(filepath, csv_options) do |row|
   # je prends le geocode
   geocode = row['geocode']
+  @geocode_population << geocode
   department_code = [22, 29, 35, 56]
 
   # # je regarde s'il commence par 22, 29, 35, 56
-  next unless department_code.include?(geocode[0..1])
+  next unless department_code.include?(geocode[0..1].to_i)
 
   # Je retrouve la ville en DB avec le meme nom
   # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
@@ -72,8 +72,41 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
+p "Latitude & Longitude seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/communes-coords-gps.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], latitude: row['latitude'], longitude: row['longitude'])
+  city.save!
+end
 
+p "4G seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/couverture-4G.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], network: row['4G_rate'])
+  city.save!
+end
 
+p "Fibre seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/couverture-fibre.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], fibre: row['fiber_rate'])
+  city.save!
+end
 
 
 # selectionner toutes les villes dont le geocode commence par 22, 29, 35 et 56

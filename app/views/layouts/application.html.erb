@@ -3,6 +3,11 @@
   <head>
     <%= favicon_link_tag 'favicon.ico' %>
     <title><%= meta_title %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="<%= meta_description %>">
 
     <!-- Facebook Open Graph data -->

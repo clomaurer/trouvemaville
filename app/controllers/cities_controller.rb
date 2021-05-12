@@ -15,5 +15,6 @@ class CitiesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
+    @is_favorite = FavoriteCity.find_by(user: current_user, city: @city).present? if current_user
   end
 end

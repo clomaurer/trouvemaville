@@ -1,7 +1,16 @@
 <div class="city-card">
-  <p><%= @city.population %> habitants</p>
-  <h2><%= @city.name %></h2>
-  <p><%= @city.description %></p>
+  <% if current_user %>
+    <%= link_to city_favorites_path(@city), method: :post do%>
+      <i class="<%= @is_favorite ? "fas" : "far" %> fa-star"></i>
+    <% end %>
+  <% else %>
+      <%= link_to favorite_path(@city) do%>
+      <i class="far fa-star"></i>
+    <% end %>
+  <% end %>
+    <p><%= @city.population %> habitants</p>
+    <h2><%= @city.name %></h2>
+    <p><%= @city.description %></p>
   <div class="commodity_count">
     <p><strong>Commerces</strong></p>
     <%= @city.commodity_count %>

@@ -5,7 +5,8 @@ class CitiesController < ApplicationController
     @markers = @cities.map do |city|
       {
         lat: city.latitude,
-        lng: city.longitude
+        lng: city.longitude,
+        infoWindow: render_to_string(partial: "info_window", locals: { city: city })
       }
     end
 
@@ -15,5 +16,6 @@ class CitiesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
+    @is_favorite = FavoriteCity.find_by(user: current_user, city: @city).present? if current_user
   end
 end

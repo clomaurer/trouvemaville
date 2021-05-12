@@ -1,0 +1,9 @@
+<h1 class="text-center">Vos villes favorites</h1>
+<ul>
+  <% @favorites.each do |f| %>
+  <li><%= link_to city_path(f.city) do%>
+      <%= f.city.name %>
+    <% end %>
+  </li>
+  <% end %>
+</ul>

@@ -1,0 +1,12 @@
+<h1 class="text-center">Vos recherches enregistrées</h1>
+
+<div class="search-card">
+  <% @searches.each do |s|%>
+    <%= form_tag cities_path, method: :get do %>
+      <%= text_field_tag :name, s.start_city, readonly: true %>
+      <%= number_field_tag :distance, nil, min: 1, width: 1, value: s.max_distance_km %> km
+      <%= submit_tag "Rechercher sur ces critères", class: "btn" %>
+    <% end %>
+    <%= link_to "Supprimer", saved_search_path(s), method: :delete, data: { confirm: "Supprimer ?" } %>
+  <% end %>
+</div>

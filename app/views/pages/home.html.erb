@@ -7,7 +7,7 @@
        placeholder: "Recherche une ville" %>
       <div class="d-flex p-3">
         A quelle distance ou temps maximum de cette ville ?
-        <%= number_field_tag :distance, nil, min: 1, width: 1, value: 10 %>
+        <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: 10 %>
         km
       </div>
       <div class="checkboxes">

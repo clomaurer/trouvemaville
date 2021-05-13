@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_120042) do
+ActiveRecord::Schema.define(version: 2021_05_13_092649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,11 +43,11 @@ ActiveRecord::Schema.define(version: 2021_05_12_120042) do
     t.integer "population"
     t.integer "commodity_count"
     t.integer "house_marketprice"
-    t.boolean "primary_school"
-    t.boolean "secondary_school"
-    t.boolean "doctor"
+    t.boolean "primary_school", default: false
+    t.boolean "secondary_school", default: false
+    t.boolean "doctor", default: false
     t.integer "age_average"
-    t.boolean "supermarket"
+    t.boolean "supermarket", default: false
     t.integer "land_marketprice"
     t.integer "flat_marketprice"
     t.float "latitude"

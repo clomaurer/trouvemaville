@@ -204,4 +204,32 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
+p "Primary and secondary schools seeds incoming"
+csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
+filepath    = 'db/fixtures/ecoles.csv'
+
+
+
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'])
+
+  primary_school = (row['code_nature'] == "151" || row['code_nature'] == "101")
+  city.update(primary_school: true) if primary_school
+
+  secondary_school = (row['code_nature'] == "340" ||
+                      row['code_nature'] == "300" ||
+                      row['code_nature'] == "320" ||
+                      row['code_nature'] == "302" ||
+                      row['code_nature'] == "306" ||
+                      row['code_nature'] == "315" ||
+                      row['code_nature'] == "334" ||
+                      row['code_nature'] == "390")
+  city.update(secondary_school: true) if secondary_school
+
+  city.save!
+end
 

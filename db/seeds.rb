@@ -1,6 +1,6 @@
 require 'csv'
 
-City.destroy_all
+# City.destroy_all
 # User.destroy_all
 
 # rennes = City.create!(
@@ -45,7 +45,9 @@ City.destroy_all
 #   password: "12345678",
 #   )
 
-# # seeds generation upon CSV files
+
+
+# seeds generation upon CSV files
 
 # Ouvrir le fichier population.csv
 p "Population seeds incoming"
@@ -75,6 +77,7 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
+
 p "Latitude & Longitude seeds incoming"
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath = 'db/fixtures/communes-coords-gps.csv'
@@ -87,7 +90,8 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
-p "4G seeds incoming"
+
+p "Network seeds incoming"
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath = 'db/fixtures/couverture-4G.csv'
 CSV.foreach(filepath, csv_options) do |row|
@@ -111,6 +115,8 @@ CSV.foreach(filepath, csv_options) do |row|
   city.update(name: row['city_name'], fibre: row['fiber_rate'])
   city.save!
 end
+
+
 p "Medical services seeds incoming"
 # Ouvrir le fichier service-medicaux.csv
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
@@ -205,3 +211,40 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 
+
+p "Price market seeds incoming"
+cities = City.all
+cities.each do |city|
+# p city.population
+
+  if city.population <= 10000
+    city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
+    city.save!
+  elsif (city.population > 10000 && city.population <= 100000)
+    city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
+    city.save!
+  elsif city.population > 100000
+    city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
+    city.save!
+  end
+
+end
+
+
+p "Description seeds incoming"
+cities = City.all
+cities.each do |city|
+# p city.population
+  city_age = rand(1700..1800)
+  city_description = "#{city.name} fait partie de la région Bretagne. Elle a été fondée en #{city_age}. Son église est classée au patrimoine mondial de l'unesco."
+  city.update(description: city_description)
+  city.save!
+end
+
+
+p "Photo seeds incoming"
+cities = City.all
+cities.each do |city|
+  city.photo.attach(io: File.open('app/assets/images/Photo-rennes.jpg'), filename: 'Photo-rennes.jpg', content_type: 'image/jpg')
+  city.save!
+end

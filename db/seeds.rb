@@ -1,6 +1,6 @@
 require 'csv'
 
-# City.destroy_all
+City.destroy_all
 # User.destroy_all
 
 # rennes = City.create!(
@@ -112,7 +112,7 @@ CSV.foreach(filepath, csv_options) do |row|
   department_code = [22, 29, 35, 56]
   next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
   city = City.find_or_initialize_by(geocode: geocode)
-  city.update(name: row['city_name'], fibre: row['fiber_rate'])
+  city.update(name: row['city_name'], fibre: row['fibre_rate'])
   city.save!
 end
 
@@ -210,11 +210,11 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
+
+
 p "Primary and secondary schools seeds incoming"
 csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
 filepath    = 'db/fixtures/ecoles.csv'
-
-
 
 CSV.foreach(filepath, csv_options) do |row|
   geocode = row['geocode']
@@ -270,9 +270,9 @@ cities.each do |city|
 end
 
 
-p "Photo seeds incoming"
-cities = City.all
-cities.each do |city|
-  city.photo.attach(io: File.open('app/assets/images/Photo-rennes.jpg'), filename: 'Photo-rennes.jpg', content_type: 'image/jpg')
-  city.save!
-end
+# p "Photo seeds incoming"
+# cities = City.all
+# cities.each do |city|
+#   city.photo.attach(io: File.open('app/assets/images/Photo-rennes.jpg'), filename: 'Photo-rennes.jpg', content_type: 'image/jpg')
+#   city.save!
+# end

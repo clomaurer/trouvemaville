@@ -1,13 +1,17 @@
 <div class="city-card">
-  <% if current_user %>
-    <%= link_to city_favorites_path(@city), method: :post do%>
-      <i class="<%= @is_favorite ? "fas" : "far" %> fa-star"></i>
+  <div class="favorite-percent">
+    <% if current_user %>
+      <%= link_to city_favorites_path(@city), method: :post do%>
+        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star"></i>
+      <% end %>
+    <% else %>
+        <%= link_to favorite_path(@city) do%>
+        <i class="far fa-star"></i>
+      <% end %>
     <% end %>
-  <% else %>
-      <%= link_to favorite_path(@city) do%>
-      <i class="far fa-star"></i>
-    <% end %>
-  <% end %>
+    <p>100%</p>
+  </div>
+
     <p><%= @city.population %> habitants</p>
     <h2><%= @city.name %></h2>
     <p><%= @city.description %></p>

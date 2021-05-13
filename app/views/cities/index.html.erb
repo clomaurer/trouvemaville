@@ -1,10 +1,10 @@
-  <%= form_tag cities_path, method: :get do %>
+<%= form_tag cities_path, method: :get do %>
   <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville" %>
   <div>
     A quelle distance ou temps maximum de cette ville ?
-    <%= number_field_tag :distance, nil, min: 1, width: 1, value: @distance %>
+    <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: @max_distance_km %>
     km
-    </div>
+  </div>
   <div class="checkboxes">
     <%= check_box_tag "supermarket" %> Supermarchés
     <%= check_box_tag "fibre" %> Fibre
@@ -15,6 +15,13 @@
   </div>
   <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
 <% end %>
+
+<%= form_for @saved_search do |f| %>
+  <%= f.hidden_field :start_city, value: params[:name] %>
+  <%= f.hidden_field :max_distance_km, value: params[:max_distance_km] %>
+  <%= f.submit "Sauvegarder ces critères", class: "btn" %>
+<% end %>
+
 <div id="map"
      style="width: 100%; height: 100vh;"
      data-markers="<%= @markers.to_json %>"

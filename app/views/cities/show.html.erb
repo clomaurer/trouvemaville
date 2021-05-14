@@ -1,15 +1,14 @@
 <div class="city-card">
-  <div class="favorite-percent">
+  <div class="favorite-percent" data-controller="favorite" data-favorite-url-value="<%= city_favorites_path(@city) %>">
     <% if current_user %>
-      <%= link_to city_favorites_path(@city), method: :post do%>
-        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star"></i>
-      <% end %>
+        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-action="click->favorite#toggle"></i>
     <% else %>
-        <%= link_to favorite_path(@city) do%>
+        <%= link_to favorite_path(@city, params.permit!) do%>
         <i class="far fa-star"></i>
       <% end %>
     <% end %>
   </div>
+
 
     <div class="city_show_header" style="background-image: linear-gradient(3.25deg, #788EC7 38.16%, rgba(255, 255, 255, 0) 131.88%), url('https://picsum.photos/500/235')">
       <div class="city_header_stat">
@@ -36,9 +35,7 @@
       <% else %>
           <div class="progress-bar" style="width:calc(<%= @city_rating %>% + 36px); background-color:#D94111"> </div>
       <% end %>
-
     </div>
-
     <div class="city_show_content">
       <p><%= @city.description %></p>
 
@@ -56,7 +53,7 @@
 
       <div class="commodity">
         <span class="city_main_filters_titles">Commerces</span>
-        <span> <%= @city.commodity_count %> </span>
+        <span> <%= @city.commodity_count %> </span>100
         <!-- <% if @commodity_presence && @city.commodity_count > @commodity_count_threshold %>
           <span style= "color:#0A7C06"> Commerces : </span>
           <span> <%= @city.commodity_count %> </span>
@@ -70,6 +67,7 @@
           <span> <%= @city.commodity_count %></span>
         <% end %> -->
       </div>
+
 
     </div>
     <!-- see cities controller for following thresholds variables -->
@@ -89,20 +87,19 @@
 
     <!-- Set network criteria color depending on user selection and city match values -->
       <div class="network">
-        <% if @network_presence && @city.network.to_i > @network_fibre_threshold %>
+        <% if @network_presence && @city.network.to_f > @network_fibre_threshold %>
           <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture 4G</span>
-          <% @city.network.to_i = 100 if @city.network.to_i > 100 %>
-          <span style= "color:#0A7C06"><%= @city.network.to_i %></span>
+          <span style= "color:#0A7C06"><%= @city.network.to_f %></span>
           <span style= "color:#0A7C06">%</span>
 
         <% elsif @network_presence == false %>
           <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Couverture 4G</span>
-          <span style= "color:#B4BCCC"><%= @city.network.to_i %></span>
+          <span style= "color:#B4BCCC"><%= @city.network.to_f %></span>
           <span style= "color:#B4BCCC">%</span>
 
         <% else %>
           <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture 4G</span>
-          <span style= "color:#D94111"><%= @city.network.to_i %></span>
+          <span style= "color:#D94111"><%= @city.network.to_f %></span>
           <span style= "color:#D94111">%</span>
         <% end %>
       </div>
@@ -110,20 +107,20 @@
 
     <!-- Set fibre criteria color depending on user selection and city match values -->
       <div class="fibre">
-        <% if @fibre_presence && @city.fibre.to_i > @network_fibre_threshold %>
+        <% if @fibre_presence && @city.fibre.to_f > @network_fibre_threshold %>
           <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture fibre</span>
-          <% @city.fibre.to_i = 100 if @city.fibre.to_i > 100 %>
-          <span style= "color:#0A7C06"><%= @city.fibre.to_i %> </span>
+          <% @city.fibre.to_f = 100 if @city.fibre.to_f > 100 %>
+          <span style= "color:#0A7C06"><%= @city.fibre.to_f %> </span>
           <span style= "color:#0A7C06">%</span>
 
         <% elsif @fibre_presence == false %>
           <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Couverture fibre</span>
-          <span style= "color:#B4BCCC"> <%= @city.fibre.to_i %></span>
+          <span style= "color:#B4BCCC"> <%= @city.fibre.to_f %></span>
           <span style= "color:#B4BCCC">%</span>
 
         <% else %>
           <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture fibre</span>
-          <span style= "color:#D94111"><%= @city.fibre.to_i %></span>
+          <span style= "color:#D94111"><%= @city.fibre.to_f %></span>
           <span style= "color:#D94111">%</span>
         <% end %>
       </div>
@@ -162,6 +159,8 @@
       <% end %>
     </div>
 
+
   </div>
   </div>
+
 </div>

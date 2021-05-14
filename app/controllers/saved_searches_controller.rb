@@ -15,9 +15,23 @@ class SavedSearchesController < ApplicationController
     redirect_to saved_searches_path
   end
 
+  def update
+    @search = SavedSearch.find(params[:id])
+    @search.update(saved_search_params)
+    head :ok
+  end
+
   private
 
   def saved_search_params
-    params.require(:saved_search).permit(:max_distance_km, :start_city)
+    params.require(:saved_search).permit(:max_distance_km,
+                                         :start_city,
+                                         :supermarket,
+                                         :commodity,
+                                         :fibre,
+                                         :network,
+                                         :secondary_school,
+                                         :doctor,
+                                         :primary_school)
   end
 end

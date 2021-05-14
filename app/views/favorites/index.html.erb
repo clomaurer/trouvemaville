@@ -1,9 +1,16 @@
 <h1 class="text-center">Vos villes favorites</h1>
-<ul>
-  <% @favorites.each do |f| %>
-  <li><%= link_to city_path(f.city) do%>
-      <%= f.city.name %>
+
+<div class="favorite_index">
+
+  <ul>
+    <% @favorites.each do |f| %>
+    <div class="favorite_card">
+      <li><%= link_to city_path(f.city) do%>
+          <%= f.city.name %>
+        <% end %>
+      </li>
+    </div>
     <% end %>
-  </li>
-  <% end %>
-</ul>
+  </ul>
+
+</div>

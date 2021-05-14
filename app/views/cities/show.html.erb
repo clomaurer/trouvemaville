@@ -1,16 +1,14 @@
 <div class="city-card">
-  <div class="favorite-percent">
+  <div class="favorite-percent" data-controller="favorite" data-favorite-url-value="<%= city_favorites_path(@city) %>">
     <% if current_user %>
-      <%= link_to city_favorites_path(@city), method: :post do%>
-        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star"></i>
-      <% end %>
+        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-action="click->favorite#toggle"></i>
     <% else %>
-        <%= link_to favorite_path(@city) do%>
+        <%= link_to favorite_path(@city, params.permit!) do%>
         <i class="far fa-star"></i>
       <% end %>
     <% end %>
-    <p>100%</p>
-  </div>
+<!--     <p>100%</p>
+ -->  </div>
 
   <div class="card_body">
     <div class="city_show_header">
@@ -35,20 +33,25 @@
 
     <!-- Set network criteria color depending on user selection and city match values -->
     <div class="network">
-      <% if @network_presence && @city.network.to_i > @network_fibre_threshold %>
+      <% if @network_presence && @city.network.to_f > @network_fibre_threshold %>
         <span style= "color:#0A7C06"> Couverture 4G : </span>
-        <% @city.network.to_i = 100 if @city.network.to_i > 100 %>
-        <%= @city.network.to_i %>
+        <% @city_network = 100 if @city.network.to_f > 100 %>
+        <% @city_network = @city.network.to_f %>
+        <%= @city_network %>
         <span>%</span>
 
       <% elsif @network_presence == false %>
         <span style= "color:#B4BCCC"> Couverture 4G : </span>
-        <%= @city.network.to_i %>
+        <% @city_network = 100 if @city.network.to_f > 100 %>
+        <% @city_network = @city.network.to_f %>
+        <%= @city_network %>
         <span>%</span>
 
       <% else %>
         <span style= "color:#D94111"> Couverture 4G : </span>
-        <span><%= @city.network.to_i %></span>
+        <% @city_network = 100 if @city.network.to_f > 100 %>
+        <% @city_network = @city.network.to_f %>
+        <%= @city_network %>
         <span>%</span>
       <% end %>
     </div>
@@ -56,20 +59,25 @@
 
     <!-- Set fibre criteria color depending on user selection and city match values -->
     <div class="fibre">
-      <% if @fibre_presence && @city.fibre.to_i > @network_fibre_threshold %>
+      <% if @fibre_presence && @city.fibre.to_f > @network_fibre_threshold %>
         <span style= "color:#0A7C06"> Couverture fibre : </span>
-        <% @city.fibre.to_i = 100 if @city.fibre.to_i > 100 %>
-        <%= @city.fibre.to_i %>
+        <% @city_fibre = 100 if @city.fibre.to_f > 100 %>
+        <% @city_fibre = @city.fibre.to_f %>
+        <%= @city_fibre %>
         <span>%</span>
 
       <% elsif @fibre_presence == false %>
         <span style= "color:#B4BCCC"> Couverture fibre : </span>
-        <%= @city.fibre.to_i %>
+        <% @city_fibre = 100 if @city.fibre.to_f > 100 %>
+        <% @city_fibre = @city.fibre.to_f %>
+        <%= @city_fibre %>
         <span>%</span>
 
       <% else %>
         <span style= "color:#D94111"> Couverture fibre : </span>
-        <%= @city.fibre.to_i %>
+        <% @city_fibre = 100 if @city.fibre.to_f > 100 %>
+        <% @city_fibre = @city.fibre.to_f %>
+        <%= @city_fibre %>
         <span>%</span>
       <% end %>
     </div>
@@ -104,8 +112,26 @@
       <% end %>
     </div>
 
-    <br>
+    <div class="primary_school">
+      <% if @primary_school_presence && @city.primary_school %>
+        <span style= "color:#0A7C06"> Ecole élémentaire </span>
+      <% elsif @primary_school_presence == false %>
+      <span style= "color:#B4BCCC"> Ecole élémentaire </span>
+      <% else %>
+        <span style= "color:#D94111"> Ecole élémentaire </span>
+      <% end %>
+    </div>
 
+     <div class="secondary_school">
+      <% if @secondary_school_presence && @city.secondary_school %>
+        <span style= "color:#0A7C06"> Enseignement secondaire </span>
+      <%elsif @secondary_school_presence == false %>
+        <span style= "color:#B4BCCC"> Enseignement secondaire </span>
+      <% else %>
+        <span style= "color:#D94111"> Enseignement secondaire </span>
+      <% end %>
+    </div>
+    <br>
 
     <!-- Set city rating color depending on user selection and city match values -->
     <% if @city_rating > @city_rating_middle_threshold %>
@@ -123,24 +149,6 @@
 
   </div>
 
-  <div class="primary_school">
-    <% if @primary_school_presence && @city.primary_school %>
-      <p style= "color:#0A7C06"> Ecole élémentaire </p>
-    <% elsif @primary_school_presence == false && @city.primary_school %>
-    <p style= "color:#B4BCCC"> Ecole élémentaire </p>
-    <% else %>
-      <p style= "color:#D94111"> Ecole élémentaire </p>
-    <% end %>
-  </div>
 
-   <div class="secondary_school">
-    <% if @secondary_school_presence && @city.secondary_school %>
-      <p style= "color:#0A7C06"> Enseignement secondaire </p>
-    <%elsif @secondary_school_presence == false && @city.secondary_school %>
-      <p style= "color:#B4BCCC"> Enseignement secondaire </p>
-    <% else %>
-      <p style= "color:#D94111"> Enseignement secondaire </p>
-    <% end %>
-  </div>
 
 </div>

@@ -1,12 +1,23 @@
 <h1 class="text-center">Vos recherches enregistrées</h1>
-
-<div class="search-card">
-  <% @searches.each do |s|%>
-    <%= form_tag cities_path, method: :get do %>
-      <%= text_field_tag :name, s.start_city, readonly: true %>
-      <%= number_field_tag :distance, nil, min: 1, width: 1, value: s.max_distance_km %> km
-      <%= submit_tag "Rechercher sur ces critères", class: "btn" %>
+<div class="search-cards">
+    <% @searches.each do |s|%>
+    <div class="search-card" data-controller="search">
+      <%= form_with model: s do |f| %>
+        <%= f.text_field :start_city, "data-search-target": "startCity" %>
+        <%= f.number_field :max_distance_km, "data-search-target": "maxDistanceKm" %> km
+        <%= f.check_box :supermarket, "data-search-target": "supermarket" %> Supermarchés
+        <%= f.check_box :fibre, "data-search-target": "fibre" %> Fibre
+        <%= f.check_box :doctor, "data-search-target": "doctor" %> Médecin
+        <%= f.check_box :secondary_school, "data-search-target": "secondarySchool" %> Enseignement secondaire
+        <%= f.check_box :primary_school, "data-search-target": "primarySchool" %> Ecole primaire
+        <%= f.check_box :network, "data-search-target": "network" %> 4G
+        <%= f.check_box :commodity, "data-search-target": "commodity" %> Commerces
+<!--         <%= f.submit "Sauvegarder les changements", class: "btn" %>
+ -->      <% end %>
+      <div class="btn" data-action="click->search#navigate">
+        Rechercher sur ces critères
+      </div>
+      <%= link_to "Supprimer", saved_search_path(s), method: :delete, data: { confirm: "Supprimer ?" } %>
+      </div>
     <% end %>
-    <%= link_to "Supprimer", saved_search_path(s), method: :delete, data: { confirm: "Supprimer ?" } %>
-  <% end %>
 </div>

@@ -1,25 +1,147 @@
 .city-card {
     display: flex;
-    border: solid 1px black;
     text-align: center;
-    width: 600px;
+    width: 500px;
     margin: 200px auto;
-    background-color: #FFFFFF;
+    background-color: $white;
     border-radius : 10px;
-    box-shadow: 2px 2px 1px 1px grey;
-    padding: 10px 10px 10px 0px;
-}
+    position: relative;
+    overflow: hidden;
+    flex-direction: column;
 
-.commodity_count {
-  display: flex;
-  justify-content: space-between;
-}
 
-i {
-  color: $our-orange;
-}
+  .commodity_count {
+    display: flex;
+    justify-content: space-between;
+  }
 
-.favorite-percent {
-  display: flex;
-  justify-content: space-between;
+  .fa-star {
+    color: $our-orange;
+    position: absolute;
+    top: 20px;
+    left: 34px;
+    font-size: 24px;
+  }
+
+  .favorite-percent {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  h2 {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;
+    color: $white;
+
+  }
+
+  .city_header_stat {
+    display: flex;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    align-items: center;
+    letter-spacing: 0.07em;
+    color: $white;
+    opacity: 0.7;
+
+    p {
+      margin: 0;
+    }
+  }
+
+
+  .city_show_header {
+    height: 235px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 36px;
+    background-blend-mode: multiply;
+    justify-content: flex-end;
+    border-bottom: 4px solid $light-grey;
+    position: relative;
+  }
+
+  .city_name_rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    span {
+      font-family: Inter;
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: 0.07em;
+      color: $white;
+      background-color: $our-orange;
+      padding: 4px 8px;
+      border-radius: 2px;
+
+    }
+
+  }
+
+ .progress-bar {
+      height: 4px;
+      background-color: $blue-lavender;
+      position: absolute;
+      bottom: -4px;
+      left: -36px;
+    }
+
+  .city_show_content {
+    padding: 36px;
+
+    p {
+      color: $black-blue;
+      font-size: 16px;
+      line-height: 23px;
+      text-align: left;
+    }
+  }
+   .city_main_filters {
+
+    border-bottom: 1px solid $light-blue;
+    padding-bottom: 18px;
+    width: 100%;
+    color: $black-blue;
+
+    .city_main_filters_titles {
+      font-weight: 600;
+    }
+
+
+    .commodity, .market-price, .average-age {
+      display:flex;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+  }
+
+  .city_filters {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid $light-blue;
+    padding-bottom: 18px;
+
+      div {
+        margin-right: 16px;
+        margin-top: 16px;
+      }
+
+      span {
+        font-size: 14px;
+        line-height: 23px;
+        font-family: "Inter", "Helvetica", "sans-serif";
+      }
+
+  }
+
 }

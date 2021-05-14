@@ -1,35 +1,40 @@
-<%= form_tag cities_path, method: :get do %>
-  <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville" %>
+<div class="index-search-bar">
   <div>
-    A quelle distance ou temps maximum de cette ville ?
-    <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: @max_distance_km %>
-    km
-  </div>
-  <div class="checkboxes">
-    <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%> Supermarchés
-    <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %> Fibre
-    <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %> Médecin
-    <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %> Enseignement secondaire
-    <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %> Ecole primaire
-    <%= check_box_tag "network", 1, (:checked if params[:network].present?) %> 4G
-    <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %> Commerces
-  </div>
-  <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
-<% end %>
+  <%= form_tag cities_path, method: :get do %>
+    <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville" %>
+    <div>
+      A quelle distance maximum de cette ville ?
+      <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: @max_distance_km %>
+      km
+    </div>
+    </div>
+    <div class="checkboxes">
+      <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%> Supermarchés
+      <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %> Fibre
+      <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %> Médecin
+      <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %> Enseignement secondaire
+      <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %> Ecole primaire
+      <%= check_box_tag "network", 1, (:checked if params[:network].present?) %> 4G
+      <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %> Commerces
+    </div>
+    <div class="launch-search">
+    <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
+  <% end %>
 
-<%= form_for @saved_search do |f| %>
-  <%= f.hidden_field :start_city, value: params[:name] %>
-  <%= f.hidden_field :max_distance_km, value: params[:max_distance_km] %>
-  <%= f.check_box :supermarket, { checked: params[:supermarket].present?, hidden: true } %>
-  <%= f.check_box :fibre, { checked: params[:fibre].present?, hidden: true } %>
-  <%= f.check_box :doctor, { checked: params[:doctor].present?, hidden: true } %>
-  <%= f.check_box :secondary_school, { checked: params[:secondary_school].present?, hidden: true } %>
-  <%= f.check_box :primary_school, { checked: params[:primary_school].present?, hidden: true } %>
-  <%= f.check_box :network, { checked: params[:network].present?, hidden: true } %>
-  <%= f.check_box :commodity, { checked: params[:commodity].present?, hidden: true } %>
-  <%= f.submit "Sauvegarder ces critères", class: "btn" %>
-<% end %>
-
+  <%= form_for @saved_search do |f| %>
+    <%= f.hidden_field :start_city, value: params[:name] %>
+    <%= f.hidden_field :max_distance_km, value: params[:max_distance_km] %>
+    <%= f.check_box :supermarket, { checked: params[:supermarket].present?, hidden: true } %>
+    <%= f.check_box :fibre, { checked: params[:fibre].present?, hidden: true } %>
+    <%= f.check_box :doctor, { checked: params[:doctor].present?, hidden: true } %>
+    <%= f.check_box :secondary_school, { checked: params[:secondary_school].present?, hidden: true } %>
+    <%= f.check_box :primary_school, { checked: params[:primary_school].present?, hidden: true } %>
+    <%= f.check_box :network, { checked: params[:network].present?, hidden: true } %>
+    <%= f.check_box :commodity, { checked: params[:commodity].present?, hidden: true } %>
+    <%= f.submit "Sauvegarder ces critères" %>
+  <% end %>
+  </div>
+</div>
 <div id="map"
      style="width: 100%; height: 100vh;"
      data-markers="<%= @markers.to_json %>"

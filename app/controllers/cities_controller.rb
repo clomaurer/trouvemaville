@@ -72,18 +72,17 @@ class CitiesController < ApplicationController
 
     #@secondary_school_criteria = @secondary_school_presence && @city.secondary_school
 
-
     # city global rating calculation
     @match_criteria_nb = 0
 
     @match_criteria_nb += 1 if @doctor_presence && city.doctor
-    @match_criteria_nb += 1 if @network_presence && city.network.to_i > 70
-    @match_criteria_nb += 1 if @fibre_presence && city.fibre.to_i > 70
+    @match_criteria_nb += 1 if @network_presence && city.network.to_f > 70
+    @match_criteria_nb += 1 if @fibre_presence && city.fibre.to_f > 70
     @match_criteria_nb += 1 if @commodity_presence && city.commodity_count > 0
     @match_criteria_nb += 1 if @supermarket_presence && city.supermarket
 
     if @criteria_selected.count > 0
-      return ((@match_criteria_nb / @criteria_selected.count).to_f * 100).round
+      return ((@match_criteria_nb.to_f / @criteria_selected.count) * 100).round
     else
       return 100
     end

@@ -18,13 +18,13 @@
         <h2><%= @city.name %></h2>
           <!-- Set city rating color depending on user selection and city match values -->
           <% if @city_rating > @city_rating_middle_threshold %>
-            <span style= "background-color:#0A7C06"> <%= @city.rating %> % </span>
+            <span style= "background-color:#0A7C06"> <%= @city_rating %> % </span>
 
           <% elsif @city_rating > @city_rating_lower_threshold && @city_rating < @city_rating_middle_threshold %>
-            <span style= "background-color:#D8841D"> <%= @city.rating %> % </span>
+            <span style= "background-color:#D8841D"> <%= @city_rating %> % </span>
 
           <% else %>
-            <span style= "background-color:#D94111"> <%= @city.rating %> % </span>
+            <span style= "background-color:#D94111"> <%= @city_rating %> % </span>
           <% end %>
       </div>
 

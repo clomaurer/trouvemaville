@@ -16,9 +16,9 @@
       <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %> Ecole primaire
       <%= check_box_tag "network", 1, (:checked if params[:network].present?) %> 4G
       <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %> Commerces
+    <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
     </div>
     <div class="launch-search">
-    <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
   <% end %>
 
   <%= form_for @saved_search do |f| %>

@@ -26,6 +26,7 @@
   .favorite-percent {
     display: flex;
     justify-content: space-between;
+    z-index: 400;
   }
 
   h2 {

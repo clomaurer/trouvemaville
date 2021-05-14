@@ -7,11 +7,14 @@ class CitiesController < ApplicationController
       {
         lat: city.latitude,
         lng: city.longitude,
+
         infoWindow: render_to_string(partial: "info_window", locals: { city: city, doctor: params[:doctor],\
                                                                        network: params[:network],\
                                                                        fibre: params[:fibre],\
                                                                        commodity: params[:commodity],\
-                                                                       supermarket: params[:supermarket] })
+                                                                       supermarket: params[:supermarket],\
+                                                                       primary_school: params[:primary_school],\
+                                                                       secondary_school: params[:secondary_school]})
       }
     end
 
@@ -22,6 +25,7 @@ class CitiesController < ApplicationController
   def show
     @city = City.find(params[:id])
     @is_favorite = FavoriteCity.find_by(user: current_user, city: @city).present? if current_user
+
 
     @criteria_selected = []
 
@@ -44,6 +48,15 @@ class CitiesController < ApplicationController
     # pick-up supermarket criteria in url
     @supermarket_presence = params[:supermarket].present? && params[:supermarket] == "1"
     @criteria_selected << 1 if @supermarket_presence
+    
+    @primary_school_presence = params[:primary_school].present? && params[:primary_school] == "1"
+    @criteria_selected << 1 if @primary_school_presence
+    #@primary_school_criteria = @primary_school_presence && @city.primary_school
+    
+    @secondary_school_presence = params[:secondary_school].present? && params[:secondary_school] == "1"
+    @criteria_selected << 1 if @secondary_school_presence
+    
+    #@secondary_school_criteria = @secondary_school_presence && @city.secondary_school
 
     # city global rating calculation
 
@@ -66,7 +79,6 @@ class CitiesController < ApplicationController
     @city_rating_middle_threshold = 75  #-- city rating will be green above or equal to 75% -->
                                        #-- city rating will be orange above or equal to 50% and below 75% -->
     @city_rating_lower_threshold = 50   #-- city rating will be red below 50% -->
-
 
   end
 end

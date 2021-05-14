@@ -123,4 +123,24 @@
 
   </div>
 
+  <div class="primary_school">
+    <% if @primary_school_presence && @city.primary_school %>
+      <p style= "color:#0A7C06"> Ecole élémentaire </p>
+    <% elsif @primary_school_presence == false && @city.primary_school %>
+    <p style= "color:#B4BCCC"> Ecole élémentaire </p>
+    <% else %>
+      <p style= "color:#D94111"> Ecole élémentaire </p>
+    <% end %>
+  </div>
+
+   <div class="secondary_school">
+    <% if @secondary_school_presence && @city.secondary_school %>
+      <p style= "color:#0A7C06"> Enseignement secondaire </p>
+    <%elsif @secondary_school_presence == false && @city.secondary_school %>
+      <p style= "color:#B4BCCC"> Enseignement secondaire </p>
+    <% else %>
+      <p style= "color:#D94111"> Enseignement secondaire </p>
+    <% end %>
+  </div>
+
 </div>

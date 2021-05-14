@@ -1,5 +1,5 @@
 <%= form_tag cities_path, method: :get do %>
-  <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville" %>
+  <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville bretonne" %>
   <div>
     A quelle distance ou temps maximum de cette ville ?
     <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: @max_distance_km %>

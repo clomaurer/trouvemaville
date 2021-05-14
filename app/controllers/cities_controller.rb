@@ -48,14 +48,14 @@ class CitiesController < ApplicationController
     # pick-up supermarket criteria in url
     @supermarket_presence = params[:supermarket].present? && params[:supermarket] == "1"
     @criteria_selected << 1 if @supermarket_presence
-    
+
     @primary_school_presence = params[:primary_school].present? && params[:primary_school] == "1"
     @criteria_selected << 1 if @primary_school_presence
     #@primary_school_criteria = @primary_school_presence && @city.primary_school
-    
+
     @secondary_school_presence = params[:secondary_school].present? && params[:secondary_school] == "1"
     @criteria_selected << 1 if @secondary_school_presence
-    
+
     #@secondary_school_criteria = @secondary_school_presence && @city.secondary_school
 
     # city global rating calculation

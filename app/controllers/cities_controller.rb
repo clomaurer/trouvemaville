@@ -2,7 +2,7 @@ class CitiesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
   def index
     @saved_search = SavedSearch.new
-    @cities = City.near(params[:name], params[:max_distance_km].presence || 1)
+    @cities = City.near(params[:name], params[:max_distance_km])
     @markers = @cities.map do |city|
       {
         lat: city.latitude,

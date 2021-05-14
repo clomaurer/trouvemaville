@@ -1,9 +1,13 @@
 .city-card {
+    display: flex;
     border: solid 1px black;
     text-align: center;
     width: 600px;
     margin: 200px auto;
     background-color: #FFFFFF;
+    border-radius : 10px;
+    box-shadow: 2px 2px 1px 1px grey;
+    padding: 10px 10px 10px 0px;
 }
 
 .commodity_count {

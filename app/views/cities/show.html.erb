@@ -12,11 +12,135 @@
     <p>100%</p>
   </div>
 
-    <p><%= @city.population %> habitants</p>
-    <h2><%= @city.name %></h2>
-    <p><%= @city.description %></p>
-  <div class="commodity_count">
-    <p><strong>Commerces</strong></p>
-    <%= @city.commodity_count %>
+  <div class="card_body">
+    <div class="city_show_header">
+      <h2><%= @city.name %></h2>
+      <p><%= @city.population %> habitants</p>
+      <p><%= @city.description %></p>
+    </div>
+
+
+    <!-- see cities controller for following thresholds variables -->
+
+    <!-- Set doctor criteria color depending on user selection and city match values -->
+    <div class="doctor">
+      <% if @doctor_presence && @city.doctor %>
+        <span style= "color:#0A7C06"> Docteurs </span>
+      <% elsif @doctor_presence == false && @city.doctor %>
+        <span style= "color:#B4BCCC"> Docteurs </span>
+      <% else %>
+        <span style= "color:#D94111"> Docteurs </span>
+      <% end %>
+    </div>
+
+    <!-- Set network criteria color depending on user selection and city match values -->
+    <div class="network">
+      <% if @network_presence && @city.network.to_i > @network_fibre_threshold %>
+        <span style= "color:#0A7C06"> Couverture 4G : </span>
+        <% @city.network.to_i = 100 if @city.network.to_i > 100 %>
+        <%= @city.network.to_i %>
+        <span>%</span>
+
+      <% elsif @network_presence == false %>
+        <span style= "color:#B4BCCC"> Couverture 4G : </span>
+        <%= @city.network.to_i %>
+        <span>%</span>
+
+      <% else %>
+        <span style= "color:#D94111"> Couverture 4G : </span>
+        <span><%= @city.network.to_i %></span>
+        <span>%</span>
+      <% end %>
+    </div>
+
+
+    <!-- Set fibre criteria color depending on user selection and city match values -->
+    <div class="fibre">
+      <% if @fibre_presence && @city.fibre.to_i > @network_fibre_threshold %>
+        <span style= "color:#0A7C06"> Couverture fibre : </span>
+        <% @city.fibre.to_i = 100 if @city.fibre.to_i > 100 %>
+        <%= @city.fibre.to_i %>
+        <span>%</span>
+
+      <% elsif @fibre_presence == false %>
+        <span style= "color:#B4BCCC"> Couverture fibre : </span>
+        <%= @city.fibre.to_i %>
+        <span>%</span>
+
+      <% else %>
+        <span style= "color:#D94111"> Couverture fibre : </span>
+        <%= @city.fibre.to_i %>
+        <span>%</span>
+      <% end %>
+    </div>
+
+
+    <!-- Set commodity criteria color depending on user selection and city match values -->
+    <div class="commodity">
+      <% if @commodity_presence && @city.commodity_count > @commodity_count_threshold %>
+        <span style= "color:#0A7C06"> Commerces : </span>
+        <%= @city.commodity_count %>
+
+      <% elsif @commodity_presence == false %>
+        <span style= "color:#B4BCCC"> Commerces : </span>
+        <%= @city.commodity_count %>
+
+      <% else %>
+        <span style= "color:#D94111"> Commerces : </span>
+        <%= @city.commodity_count %>
+      <% end %>
+    </div>
+
+    <!-- Set supermarket criteria color depending on user selection and city match values  -->
+    <div class="supermarket">
+      <% if @supermarket_presence && @city.supermarket %>
+        <span style= "color:#0A7C06"> Supermachés </span>
+
+      <% elsif @supermarket_presence == false %>
+        <span style= "color:#B4BCCC"> Supermachés </span>
+
+      <% else %>
+        <span style= "color:#D94111"> Supermachés </span>
+      <% end %>
+    </div>
+
+    <br>
+
+
+    <!-- Set city rating color depending on user selection and city match values -->
+    <% if @city_rating > @city_rating_middle_threshold %>
+      <span style= "color:#0A7C06"> Taux de match avec vos critères: </span>
+
+    <% elsif @city_rating > @city_rating_lower_threshold && @city_rating < @city_rating_middle_threshold %>
+      <span style= "color:#D8841D"> Taux de match avec vos critères: </span>
+
+    <% else %>
+      <span style= "color:#D94111"> Taux de match avec vos critères: </span>
+    <% end %>
+
+    <span><%= @city_rating %></span>
+    <span>%</span>
+
   </div>
+
+  <div class="primary_school">
+    <% if @primary_school_presence && @city.primary_school %>
+      <p style= "color:#0A7C06"> Ecole élémentaire </p>
+    <% elsif @primary_school_presence == false && @city.primary_school %>
+    <p style= "color:#B4BCCC"> Ecole élémentaire </p>
+    <% else %>
+      <p style= "color:#D94111"> Ecole élémentaire </p>
+    <% end %>
+  </div>
+
+   <div class="secondary_school">
+    <% if @secondary_school_presence && @city.secondary_school %>
+      <p style= "color:#0A7C06"> Enseignement secondaire </p>
+    <%elsif @secondary_school_presence == false && @city.secondary_school %>
+      <p style= "color:#B4BCCC"> Enseignement secondaire </p>
+    <% else %>
+      <p style= "color:#D94111"> Enseignement secondaire </p>
+    <% end %>
+  </div>
+
 </div>

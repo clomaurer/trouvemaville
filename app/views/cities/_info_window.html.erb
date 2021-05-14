@@ -1,4 +1,8 @@
-<%= link_to city_path(city) do %>
+
+<%= link_to city_path(city, doctor: doctor, network: network, fibre: fibre, commodity: commodity, supermarket: supermarket, primary_school: primary_school, secondary_school: secondary_school) do %>
+
   <h2><%= city.name %></h2>
   <p><%= city.description %></p>
+  <span><%= city.rating %></span>
+  <span>% de vos critères matchent</span>
 <% end %>

@@ -40,39 +40,26 @@ class CitiesController < ApplicationController
   private
 
   def rating(city)
-    @criteria_selected = []
-
-    # pick-up doctor criteria in url
+    # pick-up all user criteria in url
     @doctor_presence = params[:doctor].present? && params[:doctor] == "1"
-    @criteria_selected << 1 if @doctor_presence
-
-    # pick-up network criteria in url
     @network_presence = params[:network].present? && params[:network] == "1"
-    @criteria_selected << 1 if @network_presence
-
-    # pick-up fibre criteria in url
     @fibre_presence = params[:fibre].present? && params[:fibre] == "1"
-    @criteria_selected << 1 if @fibre_presence
-
-    # pick-up commodity criteria in url
     @commodity_presence = params[:commodity].present? && params[:commodity] == "1"
-    @criteria_selected << 1 if @commodity_presence
-
-    # pick-up supermarket criteria in url
     @supermarket_presence = params[:supermarket].present? && params[:supermarket] == "1"
-    @criteria_selected << 1 if @supermarket_presence
-
     @primary_school_presence = params[:primary_school].present? && params[:primary_school] == "1"
-    @criteria_selected << 1 if @primary_school_presence
-
-    #@primary_school_criteria = @primary_school_presence && @city.primary_school
-
     @secondary_school_presence = params[:secondary_school].present? && params[:secondary_school] == "1"
-    @criteria_selected << 1 if @secondary_school_presence
-
-    #@secondary_school_criteria = @secondary_school_presence && @city.secondary_school
 
     # city global rating calculation
+    @criteria_selected_nb = 0
+
+    @criteria_selected_nb += 1 if @doctor_presence
+    @criteria_selected_nb += 1 if @network_presence
+    @criteria_selected_nb += 1 if @fibre_presence
+    @criteria_selected_nb += 1 if @commodity_presence
+    @criteria_selected_nb += 1 if @supermarket_presence
+    @criteria_selected_nb += 1 if @primary_school_presence
+    @criteria_selected_nb += 1 if @secondary_school_presence
+
     @match_criteria_nb = 0
 
     @match_criteria_nb += 1 if @doctor_presence && city.doctor
@@ -80,9 +67,11 @@ class CitiesController < ApplicationController
     @match_criteria_nb += 1 if @fibre_presence && city.fibre.to_f > 70
     @match_criteria_nb += 1 if @commodity_presence && city.commodity_count > 0
     @match_criteria_nb += 1 if @supermarket_presence && city.supermarket
+    @match_criteria_nb += 1 if @primary_school_presence && city.primary_school
+    @match_criteria_nb += 1 if @secondary_school_presence && city.secondary_school
 
-    if @criteria_selected.count > 0
-      return ((@match_criteria_nb.to_f / @criteria_selected.count) * 100).round
+    if @criteria_selected_nb > 0
+      return ((@match_criteria_nb.to_f / @criteria_selected_nb) * 100).round
     else
       return 100
     end

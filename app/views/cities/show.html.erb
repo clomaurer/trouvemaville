@@ -70,36 +70,46 @@
 
 
     </div>
-    <!-- see cities controller for following thresholds variables -->
 
+
+    <!-- see cities controller for following thresholds variables -->
 
     <!-- Set doctor criteria color depending on user selection and city match values -->
     <div class="city_filters">
       <div class="doctor">
         <% if @doctor_presence && @city.doctor %>
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Docteurs</span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Docteurs </span>
         <% elsif @doctor_presence == false && @city.doctor %>
-          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Docteurs</span>
+          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Docteurs </span>
+        <% elsif @doctor_presence == false && @city.doctor == false %>
+          <span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i> Docteurs </span>
         <% else %>
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Docteurs</span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Docteurs </span>
         <% end %>
       </div>
 
     <!-- Set network criteria color depending on user selection and city match values -->
       <div class="network">
         <% if @network_presence && @city.network.to_f > @network_fibre_threshold %>
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture 4G</span>
-          <span style= "color:#0A7C06"><%= @city.network.to_f %></span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture 4G </span>
+          <% @city.network.to_f = 100 if @city.network.to_f > 100 %>
+          <span style= "color:#0A7C06"><%= (@city.network.to_f).round %></span>
           <span style= "color:#0A7C06">%</span>
 
-        <% elsif @network_presence == false %>
-          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Couverture 4G</span>
-          <span style= "color:#B4BCCC"><%= @city.network.to_f %></span>
+        <% elsif @network_presence == false && @city.network.to_f > @network_fibre_threshold %>
+          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Couverture 4G </span>
+          <% @city.network.to_f = 100 if @city.network.to_f > 100 %>
+          <span style= "color:#B4BCCC"><%= (@city.network.to_f).round %></span>
+          <span style= "color:#B4BCCC">%</span>
+
+        <% elsif @network_presence == false && @city.network.to_f <= @network_fibre_threshold %>
+          <span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i> Couverture 4G </span>
+          <span style= "color:#B4BCCC"><%= (@city.network.to_f).round %></span>
           <span style= "color:#B4BCCC">%</span>
 
         <% else %>
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture 4G</span>
-          <span style= "color:#D94111"><%= @city.network.to_f %></span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture 4G </span>
+          <span style= "color:#D94111"><%= (@city.network.to_f).round %></span>
           <span style= "color:#D94111">%</span>
         <% end %>
       </div>
@@ -108,19 +118,25 @@
     <!-- Set fibre criteria color depending on user selection and city match values -->
       <div class="fibre">
         <% if @fibre_presence && @city.fibre.to_f > @network_fibre_threshold %>
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture fibre</span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture fibre </span>
           <% @city.fibre.to_f = 100 if @city.fibre.to_f > 100 %>
-          <span style= "color:#0A7C06"><%= @city.fibre.to_f %> </span>
+          <span style= "color:#0A7C06"><%= (@city.fibre.to_f).round %> </span>
           <span style= "color:#0A7C06">%</span>
 
-        <% elsif @fibre_presence == false %>
-          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Couverture fibre</span>
-          <span style= "color:#B4BCCC"> <%= @city.fibre.to_f %></span>
+        <% elsif @fibre_presence == false && @city.fibre.to_f > @network_fibre_threshold %>
+          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Couverture fibre </span>
+          <% @city.fibre.to_f = 100 if @city.fibre.to_f > 100 %>
+          <span style= "color:#B4BCCC"> <%= (@city.fibre.to_f).round %></span>
+          <span style= "color:#B4BCCC">%</span>
+
+        <% elsif @fibre_presence == false && @city.fibre.to_f <= @network_fibre_threshold %>
+          <span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i> Couverture fibre </span>
+          <span style= "color:#B4BCCC"> <%= (@city.fibre.to_f).round %></span>
           <span style= "color:#B4BCCC">%</span>
 
         <% else %>
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture fibre</span>
-          <span style= "color:#D94111"><%= @city.fibre.to_f %></span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture fibre </span>
+          <span style= "color:#D94111"><%= (@city.fibre.to_f).round %></span>
           <span style= "color:#D94111">%</span>
         <% end %>
       </div>
@@ -129,38 +145,44 @@
     <!-- Set supermarket criteria color depending on user selection and city match values  -->
       <div class="supermarket">
         <% if @supermarket_presence && @city.supermarket %>
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Supermarchés</span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Supermarchés </span>
 
-        <% elsif @supermarket_presence == false %>
-          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Supermarchés</span>
+        <% elsif @supermarket_presence == false && @city.supermarket %>
+          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Supermarchés </span>
+
+        <% elsif @supermarket_presence == false && @city.supermarket == false %>
+          <span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i> Supermarchés </span>
 
         <% else %>
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Supermarchés</span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Supermarchés </span>
         <% end %>
       </div>
 
       <div class="primary_school">
         <% if @primary_school_presence && @city.primary_school %>
-          <p style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Ecole élémentaire </p>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Ecole élémentaire </span>
         <% elsif @primary_school_presence == false && @city.primary_school %>
-          <p style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Ecole élémentaire </p>
+          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Ecole élémentaire </span>
+        <% elsif @primary_school_presence == false && @city.primary_school == false %>
+          <span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i> Ecole élémentaire </span>
         <% else %>
-          <p style= "color:#D94111"><i class="fas fa-times-circle"></i> Ecole élémentaire </p>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Ecole élémentaire </span>
       <% end %>
       </div>
 
-     <div class="secondary_school">
-      <% if @secondary_school_presence && @city.secondary_school %>
-        <p style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Enseignement secondaire </p>
-      <%elsif @secondary_school_presence == false && @city.secondary_school %>
-        <p style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Enseignement secondaire </p>
-      <% else %>
-        <p style= "color:#D94111"><i class="fas fa-times-circle"></i> Enseignement secondaire </p>
-      <% end %>
+      <div class="secondary_school">
+        <% if @secondary_school_presence && @city.secondary_school %>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Enseignement secondaire </span>
+        <% elsif @secondary_school_presence == false && @city.secondary_school %>
+          <span style= "color:#B4BCCC"><i class="fas fa-check-circle"></i> Enseignement secondaire </span>
+        <% elsif @secondary_school_presence == false && @city.secondary_school == false %>
+          <span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i> Enseignement secondaire </span>
+        <% else %>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Enseignement secondaire </span>
+        <% end %>
+      </div>
+
     </div>
-
-
-  </div>
   </div>
 
 </div>

@@ -8,6 +8,7 @@ const buildMap = (mapElement) => {
   });
 };
 
+
 const addMarkersToMap = (map, markers) => {
   markers.forEach((marker) => {
 

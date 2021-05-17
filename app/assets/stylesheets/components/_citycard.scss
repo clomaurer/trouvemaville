@@ -8,6 +8,7 @@
     position: relative;
     overflow: hidden;
     flex-direction: column;
+    box-shadow: 0px 4px 34px rgba(0, 0, 0, 0.13);
 
 
   .commodity_count {
@@ -16,11 +17,11 @@
   }
 
   .fa-star {
-    color: $our-orange;
+    color: $white;
     position: absolute;
     top: 20px;
     left: 34px;
-    font-size: 24px;
+    font-size: 32px;
   }
 
   .favorite-percent {
@@ -74,6 +75,7 @@
     align-items: center;
     width: 100%;
 
+
     span {
       font-family: Inter;
       font-weight: 500;
@@ -83,6 +85,10 @@
       background-color: $our-orange;
       padding: 4px 8px;
       border-radius: 2px;
+      position: absolute;
+      right: 36px;
+      bottom: -15px;
+      z-index: 999;
 
     }
 
@@ -139,6 +145,35 @@
 
       span {
         font-size: 14px;
+        line-height: 23px;
+        font-family: "Inter", "Helvetica", "sans-serif";
+      }
+
+  }
+
+  .additional_city_filters{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 18px;
+    padding-top: 18px;
+
+    p {
+      font-size: 12px;
+      line-height: 23px;
+      font-family: "Inter", "Helvetica", "sans-serif";
+      color: $blue-lavender;
+      margin: 0px;
+      width: 100%;
+
+    }
+
+    div {
+        margin-top: 16px;
+      }
+
+      span {
+        font-size: 12px;
         line-height: 23px;
         font-family: "Inter", "Helvetica", "sans-serif";
       }

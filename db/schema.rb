@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_16_143636) do
+
+ActiveRecord::Schema.define(version: 2021_05_17_110325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 2021_05_16_143636) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "geocode"
     t.integer "rating", default: 0, null: false
+    t.string "photo"
   end
 
   create_table "favorite_cities", force: :cascade do |t|

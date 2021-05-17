@@ -1,6 +1,7 @@
 <h1 class="text-center">Vos recherches enregistrées</h1>
 <div class="search-cards">
     <% @searches.each do |s|%>
+
       <div class="search-card" data-controller="search">
         <%= form_with model: s do |f| %>
 
@@ -27,6 +28,7 @@
         <div>
          <%= link_to "Supprimer", saved_search_path(s), method: :delete, data: { confirm: "Supprimer ?" } %>
         </div>
+
       </div>
     <% end %>
 </div>

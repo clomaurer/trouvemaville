@@ -1,8 +1,13 @@
 class CitiesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[index show]
+  has_scope :max_population
+  has_scope :max_age_average
+  has_scope :location, using: %i[name max_distance_km], type: :hash
+
   def index
     @saved_search = SavedSearch.new
-    @cities = City.near(params[:name], params[:max_distance_km])
+    @cities = apply_scopes(City).all
+
     @markers = @cities.map do |city|
       {
         lat: city.latitude,
@@ -15,12 +20,16 @@ class CitiesController < ApplicationController
                                                                        supermarket: params[:supermarket],\
                                                                        primary_school: params[:primary_school],\
                                                                        secondary_school: params[:secondary_school],\
-                                                                       rating: rating(city)})
+                                                                       max_population: params[:max_population],\
+                                                                       age_average: params[:max_age_average],\
+                                                                       rating: rating(city) })
       }
     end
 
-    @city = params[:name]
-    @max_distance_km = params[:max_distance_km]
+    @city = params[:location][:name]
+    @max_distance_km = params[:location][:max_distance_km]
+    @max_population = params[:max_population]
+    @max_age_average = params[:max_age_average]
   end
 
   def show

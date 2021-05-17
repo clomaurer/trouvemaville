@@ -10,22 +10,39 @@ export default class extends Controller {
     "fibre",
     "network",
     "doctor",
-    "maxDistanceKm"
+    "maxDistanceKm",
+    "maxPopulation",
+    "maxAgeAverage"
   ]
   connect() {
   }
 
   navigate() {
-    const supermarket = `supermarket=${this.supermarketTarget.value ? "1" : "0" }`
-    const city = `name=${this.startCityTarget.value}`
-    const maxDisKm = `max_distance_km=${this.maxDistanceKmTarget.value}`
-    const com = `commodity=${this.commodityTarget.value ? "1" : "0" }`
-    const primary = `primary_school=${this.primarySchoolTarget.value ? "1" : "0" }`
-    const secondary = `secondary_school=${this.secondarySchoolTarget.value ? "1" : "0" }`
-    const fibre = `fibre=${this.fibreTarget.value ? "1" : "0" }`
-    const network = `network=${this.networkTarget.value ? "1" : "0" }`
-    const doctor = `docto=${this.doctorTarget.value ? "1" : "0" }`
-    const url = `/cities?${city}&${maxDisKm}&${com}&${primary}&${secondary}&${network}`
+    const supermarket = this.supermarketTarget.checked ? 'supermarket=1' : ''
+
+    const city = `location[name]=${this.startCityTarget.value}`
+
+    const maxDisKm = `location[max_distance_km]=${this.maxDistanceKmTarget.value}`
+
+    const com = this.commodityTarget.checked ? 'commodity=1' : ''
+
+    const primary = this.primarySchoolTarget.checked ? 'primary_school=1' : ''
+
+    const secondary = this.secondarySchoolTarget.checked ? 'secondary_school=1' : ''
+
+    const fibre = this.fibreTarget.checked ? 'fibre=1' : ''
+
+    const network = this.networkTarget.checked ? 'network=1' : ''
+
+    const doctor = this.doctorTarget.checked ? 'doctor=1' : ''
+
+    console.log(this.maxPopulationTarget.values)
+
+    const max_population = this.maxPopulationTarget.value === undefined ? '' : `max_population=${this.maxPopulationTarget.value}`
+
+    const max_age_average = this.maxAgeAverageTarget.value === undefined ? '' : `max_age_average=${this.maxAgeAverageTarget.value}`
+
+    const url = `/cities?${city}&${maxDisKm}&${com}&${primary}&${secondary}&${fibre}&${network}&${doctor}&${supermarket}&${max_population}&${max_age_average}`
     window.location = url
   }
 }

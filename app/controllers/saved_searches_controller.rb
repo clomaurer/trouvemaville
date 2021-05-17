@@ -32,6 +32,8 @@ class SavedSearchesController < ApplicationController
                                          :network,
                                          :secondary_school,
                                          :doctor,
-                                         :primary_school)
+                                         :primary_school,
+                                         :max_population,
+                                         :age_average)
   end
 end

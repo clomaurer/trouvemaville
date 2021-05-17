@@ -3,13 +3,26 @@
   <div class="home-form">
     <div class="form-wrap">
       <%= form_tag cities_path, method: :get do %>
-      <%= text_field_tag :name, nil, required: true,
+      <%= text_field_tag "location[name]", nil, required: true,
        placeholder: "Recherche une ville" %>
       <div class="d-flex p-3">
         A quelle distance maximum de cette ville ?
-        <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: 10 %>
+        <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
         km
       </div>
+
+      <div class="d-flex p-3 justify-content-around">
+        <div>
+        Nb d'habitants maximum
+        <%= number_field_tag "max_population", nil, min: 1, width: 1, placeholder: 50000 %>
+        </div>
+        <div>
+        Age moyen maximum
+        <%= number_field_tag "max_age_average", nil, min: 18, width: 1, placeholder: 40 %>
+        ans
+        </div>
+      </div>
+
       <div class="checkboxes">
         <%= check_box_tag "supermarket" %> Supermarchés
         <%= check_box_tag "fibre" %> Fibre

@@ -1,11 +1,16 @@
 <div class="index-search-bar">
   <div>
   <%= form_tag cities_path, method: :get do %>
-    <%= text_field_tag :name, nil, required: true, value: @city, placeholder: "Rechercher une ville bretonne" %>
+    <%= text_field_tag "location[name]", @city, required: true, placeholder: "Rechercher une ville bretonne" %>
     <div>
       A quelle distance maximum de cette ville ?
-      <%= number_field_tag :max_distance_km, nil, min: 1, width: 1, value: @max_distance_km %>
+      <%= number_field_tag "location[max_distance_km]", @max_distance_km, min: 1, width: 1 %>
       km
+      Nb d'habitants maximum
+      <%= number_field_tag "max_population", @max_population, min: 1, width: 1 %>
+      Age moyen maximum
+      <%= number_field_tag "max_age_average", @max_age_average, min: 18, width: 1 %>
+      ans
     </div>
     </div>
     <div class="checkboxes">
@@ -22,8 +27,10 @@
   <% end %>
 
   <%= form_for @saved_search do |f| %>
-    <%= f.hidden_field :start_city, value: params[:name] %>
-    <%= f.hidden_field :max_distance_km, value: params[:max_distance_km] %>
+    <%= f.hidden_field :start_city, value: @city %>
+    <%= f.hidden_field :max_distance_km, value: @max_distance_km %>
+    <%= f.hidden_field :max_population, value: @max_population %>
+    <%= f.hidden_field :age_average, value: @max_age_average %>
     <%= f.check_box :supermarket, { checked: params[:supermarket].present?, hidden: true } %>
     <%= f.check_box :fibre, { checked: params[:fibre].present?, hidden: true } %>
     <%= f.check_box :doctor, { checked: params[:doctor].present?, hidden: true } %>

@@ -102,6 +102,9 @@ GEM
     geocoder (1.6.7)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    has_scope (0.8.0)
+      actionpack (>= 5.2)
+      activesupport (>= 5.2)
     http-accept (1.7.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
@@ -266,6 +269,7 @@ DEPENDENCIES
   dotenv-rails
   font-awesome-sass
   geocoder
+  has_scope
   jbuilder (~> 2.7)
   listen (~> 3.2)
   pg (>= 0.18, < 2.0)

@@ -1,51 +1,10 @@
 require 'csv'
+require 'json'
+require 'open-uri'
 
+FavoriteCity.destroy_all
 City.destroy_all
 # User.destroy_all
-
-# rennes = City.create!(
-#   name: "Rennes",
-#   description: "Rennes est la préfecture de la région Bretagne, au nord-ouest de la France. Elle est connue pour ses maisons médiévales à colombages et son immense cathédrale. Le parc du Thabor dispose d'une roseraie et d'une volière. Au sud de la Vilaine, le musée des Beaux-Arts expose des œuvres de Boticelli, Rubens et Picasso. Le centre culturel des Champs Libres abrite le musée de Bretagne et l'espace des Sciences, doté d'un planétarium.",
-#   population: 217728,
-#   commodity_count: 25,
-#   house_marketprice: 4223,
-#   primary_school: true,
-#   secondary_school: true,
-#   doctor: true,
-#   age_average: 38,
-#   supermarket: true,
-#   flat_marketprice: 3400,
-#   fibre: "85%",
-#   network: "100%",
-#   latitude: 48.117266,
-#   longitude: -1.6777926,
-#   )
-
-# brest = City.create!(
-#   name: "Brest",
-#   description: "Rennes est la préfecture de la région Bretagne, au nord-ouest de la France. Elle est connue pour ses maisons médiévales à colombages et son immense cathédrale. Le parc du Thabor dispose d'une roseraie et d'une volière. Au sud de la Vilaine, le musée des Beaux-Arts expose des œuvres de Boticelli, Rubens et Picasso. Le centre culturel des Champs Libres abrite le musée de Bretagne et l'espace des Sciences, doté d'un planétarium.",
-#   population: 217728,
-#   commodity_count: 25,
-#   house_marketprice: 4223,
-#   primary_school: true,
-#   secondary_school: true,
-#   doctor: true,
-#   age_average: 38,
-#   supermarket: true,
-#   flat_marketprice: 3400,
-#   fibre: "85%",
-#   network: "100%",
-#   latitude: 48.3897,
-#   longitude: -4.48333,
-
-#   )
-
-# user = User.create!(
-#   email: "user@example.fr",
-#   password: "12345678",
-#   )
-
-
 
 # seeds generation upon CSV files
 
@@ -259,20 +218,27 @@ cities.each do |city|
 end
 
 
-p "Description seeds incoming"
+
+
+p "Description and photos seeds incoming"
 cities = City.all
 cities.each do |city|
 # p city.population
-  city_age = rand(1700..1800)
-  city_description = "#{city.name} fait partie de la région Bretagne. Elle a été fondée en #{city_age}. Son église est classée au patrimoine mondial de l'unesco."
-  city.update(description: city_description)
+  url = URI.parse "https://fr.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=true&prop=info%7Cextracts%7Cpageimages&exsentences=2&explaintext=true&piprop=thumbnail&pithumbsize=500&titles=#{URI.encode city.name}"
+  city_serialized = URI.open(url).read
+  city_infos = JSON.parse(city_serialized)
+  if city_infos['query']['pages'][0]['extract'].nil?
+    city.description = ""
+  else
+    city.description = city_infos['query']['pages'][0]['extract'].gsub(/\n+(==|===)\s\w.+/, "\n")
+  end
+
+  if city_infos['query']['pages'][0]['thumbnail'].nil?
+    city.photo = ""
+  else
+   city.photo = city_infos['query']['pages'][0]['thumbnail']['source']
+  end
+
   city.save!
+
 end
-
-
-# p "Photo seeds incoming"
-# cities = City.all
-# cities.each do |city|
-#   city.photo.attach(io: File.open('app/assets/images/Photo-rennes.jpg'), filename: 'Photo-rennes.jpg', content_type: 'image/jpg')
-#   city.save!
-# end

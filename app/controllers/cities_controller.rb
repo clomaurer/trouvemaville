@@ -9,10 +9,20 @@ class CitiesController < ApplicationController
     @cities = apply_scopes(City).all
 
     @markers = @cities.map do |city|
+
+        if rating(city) > 75
+        image_url = helpers.asset_url('green-marker.png')
+        elsif rating(city) > 50
+          image_url = helpers.asset_url('orange-marker.png')
+        elsif rating(city) < 50
+          image_url = helpers.asset_url('red-marker.png')
+        end
+
       {
         lat: city.latitude,
         lng: city.longitude,
-
+        id: city.id,
+        image_url: image_url,
         infoWindow: render_to_string(partial: "info_window", locals: { city: city, doctor: params[:doctor],\
                                                                        network: params[:network],\
                                                                        fibre: params[:fibre],\
@@ -44,6 +54,15 @@ class CitiesController < ApplicationController
     @city_rating_middle_threshold = 75  #-- city rating will be green above or equal to 75% -->
                                         #-- city rating will be orange above or equal to 50% and below 75% -->
     @city_rating_lower_threshold = 50   #-- city rating will be red below 50% -->
+
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: {
+          city: render_to_string(partial: "cities/city", layout: false, formats: [:html])
+        }
+      }
+    end
   end
 
   private

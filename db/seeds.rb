@@ -201,6 +201,44 @@ end
 #   city.save!
 # end
 
+# p "Market price seeds incoming"
+#   cities = City.all
+#   cities.each do |city|
+#     if city.population <= 10000
+#       city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
+#       city.save!
+#     elsif (city.population > 10000 && city.population <= 100000)
+#       city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
+#       city.save!
+#     elsif city.population > 100000
+#       city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
+#       city.save!
+#     end
+#   end
+
+# p "Description and photos seeds incoming"
+# cities = City.all
+# cities.each do |city|
+# # p city.population
+#   url = URI.parse "https://fr.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=true&prop=info%7Cextracts%7Cpageimages&exsentences=2&explaintext=true&piprop=thumbnail&pithumbsize=500&titles=#{URI.encode city.name}"
+#   city_serialized = URI.open(url).read
+#   city_infos = JSON.parse(city_serialized)
+#   if city_infos['query']['pages'][0]['extract'].nil?
+#     city.description = ""
+#   else
+#     city.description = city_infos['query']['pages'][0]['extract'].gsub(/\n+(==|===)\s\w.+/, "\n")
+#   end
+
+#   if city_infos['query']['pages'][0]['thumbnail'].nil?
+#     city.photo = ""
+#   else
+#    city.photo = city_infos['query']['pages'][0]['thumbnail']['source']
+#   end
+
+#   city.save!
+# end
+
+
 
 p "Price market seeds incoming"
 csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
@@ -256,48 +294,10 @@ CSV.foreach(filepath, csv_options) do |row|
       end
     # end
   end
-
-
 end
 
 p cities_lands
 
-  # cities = City.all
-  # cities.each do |city|
-  # if city.population <= 10000
-  #   city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
-  #   city.save!
-  # elsif (city.population > 10000 && city.population <= 100000)
-  #   city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
-  #   city.save!
-  # elsif city.population > 100000
-  #   city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
-  #   city.save!
-  # end
 
 
 
-
-
-# p "Description and photos seeds incoming"
-# cities = City.all
-# cities.each do |city|
-# # p city.population
-#   url = URI.parse "https://fr.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=true&prop=info%7Cextracts%7Cpageimages&exsentences=2&explaintext=true&piprop=thumbnail&pithumbsize=500&titles=#{URI.encode city.name}"
-#   city_serialized = URI.open(url).read
-#   city_infos = JSON.parse(city_serialized)
-#   if city_infos['query']['pages'][0]['extract'].nil?
-#     city.description = ""
-#   else
-#     city.description = city_infos['query']['pages'][0]['extract'].gsub(/\n+(==|===)\s\w.+/, "\n")
-#   end
-
-#   if city_infos['query']['pages'][0]['thumbnail'].nil?
-#     city.photo = ""
-#   else
-#    city.photo = city_infos['query']['pages'][0]['thumbnail']['source']
-#   end
-
-#   city.save!
-
-# end

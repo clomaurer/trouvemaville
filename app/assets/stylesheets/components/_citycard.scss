@@ -126,7 +126,17 @@
       line-height: 21px;
       text-align: left;
     }
+  .city_description {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
   }
+
+  }
+
+
    .city_main_filters {
 
     border-bottom: 1px solid $light-blue;

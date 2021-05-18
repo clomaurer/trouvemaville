@@ -1,28 +1,49 @@
-<div class="index-search-bar">
-  <div>
+<div class="index-search-bar" id="index-search-bar">
+  <div class="search-input">
   <%= form_tag cities_path, method: :get do %>
     <%= text_field_tag "location[name]", @city, required: true, placeholder: "Rechercher une ville bretonne" %>
-    <div>
-      A quelle distance maximum de cette ville ?
+    <div class="search-bar-main-criterias">
+      <div>
+      A
       <%= number_field_tag "location[max_distance_km]", @max_distance_km, min: 1, width: 1 %>
       km
-      Nb d'habitants maximum
+      </div>
+
+      <div>
       <%= number_field_tag "max_population", @max_population, min: 1, width: 1 %>
-      Age moyen maximum
+      habitants maximum
+      </div>
+
+      <div>
       <%= number_field_tag "max_age_average", @max_age_average, min: 18, width: 1 %>
-      ans
+      d'âge moyen maximum
+      </div>
     </div>
     </div>
     <div class="checkboxes">
-      <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%> Supermarchés
-      <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %> Fibre
-      <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %> Médecin
-      <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %> Collèges et lycées
-      <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %> Ecoles maternelles et primaires
-      <%= check_box_tag "network", 1, (:checked if params[:network].present?) %> 4G
-      <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %> Commerces
-    <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
+      <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%>
+      <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
+
+      <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %>
+      <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
+
+      <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %>
+      <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+
+      <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %>
+      <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
+
+      <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %>
+      <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
+
+      <%= check_box_tag "network", 1, (:checked if params[:network].present?) %>
+      <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
+
+      <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %>
+      <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
+
     </div>
+    <%= submit_tag "Rechercher", class: "btn btn-primary"%>
     <div class="launch-search">
   <% end %>
 
@@ -38,7 +59,7 @@
     <%= f.check_box :primary_school, { checked: params[:primary_school].present?, hidden: true } %>
     <%= f.check_box :network, { checked: params[:network].present?, hidden: true } %>
     <%= f.check_box :commodity, { checked: params[:commodity].present?, hidden: true } %>
-    <%= f.submit "Sauvegarder ces critères" %>
+    <%#= f.submit "Sauvegarder ces critères" %>
   <% end %>
   </div>
 </div>
@@ -49,4 +70,8 @@
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
     <div id="show"> </div>
 </div>
+
+<script>
+
+</script>
 

@@ -4,7 +4,7 @@ const buildMap = (mapElement) => {
   mapboxgl.accessToken = mapElement.dataset.mapboxApiKey;
   return new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/toteld/ckok1ntve046a18og7o3t2gly'
+    style: 'mapbox://styles/j35/ckol044kx816317qen4cgfg3v'
   });
 };
 
@@ -17,8 +17,8 @@ const addMarkersToMap = (map, markers) => {
       element.style.backgroundImage = `url('${marker.image_url}')`;
       element.style.backgroundSize = 'contain';
       element.style.backgroundRepeat = 'no-repeat';
-      element.style.width = '25px';
-      element.style.height = '25px';
+      element.style.width = '20px';
+      element.style.height = '22.5px';
       element.dataset.controller = 'city';
       element.dataset.action = 'click->city#show';
       element.dataset.cityTarget= 'marker';
@@ -45,5 +45,7 @@ const initMapbox = () => {
     fitMapToMarkers(map, markers);
   }
 };
+
+
 
 export { initMapbox };

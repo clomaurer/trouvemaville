@@ -1,37 +1,38 @@
 
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to root_path, class: "navbar-brand" do %>
-    <%= image_tag "https://img2.freepng.fr/20180405/flw/kisspng-computer-icons-map-symbol-map-icon-5ac5db378c4ea0.7038675015229161515747.jpg" %>
+  <%= link_to root_path, class: "navbar-brand d-flex" do %>
+    <%= image_tag "logo.svg", class: "logo" %>
+    <span class="brand-name">TrouveMaVille</span>
+  <% end %>
+  <div class="d-flex align-items-center">
+    <%= link_to favorites_path, class:'nav-link' do %>
+      <i class="fas fa-star"></i>
+      Vos favoris
     <% end %>
-    <%= link_to favorites_path do %>
-      <p>Vos villes favorites</p>
-    <% end %>
-    <%= link_to saved_searches_path do %>
-      <p>Vos recherches enregistrées</p>
-    <% end %>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
 
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <% if user_signed_in? %>
-        <li>
-          <p><%= current_user.email %></p>
-        </li>
-        <li class="nav-item dropdown">
-          <%= image_tag "https://static.thenounproject.com/png/770826-200.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-          </div>
-        </li>
-      <% else %>
-        <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <% if user_signed_in? %>
+
+          <li class="nav-item dropdown">
+           <%= image_tag "photojerome.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+            </div>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

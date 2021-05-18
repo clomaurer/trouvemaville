@@ -2,8 +2,8 @@ require 'csv'
 require 'json'
 require 'open-uri'
 
-FavoriteCity.destroy_all
-City.destroy_all
+# FavoriteCity.destroy_all
+# City.destroy_all
 # User.destroy_all
 
 # seeds generation upon CSV files
@@ -14,6 +14,7 @@ csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath    = 'db/fixtures/population.csv'
 
 @geocode_population = []
+@city_name_population = []
 
 # Pour chaque ligne du fichier
 @geocode_population = []
@@ -21,6 +22,8 @@ CSV.foreach(filepath, csv_options) do |row|
   # je prends le geocode
   geocode = row['geocode']
   @geocode_population << geocode
+  commune = row['city_name']
+  @city_name_population << commune.upcase
 
   department_code = [22, 29, 35, 56]
 
@@ -198,47 +201,42 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
-
 p "Price market seeds incoming"
-cities = City.all
-cities.each do |city|
-# p city.population
-
-  if city.population <= 10000
-    city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
-    city.save!
-  elsif (city.population > 10000 && city.population <= 100000)
-    city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
-    city.save!
-  elsif city.population > 100000
-    city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
-    city.save!
+  cities = City.all
+  cities.each do |city|
+    if city.population <= 10000
+      city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
+      city.save!
+    elsif (city.population > 10000 && city.population <= 100000)
+      city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
+      city.save!
+    elsif city.population > 100000
+      city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
+      city.save!
+    end
   end
 
-end
 
 
+# p "Description and photos seeds incoming"
+# cities = City.all
+# cities.each do |city|
+# # p city.population
+#   url = URI.parse "https://fr.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=true&prop=info%7Cextracts%7Cpageimages&exsentences=2&explaintext=true&piprop=thumbnail&pithumbsize=500&titles=#{URI.encode city.name}"
+#   city_serialized = URI.open(url).read
+#   city_infos = JSON.parse(city_serialized)
+#   if city_infos['query']['pages'][0]['extract'].nil?
+#     city.description = ""
+#   else
+#     city.description = city_infos['query']['pages'][0]['extract'].gsub(/\n+(==|===)\s\w.+/, "\n")
+#   end
 
+#   if city_infos['query']['pages'][0]['thumbnail'].nil?
+#     city.photo = ""
+#   else
+#    city.photo = city_infos['query']['pages'][0]['thumbnail']['source']
+#   end
 
-p "Description and photos seeds incoming"
-cities = City.all
-cities.each do |city|
-# p city.population
-  url = URI.parse "https://fr.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=true&prop=info%7Cextracts%7Cpageimages&exsentences=2&explaintext=true&piprop=thumbnail&pithumbsize=500&titles=#{URI.encode city.name}"
-  city_serialized = URI.open(url).read
-  city_infos = JSON.parse(city_serialized)
-  if city_infos['query']['pages'][0]['extract'].nil?
-    city.description = ""
-  else
-    city.description = city_infos['query']['pages'][0]['extract'].gsub(/\n+(==|===)\s\w.+/, "\n")
-  end
+#   city.save!
 
-  if city_infos['query']['pages'][0]['thumbnail'].nil?
-    city.photo = ""
-  else
-   city.photo = city_infos['query']['pages'][0]['thumbnail']['source']
-  end
-
-  city.save!
-
-end
+# end

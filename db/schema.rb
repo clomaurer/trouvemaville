@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2021_05_18_094556) do
-
+ActiveRecord::Schema.define(version: 2021_05_18_123329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +60,22 @@ ActiveRecord::Schema.define(version: 2021_05_18_094556) do
     t.string "photo"
   end
 
+  create_table "comparators", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_comparators_on_user_id"
+  end
+
+  create_table "compared_cities", force: :cascade do |t|
+    t.bigint "city_id", null: false
+    t.bigint "comparator_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_compared_cities_on_city_id"
+    t.index ["comparator_id"], name: "index_compared_cities_on_comparator_id"
+  end
+
   create_table "favorite_cities", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "city_id", null: false
@@ -106,6 +120,9 @@ ActiveRecord::Schema.define(version: 2021_05_18_094556) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comparators", "users"
+  add_foreign_key "compared_cities", "cities"
+  add_foreign_key "compared_cities", "comparators"
   add_foreign_key "favorite_cities", "cities"
   add_foreign_key "favorite_cities", "saved_searches"
   add_foreign_key "favorite_cities", "users"

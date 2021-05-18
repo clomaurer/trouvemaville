@@ -7,6 +7,11 @@
         <i class="far fa-star"></i>
       <% end %>
     <% end %>
+    <div data-controller="compared" data-compared-url-value="<%= city_compared_cities_path(@city) %>">
+      <% if current_user %>
+        <i class="<%= @is_compared ? "fas fa-clipboard-check" : "far fa-clipboard" %>" data-compared-target="clipboard" data-action="click->compared#toggle"></i>
+      <% end %>
+    </div>
   </div>
 
   <div class="cross-close" data-controller="city" data-action="click->city#close"><i class="fas fa-times"></i>

@@ -5,5 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :favorite_cities
-  has_many :saved_searches
+  has_many :saved_searches, through: :favorite_cities
 end

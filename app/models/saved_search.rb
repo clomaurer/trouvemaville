@@ -1,3 +1,3 @@
 class SavedSearch < ApplicationRecord
-  belongs_to :user
+  has_many :favorite_cities, dependent: :destroy
 end

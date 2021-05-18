@@ -3,14 +3,40 @@
 <div class="favorite_index">
 
   <ul>
-    <% @favorites.each do |f| %>
-    <div class="favorite_card">
-      <li><%= link_to city_path(f.city) do%>
-          <%= f.city.name %>
-        <% end %>
-      </li>
-    </div>
+    <% @favorites.each do |search, fav_cities| %>
+      <div class="search-card" data-controller="search">
+
+      <%= form_with model: search do |f| %>
+        <%= f.text_field :start_city, "data-search-target": "startCity" %>
+            <%= f.number_field :max_distance_km, "data-search-target": "maxDistanceKm" %> km
+
+            Nb d'habitants max <%= f.number_field :max_population, "data-search-target": "maxPopulation" %>
+            Age moyen max <%= f.number_field :age_average, "data-search-target": "maxAgeAverage" %>
+
+          <div>
+            <%= f.check_box :supermarket, "data-search-target": "supermarket" %> Supermarchés
+            <%= f.check_box :fibre, "data-search-target": "fibre" %> Fibre
+            <%= f.check_box :doctor, "data-search-target": "doctor" %> Médecin
+            <%= f.check_box :secondary_school, "data-search-target": "secondarySchool" %> Enseignement secondaire
+            <%= f.check_box :primary_school, "data-search-target": "primarySchool" %> Ecole primaire
+            <%= f.check_box :network, "data-search-target": "network" %> 4G
+            <%= f.check_box :commodity, "data-search-target": "commodity" %> Commerces
+           <% end %>
+          </div>
+        <div class="btn" data-action="click->search#navigate">
+          Rechercher sur ces critères
+        </div>
+        <%= link_to "Supprimer", saved_search_path(search), method: :delete, data: { confirm: "Supprimer ?" } %>
+        </div>
+      <% fav_cities.each do |fav_city| %>
+        <div class="favorite_card">
+          <li><%= link_to city_path(fav_city.city) do%>
+              <%= fav_city.city.name %>
+            <% end %>
+          </li>
+        </div>
+      <% end %>
     <% end %>
   </ul>
-
 </div>
+

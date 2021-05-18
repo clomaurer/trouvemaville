@@ -2,9 +2,7 @@ input[type=number] {
   color:darken($grey-lavender, 10);
   text-align:center;
 }
-input[type=checkbox] {
-  transform:scale(0);
-}
+
 
 input[type=text] {
   color:$blue-lavender;
@@ -32,4 +30,30 @@ input {
 input:focus {
   border:none;
   outline:none;
+}
+
+.checkboxes {
+  display: inline-block;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  transform: scale(0);
+}
+
+input[type="checkbox"] + label {
+  cursor: pointer;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  background-color: $white;
+  color: $grey-lavender;
+  border: 1px solid $grey-lavender;
+  margin-right: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+input[type="checkbox"]:checked + label {
+  background-color: $grey-lavender;
+  color: $white;
 }

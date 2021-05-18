@@ -8,6 +8,14 @@
   border-radius:6px;
   box-shadow: rgba(0, 0, 0, 0.07) -4px 9px 25px -6px;
 
+  .nav-item {
+    display:flex;
+    }
+
+  .id_photo {
+    justify-content: center;
+  }
+
   .fas {
     color:$our-orange;
   }

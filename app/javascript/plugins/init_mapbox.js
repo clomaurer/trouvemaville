@@ -17,8 +17,8 @@ const addMarkersToMap = (map, markers) => {
       element.style.backgroundImage = `url('${marker.image_url}')`;
       element.style.backgroundSize = 'contain';
       element.style.backgroundRepeat = 'no-repeat';
-      element.style.width = '25px';
-      element.style.height = '25px';
+      element.style.width = '20px';
+      element.style.height = '22.5px';
       element.dataset.controller = 'city';
       element.dataset.action = 'click->city#show';
       element.dataset.cityTarget= 'marker';
@@ -45,5 +45,7 @@ const initMapbox = () => {
     fitMapToMarkers(map, markers);
   }
 };
+
+
 
 export { initMapbox };

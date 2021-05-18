@@ -32,14 +32,28 @@
         </div>
 
         <div class="checkboxes pt-3">
-          <%= check_box_tag "supermarket" %> Supermarchés
-          <%= check_box_tag "fibre" %> Fibre
-          <%= check_box_tag "doctor" %> Médecin
-          <%= check_box_tag "secondary_school" %> Collèges et lycées
-          <%= check_box_tag "primary_school" %> Ecoles maternelles et primaires
-          <%= check_box_tag "network" %> 4G
-          <%= check_box_tag "commodity" %> Commerces
-        </div>
+          <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%>
+          <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
+
+          <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %>
+          <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
+
+          <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %>
+          <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+
+          <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %>
+          <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
+
+          <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %>
+          <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
+
+          <%= check_box_tag "network", 1, (:checked if params[:network].present?) %>
+          <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
+
+          <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %>
+          <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
+      </div>
+
       </div>
     <%= submit_tag "Rechercher sur ces critères", class: "btn" %>
     </div>

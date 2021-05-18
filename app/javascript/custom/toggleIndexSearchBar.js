@@ -8,7 +8,7 @@ const indexShow = () => {
     })
    indexSearchBar.addEventListener('mouseleave', (e) => {
       indexSearchBar.classList.add('hide-search-bar')
-    })
+  })
   }
 };
 

@@ -16,7 +16,8 @@
     font-size: 14px;
     font-family: 'Montserrat';
     font-weight: 800;
-    color:$black-blue;
+    color:$blue-lavender;
+    margin-left: 12px;
   }
 
   .nav-link {
@@ -52,3 +53,10 @@
   display: flex;
 }
 
+.logo {
+  color:$black-blue;
+ }
+
+ .navbar-brand {
+  align-items: center;
+ }

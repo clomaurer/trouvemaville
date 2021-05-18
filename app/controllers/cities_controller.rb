@@ -10,9 +10,9 @@ class CitiesController < ApplicationController
 
     @markers = @cities.map do |city|
 
-        if rating(city) > 75
+        if rating(city) >= 75
         image_url = helpers.asset_url('green-marker.png')
-        elsif rating(city) > 50
+        elsif rating(city) >= 50
           image_url = helpers.asset_url('orange-marker.png')
         elsif rating(city) < 50
           image_url = helpers.asset_url('red-marker.png')
@@ -76,6 +76,8 @@ class CitiesController < ApplicationController
     @supermarket_presence = params[:supermarket].present? && params[:supermarket] == "1"
     @primary_school_presence = params[:primary_school].present? && params[:primary_school] == "1"
     @secondary_school_presence = params[:secondary_school].present? && params[:secondary_school] == "1"
+    @max_population_presence = params[:max_population].present? && params[:max_population].to_i >= 1
+    @max_age_average_presence = params[:max_age_average].present? && params[:max_age_average].to_i >= 18
 
     # city global rating calculation
     @criteria_selected_nb = 0
@@ -87,16 +89,20 @@ class CitiesController < ApplicationController
     @criteria_selected_nb += 1 if @supermarket_presence
     @criteria_selected_nb += 1 if @primary_school_presence
     @criteria_selected_nb += 1 if @secondary_school_presence
+    @criteria_selected_nb += 1 if @max_population_presence
+    @criteria_selected_nb += 1 if @max_age_average_presence
 
     @match_criteria_nb = 0
 
     @match_criteria_nb += 1 if @doctor_presence && city.doctor
-    @match_criteria_nb += 1 if @network_presence && city.network.to_f > 70
-    @match_criteria_nb += 1 if @fibre_presence && city.fibre.to_f > 70
+    @match_criteria_nb += 1 if @network_presence && city.network.to_f >= 70
+    @match_criteria_nb += 1 if @fibre_presence && city.fibre.to_f >= 70
     @match_criteria_nb += 1 if @commodity_presence && city.commodity_count > 0
     @match_criteria_nb += 1 if @supermarket_presence && city.supermarket
     @match_criteria_nb += 1 if @primary_school_presence && city.primary_school
     @match_criteria_nb += 1 if @secondary_school_presence && city.secondary_school
+    @match_criteria_nb += 1 if @max_population_presence && city.population <= params[:max_population].to_i
+    @match_criteria_nb += 1 if @max_age_average_presence && city.age_average <= params[:max_age_average].to_i
 
     if @criteria_selected_nb > 0
       return ((@match_criteria_nb.to_f / @criteria_selected_nb) * 100).round

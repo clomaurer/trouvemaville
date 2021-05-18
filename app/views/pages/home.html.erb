@@ -1,39 +1,50 @@
+<div class="home-bg">
+</div>
 <div class="home-wraper">
-  <h1 class="text-center">Trouvez votre futur cocon breton selon vos critères !</h1>
+  <h1 class="text-center"><span>Découvrez votre</span> <br>futur cocon breton </h1>
   <div class="home-form">
     <div class="form-wrap">
-      <%= form_tag cities_path, method: :get do %>
-      <%= text_field_tag "location[name]", nil, required: true,
-       placeholder: "Recherche une ville" %>
-      <div class="d-flex p-3">
-        A quelle distance maximum de cette ville ?
-        <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
-        km
-      </div>
+      <h2>Toutes les informations à portée de clics pour vous installer dans votre endroit rêvé</h2>
+      <div class="field-wrapper">
+        <%= form_tag cities_path, method: :get do %>
+        <div class="d-flex align-items-center justify-content-between">
+          <%= text_field_tag "location[name]", nil, required: true,
+           placeholder: "Recherchez une ville bretonne" %>
 
-      <div class="d-flex p-3 justify-content-around">
-        <div>
-        Nb d'habitants maximum
-        <%= number_field_tag "max_population", nil, min: 1, width: 1, placeholder: 50000 %>
+          <div class="d-flex align-items-center">
+            A
+            <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
+            km maximum
+          </div>
         </div>
-        <div>
-        Age moyen maximum
-        <%= number_field_tag "max_age_average", nil, min: 18, width: 1, placeholder: 40 %>
-        ans
-        </div>
-      </div>
 
-      <div class="checkboxes">
-        <%= check_box_tag "supermarket" %> Supermarchés
-        <%= check_box_tag "fibre" %> Fibre
-        <%= check_box_tag "doctor" %> Médecin
-        <%= check_box_tag "secondary_school" %> Collèges et lycées
-        <%= check_box_tag "primary_school" %> Ecoles maternelles et primaires
-        <%= check_box_tag "network" %> 4G
-        <%= check_box_tag "commodity" %> Commerces
+        <div class="d-flex pt-3 justify-content-between">
+          <div>
+
+          <%= number_field_tag "max_population", nil, min: 1, width: 1, placeholder: 50000 %>
+          habitants maximum
+          </div>
+          <div>
+
+          <%= number_field_tag "max_age_average", nil, min: 18, width: 1, placeholder: 40 %>
+          ans d'âge moyen maximum
+          </div>
+        </div>
+
+        <div class="checkboxes pt-3">
+          <%= check_box_tag "supermarket" %> Supermarchés
+          <%= check_box_tag "fibre" %> Fibre
+          <%= check_box_tag "doctor" %> Médecin
+          <%= check_box_tag "secondary_school" %> Collèges et lycées
+          <%= check_box_tag "primary_school" %> Ecoles maternelles et primaires
+          <%= check_box_tag "network" %> 4G
+          <%= check_box_tag "commodity" %> Commerces
+        </div>
       </div>
     <%= submit_tag "Rechercher sur ces critères", class: "btn" %>
     </div>
   <% end %>
   </div>
 </div>
+
+<script> </script>

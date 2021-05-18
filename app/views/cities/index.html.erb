@@ -1,16 +1,23 @@
-<div class="index-search-bar">
-  <div>
+<div class="index-search-bar hide-search-bar" id="index-search-bar">
+  <div class="search-input">
   <%= form_tag cities_path, method: :get do %>
     <%= text_field_tag "location[name]", @city, required: true, placeholder: "Rechercher une ville bretonne" %>
-    <div>
-      A quelle distance maximum de cette ville ?
+    <div class="search-bar-main-criterias">
+      <div>
+      A
       <%= number_field_tag "location[max_distance_km]", @max_distance_km, min: 1, width: 1 %>
       km
-      Nb d'habitants maximum
+      </div>
+
+      <div>
       <%= number_field_tag "max_population", @max_population, min: 1, width: 1 %>
-      Age moyen maximum
+      habitants maximum
+      </div>
+
+      <div>
       <%= number_field_tag "max_age_average", @max_age_average, min: 18, width: 1 %>
-      ans
+      d'âge moyen maximum
+      </div>
     </div>
     </div>
     <div class="checkboxes">
@@ -21,8 +28,8 @@
       <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %> Ecoles maternelles et primaires
       <%= check_box_tag "network", 1, (:checked if params[:network].present?) %> 4G
       <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %> Commerces
-    <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
     </div>
+    <%= submit_tag "Rechercher sur ces critères", class: "btn btn-primary" %>
     <div class="launch-search">
   <% end %>
 
@@ -38,7 +45,7 @@
     <%= f.check_box :primary_school, { checked: params[:primary_school].present?, hidden: true } %>
     <%= f.check_box :network, { checked: params[:network].present?, hidden: true } %>
     <%= f.check_box :commodity, { checked: params[:commodity].present?, hidden: true } %>
-    <%= f.submit "Sauvegarder ces critères" %>
+    <%#= f.submit "Sauvegarder ces critères" %>
   <% end %>
   </div>
 </div>
@@ -49,4 +56,8 @@
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
     <div id="show"> </div>
 </div>
+
+<script>
+
+</script>
 

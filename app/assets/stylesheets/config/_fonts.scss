@@ -1,5 +1,5 @@
 // Import Google fonts
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;600&family=Montserrat:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@400;500;700&display=swap');
 
 
 $body-font: "Inter", "Helvetica", "sans-serif";
@@ -8,7 +8,7 @@ $headers-font: "Montserrat", "Helvetica", "sans-serif";
 h1 {
   font-weight: 600;
   font-size: 56px;
-  line-height: 59px;
+  line-height: 1.1;
 }
 // To use a font file (.woff) uncomment following lines
 // @font-face {

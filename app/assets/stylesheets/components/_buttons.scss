@@ -3,4 +3,10 @@
   border-radius: 0px;
   color:$white;
   font-weight: bold;
+  &:hover {
+    color:$white !important;
+    opacity: 1 !important;
+    background-color: darken($blue-lavender,10);
+    transition:.3s;
+  }
 }

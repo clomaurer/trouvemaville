@@ -1,3 +1,9 @@
+#map {
+  position: fixed;
+  top:0;
+  left:0;
+  z-index: -1;
+}
 .mapboxgl-popup {
   max-width: 200px;
 }

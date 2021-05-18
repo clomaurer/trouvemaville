@@ -5,6 +5,6 @@ Rails.application.routes.draw do
     resources :favorites, only: [:create]
   end
   resources :favorites, only: [:destroy, :index, :show]
-  resources :saved_searches, only: [:index, :create, :edit, :update, :destroy]
+  resources :saved_searches, only: [:create, :destroy]
   resource :comparator, only: [:show]
 end

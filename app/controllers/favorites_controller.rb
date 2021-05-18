@@ -1,10 +1,22 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @favorites = FavoriteCity.where(user: current_user)
+    @favorites = current_user.favorite_cities.group_by { |city| city.saved_search }
   end
 
   def create
+    @saved_search = SavedSearch.find_or_create_by(start_city: params[:location][:name],
+                                                  primary_school: params[:primary_school].present?,
+                                                  secondary_school: params[:secondary_school].present?,
+                                                  supermarket: params[:supermarket].present?,
+                                                  network: params[:network].present?,
+                                                  fibre: params[:fibre].present?,
+                                                  commodity: params[:commodity].present?,
+                                                  doctor: params[:doctor].present?,
+                                                  max_distance_km: params[:location][:max_distance_km].to_i,
+                                                  age_average: params[:max_age_average].present? ? params[:max_age_average] : nil,
+                                                  max_population: params[:max_population].present? ? params[:max_population] : nil)
+    p @saved_search
     @city = City.find(params[:city_id])
     favorite = FavoriteCity.find_by(city: @city, user: current_user)
     if favorite.present?
@@ -16,12 +28,12 @@ class FavoritesController < ApplicationController
       @favorite = FavoriteCity.new
       @favorite.user = current_user
       @favorite.city = @city
-      @favorite.save
+      @favorite.saved_search = @saved_search
+      @favorite.save!
       render json: {
         result: "Favorite created"
       }
     end
-
   end
 
   def show

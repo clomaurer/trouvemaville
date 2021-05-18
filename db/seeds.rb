@@ -40,242 +40,181 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 
-# p "Latitude & Longitude seeds incoming"
-# csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-# filepath = 'db/fixtures/communes-coords-gps.csv'
-# CSV.foreach(filepath, csv_options) do |row|
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-#   next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
-#   city = City.find_or_initialize_by(geocode: geocode)
-#   city.update(name: row['city_name'], latitude: row['latitude'], longitude: row['longitude'])
-#   city.save!
-# end
-
-
-# p "Network seeds incoming"
-# csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-# filepath = 'db/fixtures/couverture-4G.csv'
-# CSV.foreach(filepath, csv_options) do |row|
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-#   next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
-#   city = City.find_or_initialize_by(geocode: geocode)
-#   city.update(name: row['city_name'], network: row['4G_rate'])
-#   city.save!
-# end
-
-
-# p "Fibre seeds incoming"
-# csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-# filepath = 'db/fixtures/couverture-fibre.csv'
-# CSV.foreach(filepath, csv_options) do |row|
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-#   next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
-#   city = City.find_or_initialize_by(geocode: geocode)
-#   city.update(name: row['city_name'], fibre: row['fibre_rate'])
-#   city.save!
-# end
-
-
-# p "Medical services seeds incoming"
-# # Ouvrir le fichier service-medicaux.csv
-# csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-# filepath    = 'db/fixtures/service-medicaux.csv'
-
-# # Pour chaque ligne du fichier
-# CSV.foreach(filepath, csv_options) do |row|
-#   # je prends le geocode
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-#   # # je regarde s'il commence par 22, 29, 35, 56
-#   next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
-
-#   # Je retrouve la ville en DB avec le meme nom
-#   # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
-#   city = City.find_or_initialize_by(geocode: geocode)
-#   # je mets à jour ma ville en db avec la population du csv
-#   doctor = false
-#   city_doctor = row['doctor'].to_i
-#   doctor = true if city_doctor > 0
-#   city.update(name: row['city_name'], doctor: doctor)
-#   # je sauve
-#   city.save!
-# end
-
-
-
-
-# p "Population average age seeds incoming"
-# # Ouvrir le fichier Age-moyen-population.csv
-# csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
-# filepath    = 'db/fixtures/Age-moyen-population.csv'
-
-# # Pour chaque ligne du fichier
-# CSV.foreach(filepath, csv_options) do |row|
-#   # je prends le geocode
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-
-#   # je regarde s'il commence par 22, 29, 35, 56
-#   next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
-
-#   # Je retrouve la ville en DB avec le meme nom
-#   # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
-#   city = City.find_or_initialize_by(geocode: geocode)
-#   # je mets à jour ma ville en db avec la population du csv
-#   city.update(age_average: row['average_age_population'].to_i)
-#   # je sauve
-#   city.save!
-# end
-
-
-
-# p "Commodities seeds incoming"
-# # Ouvrir le fichier commerces.csv
-# csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-# filepath    = 'db/fixtures/commerces.csv'
-
-# # Pour chaque ligne du fichier
-# CSV.foreach(filepath, csv_options) do |row|
-#   # je prends le geocode
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-#   # # je regarde s'il commence par 22, 29, 35, 56
-
-#   next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
-
-#   # Je retrouve la ville en DB avec le meme nom
-#   # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
-#   city = City.find_or_initialize_by(geocode: geocode)
-
-#   # je compte le nombre de commerces
-#   commodity_count = 0
-#   supermarket = false
-
-#   commodity_count = row['handiwork'].to_i + row['grocery'].to_i + row['bakery'].to_i\
-#                     + row['butchery'].to_i + row['frozen'].to_i + row['fish_market'].to_i\
-#                     + row['bookstore'].to_i + row['clothe'].to_i + row['appliance'].to_i\
-#                     + row['shoestore'].to_i + row['it'].to_i + row['furniture'].to_i\
-#                     + row['sport'].to_i + row['house'].to_i + row['hardware'].to_i\
-#                     + row['cosmetic'].to_i + row['jewellery'].to_i + row['plant'].to_i\
-#                     + row['optic'].to_i + row['medical_store'].to_i
-
-
-#   supermarket_count = row['supermarket'].to_i + row['hypermarket'].to_i + row['store'].to_i
-#   supermarket = true if supermarket_count > 0
-
-#   # je mets à jour ma ville en db avec la population du csv
-#   city.update(name: row['city_name'], commodity_count: commodity_count, supermarket: supermarket)
-#   # je sauve
-#   city.save!
-# end
-
-
-
-# p "Primary and secondary schools seeds incoming"
-# csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
-# filepath    = 'db/fixtures/ecoles.csv'
-
-# CSV.foreach(filepath, csv_options) do |row|
-#   geocode = row['geocode']
-#   department_code = [22, 29, 35, 56]
-#   next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
-#   city = City.find_or_initialize_by(geocode: geocode)
-#   city.update(name: row['city_name'])
-
-#   primary_school = (row['code_nature'] == "151" || row['code_nature'] == "101")
-#   city.update(primary_school: true) if primary_school
-
-#   secondary_school = (row['code_nature'] == "340" ||
-#                       row['code_nature'] == "300" ||
-#                       row['code_nature'] == "320" ||
-#                       row['code_nature'] == "302" ||
-#                       row['code_nature'] == "306" ||
-#                       row['code_nature'] == "315" ||
-#                       row['code_nature'] == "334" ||
-#                       row['code_nature'] == "390")
-#   city.update(secondary_school: true) if secondary_school
-
-#   city.save!
-# end
-
-
-p "Price market seeds incoming"
-csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
-filepath    = 'db/fixtures/valeurs_foncieres_Bretagne_2020.csv'
-
-cities =[]
-
-cities_houses = []
-cities_apartments = []
-cities_lands = []
-
+p "Latitude & Longitude seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/communes-coords-gps.csv'
 CSV.foreach(filepath, csv_options) do |row|
-  file_dpt_code = row['Code departement']
-  file_city_name = row['Commune']
-
+  geocode = row['geocode']
   department_code = [22, 29, 35, 56]
-  next unless (department_code.include?(file_dpt_code.to_i) && @city_name_population.include?(file_city_name))
-  next unless (row['No_disposition'] = 1)
-  # next unless (row['Type_local'] = "Appartement" || row['Type_local'] = "Maison" || row['Type_local'] = "")
-  # next unless (row['Nature_mutation'] = "Vente" || row['Nature_mutation'] = "Vente en l'etat futur d'achevement" || row['Nature_mutation'] = "Vente terrain a batir")
-
-  # if row['Type_local'] == "Appartement"
-  #   if row['Nature_mutation'] == "Vente" || row['Nature_mutation'] == "Vente en l'etat futur d'achevement"
-  #       apartment = Hash.new
-  #       apartment["city_department"] = file_dpt_code
-  #       apartment["city_name"] = file_city_name
-  #       apartment["surface"] = row['Surface_reelle_bati']
-  #       apartment["price"] = row['Valeur_fonciere']
-  #       cities_apartments << apartment
-  #   end
-  # end
-
-  # if row['Type_local'] == "Maison"
-  #   if row['Nature_mutation'] == "Vente" || row['Nature_mutation'] == "Vente en l'etat futur d'achevement"
-  #       house = Hash.new
-  #       house["city_department"] = file_dpt_code
-  #       house["city_name"] = file_city_name
-  #       house["surface"] = row['Surface_reelle_bati']
-  #       house["price"] = row['Valeur_fonciere']
-  #       cities_houses << house
-  #   end
-  # end
-
-  if row['Nature_mutation'] == "Vente terrain a batir"
-    # if row['Type_local'] == ""
-      if row['Nature culture'] = "AB"
-        land = Hash.new
-        land["city_department"] = file_dpt_code
-        land["city_name"] = file_city_name
-        land["surface"] = row['Surface_terrain']
-        land["price"] = row['Valeur_fonciere']
-        cities_lands << land
-      end
-    # end
-  end
-
-
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], latitude: row['latitude'], longitude: row['longitude'])
+  city.save!
 end
 
-p cities_lands
 
-  # cities = City.all
-  # cities.each do |city|
-  # if city.population <= 10000
-  #   city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
-  #   city.save!
-  # elsif (city.population > 10000 && city.population <= 100000)
-  #   city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
-  #   city.save!
-  # elsif city.population > 100000
-  #   city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
-  #   city.save!
-  # end
+p "Network seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/couverture-4G.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], network: row['4G_rate'])
+  city.save!
+end
 
 
+p "Fibre seeds incoming"
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath = 'db/fixtures/couverture-fibre.csv'
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode)
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'], fibre: row['fibre_rate'])
+  city.save!
+end
+
+
+p "Medical services seeds incoming"
+# Ouvrir le fichier service-medicaux.csv
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath    = 'db/fixtures/service-medicaux.csv'
+
+# Pour chaque ligne du fichier
+CSV.foreach(filepath, csv_options) do |row|
+  # je prends le geocode
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  # # je regarde s'il commence par 22, 29, 35, 56
+  next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
+
+  # Je retrouve la ville en DB avec le meme nom
+  # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
+  city = City.find_or_initialize_by(geocode: geocode)
+  # je mets à jour ma ville en db avec la population du csv
+  doctor = false
+  city_doctor = row['doctor'].to_i
+  doctor = true if city_doctor > 0
+  city.update(name: row['city_name'], doctor: doctor)
+  # je sauve
+  city.save!
+end
+
+
+
+
+p "Population average age seeds incoming"
+# Ouvrir le fichier Age-moyen-population.csv
+csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
+filepath    = 'db/fixtures/Age-moyen-population.csv'
+
+# Pour chaque ligne du fichier
+CSV.foreach(filepath, csv_options) do |row|
+  # je prends le geocode
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+
+  # je regarde s'il commence par 22, 29, 35, 56
+  next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
+
+  # Je retrouve la ville en DB avec le meme nom
+  # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
+  city = City.find_or_initialize_by(geocode: geocode)
+  # je mets à jour ma ville en db avec la population du csv
+  city.update(age_average: row['average_age_population'].to_i)
+  # je sauve
+  city.save!
+end
+
+
+
+p "Commodities seeds incoming"
+# Ouvrir le fichier commerces.csv
+csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
+filepath    = 'db/fixtures/commerces.csv'
+
+# Pour chaque ligne du fichier
+CSV.foreach(filepath, csv_options) do |row|
+  # je prends le geocode
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  # # je regarde s'il commence par 22, 29, 35, 56
+
+  next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
+
+  # Je retrouve la ville en DB avec le meme nom
+  # Si il n'y en a pas, je crée une nouvelle ville avec ce nom
+  city = City.find_or_initialize_by(geocode: geocode)
+
+  # je compte le nombre de commerces
+  commodity_count = 0
+  supermarket = false
+
+  commodity_count = row['handiwork'].to_i + row['grocery'].to_i + row['bakery'].to_i\
+                    + row['butchery'].to_i + row['frozen'].to_i + row['fish_market'].to_i\
+                    + row['bookstore'].to_i + row['clothe'].to_i + row['appliance'].to_i\
+                    + row['shoestore'].to_i + row['it'].to_i + row['furniture'].to_i\
+                    + row['sport'].to_i + row['house'].to_i + row['hardware'].to_i\
+                    + row['cosmetic'].to_i + row['jewellery'].to_i + row['plant'].to_i\
+                    + row['optic'].to_i + row['medical_store'].to_i
+
+
+  supermarket_count = row['supermarket'].to_i + row['hypermarket'].to_i + row['store'].to_i
+  supermarket = true if supermarket_count > 0
+
+  # je mets à jour ma ville en db avec la population du csv
+  city.update(name: row['city_name'], commodity_count: commodity_count, supermarket: supermarket)
+  # je sauve
+  city.save!
+end
+
+
+
+p "Primary and secondary schools seeds incoming"
+csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
+filepath    = 'db/fixtures/ecoles.csv'
+
+CSV.foreach(filepath, csv_options) do |row|
+  geocode = row['geocode']
+  department_code = [22, 29, 35, 56]
+  next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
+  city = City.find_or_initialize_by(geocode: geocode)
+  city.update(name: row['city_name'])
+
+  primary_school = (row['code_nature'] == "151" || row['code_nature'] == "101")
+  city.update(primary_school: true) if primary_school
+
+  secondary_school = (row['code_nature'] == "340" ||
+                      row['code_nature'] == "300" ||
+                      row['code_nature'] == "320" ||
+                      row['code_nature'] == "302" ||
+                      row['code_nature'] == "306" ||
+                      row['code_nature'] == "315" ||
+                      row['code_nature'] == "334" ||
+                      row['code_nature'] == "390")
+  city.update(secondary_school: true) if secondary_school
+
+  city.save!
+end
+
+p "Price market seeds incoming"
+  cities = City.all
+  cities.each do |city|
+    if city.population <= 10000
+      city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
+      city.save!
+    elsif (city.population > 10000 && city.population <= 100000)
+      city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
+      city.save!
+    elsif city.population > 100000
+      city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
+      city.save!
+    end
+  end
 
 
 

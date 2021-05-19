@@ -5,8 +5,8 @@
   <div class="home-form">
     <div class="form-wrap">
       <h2>Toutes les informations à portée de clics pour vous installer dans votre endroit rêvé</h2>
-      <div class="field-wrapper">
         <%= form_tag cities_path, method: :get do %>
+      <div class="field-wrapper">
         <div class="d-flex align-items-center justify-content-between">
           <%= text_field_tag "location[name]", nil, required: true,
            placeholder: "Recherchez une ville bretonne" %>

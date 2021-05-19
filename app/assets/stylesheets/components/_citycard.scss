@@ -29,6 +29,56 @@
     top: 20px;
     left: 34px;
     font-size: 32px;
+
+    &:hover {
+      transition:.3s;
+      cursor:pointer;
+      transform: scale(1.10);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .fa-clipboard {
+    color: $white;
+    position: absolute;
+    top: 20px;
+    left: 90px;
+    font-size: 32px;
+    z-index: 400;
+
+    &:hover {
+      transition:.3s;
+      cursor:pointer;
+      transform: scale(1.10);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+  }
+
+  .fa-clipboard-check {
+    color: $white;
+    position: absolute;
+    top: 20px;
+    left: 90px;
+    font-size: 32px;
+    z-index: 400;
+
+    &:hover {
+      transition:.3s;
+      transform: scale(1.10);
+      cursor:pointer;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
   }
 
    .fa-times {
@@ -38,6 +88,14 @@
     right: 34px;
     font-size: 32px;
     z-index: 400;
+    opacity:.5;
+
+    &:hover {
+      cursor:pointer;
+      opacity:1;
+      transition:.3s;
+      transform: scale(1.20)
+    }
   }
 
   .favorite-percent {

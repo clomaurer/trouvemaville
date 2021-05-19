@@ -14,5 +14,34 @@
 }
 
 .marker  {
+  opacity:1;
+  //animation-fill-mode:forwards !important;
  cursor: pointer;
+
+  &:hover {
+    //width:32px !important;
+  }
  }
+
+
+@for $i from 1 through 100 {
+  .marker#{$i} {
+    opacity:0;
+    animation: fadeIn .5s ease-in-out;
+    animation-fill-mode:forwards;
+    animation-delay:#{$i / 8}s ;
+  }
+}
+
+
+
+@keyframes fadeIn {
+  0% {
+    top:-100px;
+    opacity:0;
+  }
+  100% {
+    top:0px;
+    opacity:1;
+  }
+}

@@ -15,26 +15,38 @@
 
 .checkboxes {
   display: inline-block;
+  margin-left: 30px;
+
 }
 
-// input[type="checkbox"] {
-//   position: absolute;
-//   transform: scale(0);
-// }
+input[type="checkbox"] {
+  position: absolute;
+  transform: scale(0);
+}
 
-// input[type="checkbox"] + label {
-//   cursor: pointer;
-//   font-size: 0.7rem;
-//   border-radius: 6px;
-//   padding: 0.1rem 0.5rem;
-//   background-color: $white;
-//   color: $grey-lavender;
-//   border: 1px solid $grey-lavender;
-//   margin-right: 0.6rem;
-//   margin-bottom: 0.4rem;
-// }
 
-// input[type="checkbox"]:checked + label {
-//   background-color: $grey-lavender;
-//   color: $white;
-// }
+input[type="checkbox"] + label {
+  cursor: pointer;
+  font-size: 0.7rem;
+  border-radius: 6px;
+  padding: 0.1rem 0.5rem;
+  background-color: $white;
+  color: $grey-lavender;
+  border: 1px solid $grey-lavender;
+  margin-right: 0.6rem;
+  margin-bottom: 0.4rem;
+
+  &:hover {
+    transform: scale(1.07)
+  }
+
+  &:active {
+    transform: scale(1.05);
+  }
+
+}
+
+input[type="checkbox"]:checked + label {
+  background-color: $grey-lavender;
+  color: $white;
+}

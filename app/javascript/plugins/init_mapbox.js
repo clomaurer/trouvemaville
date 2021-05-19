@@ -8,6 +8,7 @@ const buildMap = (mapElement) => {
   });
 };
 
+let markerCount = 1;
 
 const addMarkersToMap = (map, markers) => {
 
@@ -15,6 +16,9 @@ const addMarkersToMap = (map, markers) => {
 
   const firstElement = document.createElement('div');
   firstElement.className = 'marker';
+  // add an ID
+  //firstElement.className = 'marker';
+
   firstElement.style.backgroundImage = `url('${firstMarker.image_url}')`;
   firstElement.style.backgroundSize = 'contain';
   firstElement.style.backgroundRepeat = 'no-repeat';
@@ -32,7 +36,7 @@ const addMarkersToMap = (map, markers) => {
   markers.slice(1, -1).forEach((marker) => {
 
     const element = document.createElement('div');
-    element.className = 'marker';
+    element.className = `marker marker${markerCount}`;
     element.style.backgroundImage = `url('${marker.image_url}')`;
     element.style.backgroundSize = 'contain';
     element.style.backgroundRepeat = 'no-repeat';
@@ -42,6 +46,8 @@ const addMarkersToMap = (map, markers) => {
     element.dataset.action = 'click->city#show';
     element.dataset.cityTarget= 'marker';
     element.dataset.id = marker.id;
+
+    markerCount ++;
 
     new mapboxgl.Marker(element)
       .setLngLat([ marker.lng, marker.lat ])

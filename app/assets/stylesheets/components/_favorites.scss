@@ -6,3 +6,27 @@
 .favorite_card {
 
 }
+
+.search-card {
+    margin: 30px auto;
+    width: 85%;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.07) -4px 9px 25px -6px;
+    background-color: #FFFFFF;
+    padding: 0px;
+    border-radius: $border-radius;
+    overflow:hidden;
+    font-size:14px;
+    color:$light-grey;
+    transition:1s;
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.15) -4px 9px 45px -6px;
+      transition:1s;
+    }
+}
+
+.search-criteria {
+  justify-items: center;
+  display: flex;
+  align-items: left;
+}

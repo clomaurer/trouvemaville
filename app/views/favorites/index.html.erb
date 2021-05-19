@@ -1,42 +1,69 @@
-<h1 class="text-center">Vos villes favorites</h1>
+<h1 class="text-center">Vos favoris</h1>
 
 <div class="favorite_index">
 
-  <ul>
-    <% @favorites.each do |search, fav_cities| %>
-      <div class="search-card" data-controller="search">
+<div class=favorite-container>
 
-      <%= form_with model: search do |f| %>
-        <%= f.text_field :start_city, "data-search-target": "startCity" %>
-            <%= f.number_field :max_distance_km, "data-search-target": "maxDistanceKm" %> km
+      <% @favorites.each do |search, fav_cities| %>
+        <div class="search-card" data-controller="search">
 
-            Nb d'habitants max <%= f.number_field :max_population, "data-search-target": "maxPopulation" %>
-            Age moyen max <%= f.number_field :age_average, "data-search-target": "maxAgeAverage" %>
 
-          <div>
-            <%= f.check_box :supermarket, "data-search-target": "supermarket" %> Supermarchés
-            <%= f.check_box :fibre, "data-search-target": "fibre" %> Fibre
-            <%= f.check_box :doctor, "data-search-target": "doctor" %> Médecin
-            <%= f.check_box :secondary_school, "data-search-target": "secondarySchool" %> Enseignement secondaire
-            <%= f.check_box :primary_school, "data-search-target": "primarySchool" %> Ecole primaire
-            <%= f.check_box :network, "data-search-target": "network" %> 4G
-            <%= f.check_box :commodity, "data-search-target": "commodity" %> Commerces
-           <% end %>
+          <div class="search criteria">
+          <%= form_with model: search do |f| %>
+          <%= f.text_field :start_city, "data-search-target": "startCity" %>
+              <%= f.number_field :max_distance_km, "data-search-target": "maxDistanceKm" %> km
+
+              <p> Nb d'habitants max <%= f.number_field :max_population, "data-search-target": "maxPopulation" %></p>
+              <p> Age moyen max <%= f.number_field :age_average, "data-search-target": "maxAgeAverage" %></p>
           </div>
-        <div class="btn" data-action="click->search#navigate">
-          Rechercher sur ces critères
+
+              <div class="checkboxes pt-3">
+
+                <%= check_box_tag "supermarket", 1, params[:supermarket].present?%>
+                <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
+
+                <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %>
+                <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
+
+                <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %>
+                <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+
+                <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %>
+                <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
+
+                <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %>
+                <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
+
+                <%= check_box_tag "network", 1, (:checked if params[:network].present?) %>
+                <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
+
+                <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %>
+                <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
+              </div>
+
+              <div class="btn" data-action="click->search#navigate">
+                Rechercher à nouveau
+              </div>
+              <%= link_to "Supprimer", saved_search_path(search), method: :delete, data: { confirm: "Supprimer ?" } %>
         </div>
-        <%= link_to "Supprimer", saved_search_path(search), method: :delete, data: { confirm: "Supprimer ?" } %>
-        </div>
-      <% fav_cities.each do |fav_city| %>
-        <div class="favorite_card">
-          <li><%= link_to city_path(fav_city.city) do%>
-              <%= fav_city.city.name %>
-            <% end %>
-          </li>
-        </div>
+
+        <% fav_cities.each do |fav_city| %>
+          <div class="favorite_card">
+            <div class="fav_city_photo" style="background-image: linear-gradient(3.25deg, #788EC7 38.16%, rgba(255, 255, 255, 0) 131.88%), url(<%= fav_city.city.photo %>)">
+            <%= link_to city_path(fav_city.city) do%>
+                <%= fav_city.city.name %>
+                <% end %>
+            </div>
+
+          </div>
+        <% end %>
       <% end %>
-    <% end %>
-  </ul>
+      <% end %>
+
+
 </div>
+</div>
+
+
+
 

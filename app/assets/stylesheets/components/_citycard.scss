@@ -118,20 +118,26 @@
     }
 
   .city_show_content {
-    padding: 36px;
+    padding: 20px 32px;
 
     p {
       color: $black-blue;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 21px;
       text-align: left;
     }
+
   .city_description {
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
+
+  }
+
+  .wiki_link {
+    text-align: right;
   }
 
   }
@@ -155,6 +161,7 @@
       margin-top: 8px;
     }
   }
+
 
   .city_filters {
     display: flex;

@@ -43,6 +43,10 @@
       <div class="city_description">
         <p><%= @city.description %></p>
       </div>
+      <div class="wiki_link">
+        <% city_wiki_url = "https://fr.wikipedia.org/wiki/#{@city.name}" %>
+        <%= link_to "Plus de description...", city_wiki_url, target: "_blank" %>
+      </div>
     <div class="city_main_filters">
       <!-- Set commodity criteria color depending on user selection and city match values -->
         <div class="market-price">

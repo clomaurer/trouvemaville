@@ -106,8 +106,6 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 
-
-
 p "Population average age seeds incoming"
 # Ouvrir le fichier Age-moyen-population.csv
 csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
@@ -179,7 +177,6 @@ p "Primary and secondary schools seeds incoming"
 csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
 filepath    = 'db/fixtures/ecoles.csv'
 
-
 # Pour chaque ligne du fichier
 CSV.foreach(filepath, csv_options) do |row|
 
@@ -205,7 +202,8 @@ CSV.foreach(filepath, csv_options) do |row|
   city.save!
 end
 
-p "Price market seeds incoming"
+
+p "Fake market price seeds incoming"
   cities = City.all
   cities.each do |city|
     if city.population <= 10000
@@ -221,71 +219,6 @@ p "Price market seeds incoming"
   end
 
 
-  # je compte le nombre de commerces
-  commodity_count = 0
-  supermarket = false
-
-  commodity_count = row['handiwork'].to_i + row['grocery'].to_i + row['bakery'].to_i\
-                    + row['butchery'].to_i + row['frozen'].to_i + row['fish_market'].to_i\
-                    + row['bookstore'].to_i + row['clothe'].to_i + row['appliance'].to_i\
-                    + row['shoestore'].to_i + row['it'].to_i + row['furniture'].to_i\
-                    + row['sport'].to_i + row['house'].to_i + row['hardware'].to_i\
-                    + row['cosmetic'].to_i + row['jewellery'].to_i + row['plant'].to_i\
-                    + row['optic'].to_i + row['medical_store'].to_i
-
-
-  supermarket_count = row['supermarket'].to_i + row['hypermarket'].to_i + row['store'].to_i
-  supermarket = true if supermarket_count > 0
-
-  # je mets à jour ma ville en db avec la population du csv
-  city.update(name: row['city_name'], commodity_count: commodity_count, supermarket: supermarket)
-  # je sauve
-  city.save!
-end
-
-
-
-p "Primary and secondary schools seeds incoming"
-csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
-filepath    = 'db/fixtures/ecoles.csv'
-
-CSV.foreach(filepath, csv_options) do |row|
-  geocode = row['geocode']
-  department_code = [22, 29, 35, 56]
-  next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
-  city = City.find_or_initialize_by(geocode: geocode)
-  city.update(name: row['city_name'])
-
-  primary_school = (row['code_nature'] == "151" || row['code_nature'] == "101")
-  city.update(primary_school: true) if primary_school
-
-  secondary_school = (row['code_nature'] == "340" ||
-                      row['code_nature'] == "300" ||
-                      row['code_nature'] == "320" ||
-                      row['code_nature'] == "302" ||
-                      row['code_nature'] == "306" ||
-                      row['code_nature'] == "315" ||
-                      row['code_nature'] == "334" ||
-                      row['code_nature'] == "390")
-  city.update(secondary_school: true) if secondary_school
-
-  city.save!
-end
-
-p "Market price seeds incoming"
-  cities = City.all
-  cities.each do |city|
-    if city.population <= 10000
-      city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
-      city.save!
-    elsif (city.population > 10000 && city.population <= 100000)
-      city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
-      city.save!
-    elsif city.population > 100000
-      city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
-      city.save!
-    end
-  end
 
 p "Description and photos seeds incoming"
 cities = City.all

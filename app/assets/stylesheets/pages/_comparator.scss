@@ -1,0 +1,56 @@
+.comparator-wrapper {
+  display: flex;
+  background:$white;
+  width:85%;
+  margin:0 auto;
+
+  .legend {
+    font-weight: 500;
+    font-size: 14px;
+    color: $black-blue;
+    text-align: left;
+
+    .features {
+      padding-left:24px;
+      margin-top: 33px;
+    }
+  }
+
+  .hiding {
+    background:#EFF6FC;
+    height:100px;
+    width:100%;
+  }
+
+  .compared-city {
+
+    padding:0 24px 0 24px;
+    border-left:1px solid $light-blue;
+    text-align: center;
+    width:25%;
+    font-weight: 500;
+    font-size: 14px;
+    color: $black-blue;
+
+    .compared-city-header {
+      padding:24px 0;
+
+        h2 {
+        font-family: Montserrat;
+        font-weight: 700;
+        font-size: 36px;
+        line-height: 44px;
+        color: $blue-lavender;
+      }
+
+      p {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 17px;
+        letter-spacing: 0.07em;
+        color: $blue-lavender;
+        opacity: 0.7;
+      }
+    }
+  }
+}

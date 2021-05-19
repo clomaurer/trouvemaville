@@ -10,11 +10,11 @@ class CitiesController < ApplicationController
 
     @markers = @cities.map do |city|
       if rating(city) >= 75
-        image_url = helpers.asset_url('green-marker.png')
+        image_url = helpers.asset_url('green-marker.svg')
       elsif rating(city) >= 50
-        image_url = helpers.asset_url('orange-marker.png')
+        image_url = helpers.asset_url('orange-marker.svg')
       elsif rating(city) < 50
-        image_url = helpers.asset_url('red-marker.png')
+        image_url = helpers.asset_url('red-marker.svg')
       end
       {
         lat: city.latitude,

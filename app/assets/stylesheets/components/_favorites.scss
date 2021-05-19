@@ -1,32 +1,48 @@
-.favorite_index {
+
+.favorite-card {
   display: flex;
-}
+  text-align: center;
+  width: 50%;
+  background-color: $white;
+  border-radius : 10px;
+  overflow: hidden;
+  flex-direction: column;
+  box-shadow: 0px 4px 34px rgba(0, 0, 0, 0.13);
 
-
-.favorite_card {
-
-}
-
-.search-card {
-    margin: 30px auto;
-    width: 85%;
-    text-align: center;
-    box-shadow: rgba(0, 0, 0, 0.07) -4px 9px 25px -6px;
-    background-color: #FFFFFF;
-    padding: 0px;
-    border-radius: $border-radius;
-    overflow:hidden;
-    font-size:14px;
-    color:$light-grey;
-    transition:1s;
-    &:hover {
-      box-shadow: rgba(0, 0, 0, 0.15) -4px 9px 45px -6px;
-      transition:1s;
+    p {
+      color: $white;
     }
 }
 
-.search-criteria {
-  justify-items: center;
+
+.favorite-container {
+  justify-content: space-around;
+  background-color: rgba(255,255,255,0.85);
+  padding: 24px 30px 16px 30px;
+  margin: 0px 24px;
+  margin-top: 30px;
+  border-radius:6px;
+  box-shadow: rgba(0, 0, 0, 0.07) -4px 9px 25px -6px;
+  align-items: center;
+  font-size: 14px;
+  color: $grey-lavender;
+  z-index:1;
+
+  .search-bar-main-criterias {
+    display:flex;
+    margin-top:16px;
+    div {
+      margin-right:32px;
+    }
+  }
+  .search-input {
+    flex:3;
+  }
+  .checkboxes {
+    flex:2;
+  }
+}
+
+.favorite-city {
   display: flex;
-  align-items: left;
 }

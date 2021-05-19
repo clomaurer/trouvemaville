@@ -2,20 +2,30 @@
 
 <div class="favorite_index">
 
-<div class=favorite-container>
 
       <% @favorites.each do |search, fav_cities| %>
-        <div class="search-card" data-controller="search">
+        <div class=favorite-container>
+          <div class="search-input">
+            <%= form_tag cities_path, method: :get do %>
+              <%= text_field_tag "location[name]", @city, required: true, placeholder: "Rechercher une ville bretonne" %>
+              <div class="search-bar-main-criterias">
+                <div>
+                A
+                <%= number_field_tag "location[max_distance_km]", @max_distance_km, min: 1, width: 1 %>
+                km
+                </div>
 
+                <div>
+                <%= number_field_tag "max_population", @max_population, min: 1, width: 1 %>
+                habitants maximum
+                </div>
 
-          <div class="search criteria">
-          <%= form_with model: search do |f| %>
-          <%= f.text_field :start_city, "data-search-target": "startCity" %>
-              <%= f.number_field :max_distance_km, "data-search-target": "maxDistanceKm" %> km
-
-              <p> Nb d'habitants max <%= f.number_field :max_population, "data-search-target": "maxPopulation" %></p>
-              <p> Age moyen max <%= f.number_field :age_average, "data-search-target": "maxAgeAverage" %></p>
-          </div>
+                <div>
+                <%= number_field_tag "max_age_average", @max_age_average, min: 18, width: 1 %>
+                d'âge moyen maximum
+                </div>
+              </div>
+              </div>
 
               <div class="checkboxes pt-3">
 
@@ -45,24 +55,23 @@
                 Rechercher à nouveau
               </div>
               <%= link_to "Supprimer", saved_search_path(search), method: :delete, data: { confirm: "Supprimer ?" } %>
-        </div>
 
+      <div class="favorite-city">
         <% fav_cities.each do |fav_city| %>
-          <div class="favorite_card">
+          <div class="favorite-card">
             <div class="fav_city_photo" style="background-image: linear-gradient(3.25deg, #788EC7 38.16%, rgba(255, 255, 255, 0) 131.88%), url(<%= fav_city.city.photo %>)">
             <%= link_to city_path(fav_city.city) do%>
-                <%= fav_city.city.name %>
+                <p> <%= fav_city.city.name %> </p>
                 <% end %>
             </div>
-
           </div>
         <% end %>
+        </div>
+      </div>
+        <% end %>
       <% end %>
-      <% end %>
-
-
 </div>
-</div>
+
 
 
 

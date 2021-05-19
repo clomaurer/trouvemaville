@@ -227,14 +227,67 @@ end
 # end
 
 
+# prices market seeds
+def average_per_department
+  # calcul de la moyenne par departement
+  cities_grouped_array = @sold_objects.group_by {|dpt| dpt["city_department"]}.values
+
+  cities_grouped_array.each do |city_array_of_hashes|
+
+    m2_price = 0
+    m2_price_sum = 0
+    @department_m2_price = 0
+    to_ignore = 0
+
+    city_array_of_hashes.each do |city_hash|
+        @dpt = city_hash["city_department"]
+        # p "Dpt : #{@dpt}"
+
+        # je prends la valeur price
+        price = city_hash["price"]
+        # p "prix : #{price}"
+        # je prends la valeur surface
+        surface = city_hash["surface"]
+        # p "Surface : #{surface}"
+
+        # Je calcul le prix du m2
+        if (!surface.nil? && surface.to_f != 0)
+          if (!price.nil? && price.to_i >= 10000)
+            m2_price = (price.to_f / surface.to_i).round
+          else
+            m2_price = 0
+            to_ignore += 1
+          end
+          # p "prix m2: #{m2_price}"
+        else
+          m2_price = 0
+          to_ignore += 1
+        end
+        # j'ajoute à une somme
+        m2_price_sum += m2_price
+    end
+
+    # je divise la somme par le nb de hash
+    if city_array_of_hashes.count != 0
+      @department_m2_price = (m2_price_sum / (city_array_of_hashes.count - to_ignore)).round
+    else
+      @department_m2_price = 0
+    end
+    p "Market price in #{@dpt} dpt: #{@department_m2_price}€/m2"
+  end
+end
+
+
 def average_per_city
   # calcul de la moyenne par ville
   cities_grouped_array = @sold_objects.group_by {|city| city["city_name"]}.values
 
   cities_grouped_array.each do |city_array_of_hashes|
 
+    m2_price = 0
     m2_price_sum = 0
     @city_m2_price = 0
+    to_ignore = 0
 
     city_array_of_hashes.each do |city_hash|
         @city = city_hash["city_name"]
@@ -243,80 +296,56 @@ def average_per_city
         price = city_hash["price"]
         #je prends la valeur surface
         surface = city_hash["surface"]
+        #je prends le type de bien vendu
+        @sell_type = city_hash["sell_type"]
         #Je calcul le prix du m2
-        if surface.to_i != 0 && surface != ""
-          m2_price = price.to_i / surface.to_i
+
+        if (!surface.nil? && surface.to_f != 0)
+          if (!price.nil? && price.to_i >= 10000)
+            m2_price = (price.to_f / surface.to_i).round
+          else
+            m2_price = 0
+            to_ignore += 1
+          end
+          # p "prix m2: #{m2_price}"
         else
           m2_price = 0
+          to_ignore += 1
         end
-        #j'ajoute à une somme
+        # j'ajoute à une somme
         m2_price_sum += m2_price
-        #je divise la somme par le nb de hash
     end
 
-    if (city_array_of_hashes.count >= 7 && m2_price_sum != 0)
-      @city_m2_price = (m2_price_sum / city_array_of_hashes.count).round
+    #je divise la somme par le nb de hash
+    if (city_array_of_hashes.count >= 5 && m2_price_sum != 0)
+      @city_m2_price = (m2_price_sum / (city_array_of_hashes.count - to_ignore)).round
     else
       @city_m2_price = @department_m2_price
     end
-    p "Market price in #{@city} city: #{@city_m2_price}€/m2"
+    p "#{@sell_type} market price in #{@city} city: #{@city_m2_price}€/m2"
 
-    # p @type_of_sell
-    # if @type_of_sell == "Maison"
-      p @city.capitalize
-      @city_to_update = City.where("name" => @city.capitalize)
-      @city_to_update.update(house_marketprice: @city_m2_price)
-      @city_to_update.save!
-      p "#{@city} updated"
-    # elsif @type_of_sell == "Appartement"
+      # City.each do | city |
+      #   city.name.downcase
+      # end
+
+      # if sell_type == "Maison"
+      # @city_to_update = City.where(name: @city.downcase)
+      # @city_to_update.update(house_marketprice: @city_m2_price)
+      # @city_to_update.save!
+      # p "#{@city} updated"
+
+    # elsif sell_type == "Appartement"
     #   @city_to_update = City.where("name" => @city.capitalize)
     #   @city_to_update.update(flat_marketprice: @city_m2_price)
     #   @city_to_update.save!
-    # elsif @type_of_nature_mutation == "Vente terrain a batir"
+
+    # elsif sell_type == "Vente terrain a batir"
     #   @city_to_update = City.where("name" => @city.capitalize)
     #   @city_to_update.update(land_marketprice: @city_m2_price)
     #   @city_to_update.save!
     # end
   end
 end
-
-
-def average_per_department
-  # calcul de la moyenne par departement
-  cities_grouped_array = @sold_objects.group_by {|dpt| dpt["city_department"]}.values
-
-  cities_grouped_array.each do |city_array_of_hashes|
-
-    m2_price_sum = 0
-    @department_m2_price = 0
-
-    city_array_of_hashes.each do |city_hash|
-        @dpt = city_hash["city_department"]
-
-        #je prends la valeur price
-        price = city_hash["price"]
-        #je prends la valeur surface
-        surface = city_hash["surface"]
-        #Je calcul le prix du m2
-        if surface.to_i != 0 && surface != ""
-          m2_price = price.to_i / surface.to_i
-        else
-          m2_price = 0
-        end
-        #j'ajoute à une somme
-        m2_price_sum += m2_price
-        #je divise la somme par le nb de hash
-    end
-
-    if city_array_of_hashes.count != 0
-      @department_m2_price = (m2_price_sum / city_array_of_hashes.count).round
-    else
-      @department_m2_price = 0
-    end
-    p "Market price in #{@dpt} dpt: #{@department_m2_price}€/m2"
-  end
-end
-
 
 
 p "Price market seeds incoming"
@@ -334,47 +363,50 @@ CSV.foreach(filepath, csv_options) do |row|
   file_city_name = row['Commune']
 
   department_code = [22, 29, 35, 56]
-  next unless (department_code.include?(file_dpt_code.to_i) && @city_name_population.include?(file_city_name))
-  next unless (row['No_disposition'] == "1")
-  next unless (row['Type_local'] == "Appartement" || row['Type_local'] == "Maison" || row['Type_local'] == "")
-  next unless (row['Nature_mutation'] == "Vente" || row['Nature_mutation'] == "Vente en l'etat futur d'achevement" || row['Nature_mutation'] == "Vente terrain a batir")
+  if (department_code.include?(file_dpt_code.to_i) && @city_name_population.include?(file_city_name))
+    if row["No_disposition"] == "1"
 
-  @type_of_sell = row['Type_local']
+      # construction de l'array de hashs pour les apartements
+      if row['Type_local'] == "Appartement"
+        if row['Nature_mutation'] == "Vente" || row['Nature_mutation'] == "Vente en l'etat futur d'achevement"
+            apartment = Hash.new
+            apartment["city_department"] = file_dpt_code
+            apartment["city_name"] = file_city_name
+            apartment["surface"] = row['Surface_reelle_bati']
+            apartment["price"] = row['Valeur_fonciere']
+            apartment["sell_type"] = row['Type_local']
+            @cities_apartments << apartment
+        end
+      end
 
-  # if row['Type_local'] == "Appartement"
-  #   if row['Nature_mutation'] == "Vente" || row['Nature_mutation'] == "Vente en l'etat futur d'achevement"
-  #       apartment = Hash.new
-  #       apartment["city_department"] = file_dpt_code
-  #       apartment["city_name"] = file_city_name
-  #       apartment["surface"] = row['Surface_reelle_bati']
-  #       apartment["price"] = row['Valeur_fonciere']
-  #       @cities_apartments << apartment
-  #   end
-  # end
+      # construction de l'array de hashs pour les maisons
+      if row["Type_local"] == "Maison"
+        if row["Nature_mutation"] == "Vente" || row["Nature_mutation"] == "Vente en l'etat futur d'achevement"
+            house = Hash.new
+            house["city_department"] = file_dpt_code
+            house["city_name"] = file_city_name
+            house["surface"] = row['Surface_reelle_bati']
+            house["price"] = row['Valeur_fonciere']
+            house["sell_type"] = row['Type_local']
+            @cities_houses << house
+        end
+      end
 
-  if row['Type_local'] == "Maison"
-    if row['Nature_mutation'] == "Vente" || row['Nature_mutation'] == "Vente en l'etat futur d'achevement"
-        house = Hash.new
-        house["city_department"] = file_dpt_code
-        house["city_name"] = file_city_name
-        house["surface"] = row['Surface_reelle_bati']
-        house["price"] = row['Valeur_fonciere']
-        @cities_houses << house
+      # construction de l'array de hashs pour les terrains
+      @type_of_nature_mutation = row['Nature_mutation']
+      if row['Nature_mutation'] == "Vente terrain a batir"
+          if row['Nature culture'] = "AB"
+            land = Hash.new
+            land["city_department"] = file_dpt_code
+            land["city_name"] = file_city_name
+            land["surface"] = row['Surface_terrain']
+            land["price"] = row['Valeur_fonciere']
+            land["sell_type"] = row['Nature_mutation']
+            @cities_lands << land
+          end
+      end
     end
   end
-
-  # @type_of_nature_mutation = row['Nature_mutation']
-
-  # if row['Nature_mutation'] == "Vente terrain a batir"
-  #     if row['Nature culture'] = "AB"
-  #       land = Hash.new
-  #       land["city_department"] = file_dpt_code
-  #       land["city_name"] = file_city_name
-  #       land["surface"] = row['Surface_terrain']
-  #       land["price"] = row['Valeur_fonciere']
-  #       @cities_lands << land
-  #     end
-  # end
 end
 
 @sold_objects = @cities_houses
@@ -383,17 +415,17 @@ average_per_department
 p "      Houses market price per city calculation..."
 average_per_city
 
-# @sold_objects = @cities_apartments
-# p "      Apartments market price per department calculation..."
-# average_per_department
-# p "      Apartments market price per city calculation..."
-# average_per_city
+@sold_objects = @cities_apartments
+p "      Apartments market price per department calculation..."
+average_per_department
+p "      Apartments market price per city calculation..."
+average_per_city
 
-# @sold_objects = @lands_apartments
-# p "      Lands market price per department calculation..."
-# average_per_department
-# p "      Lands market price per city calculation..."
-# average_per_city
+@sold_objects = @lands_apartments
+p "      Lands market price per department calculation..."
+average_per_department
+p "      Lands market price per city calculation..."
+average_per_city
 
 
 
@@ -414,18 +446,6 @@ average_per_city
 #       city.save!
 #     end
 #   end
-
-
-
-# @sold_objects = [{"department" => "56", "city" => "Vannes", "surface" => "10", "price" => "20"},
-#   {"department" => "22", "city" => "Lannion", "surface" => "10", "price" => "30"},
-#   {"department" => "22", "city" => "Lannion", "surface" => "10", "price" => "30"},
-#   {"department" => "56", "city" => "Vannes", "surface" => "10", "price" => "20"},
-#   {"department" => "29", "city" => "Brest", "surface" => "10", "price" => "40"},
-#   {"department" => "56", "city" => "Vannes", "surface" => "10", "price" => "20"},
-#   {"department" => "22", "city" => "Lannion", "surface" => "10", "price" => "30"}]
-
-
 
 
 

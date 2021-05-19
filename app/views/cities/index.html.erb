@@ -43,25 +43,8 @@
       <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
 
     </div>
-    <%= submit_tag "Rechercher", class: "btn btn-primary"%>
-    <div class="launch-search">
+    <%= submit_tag "Rechercher", class: "btn btn-primary search-button"%>
   <% end %>
-
-  <%= form_for @saved_search do |f| %>
-    <%= f.hidden_field :start_city, value: @city %>
-    <%= f.hidden_field :max_distance_km, value: @max_distance_km %>
-    <%= f.hidden_field :max_population, value: @max_population %>
-    <%= f.hidden_field :age_average, value: @max_age_average %>
-    <%= f.check_box :supermarket, { checked: params[:supermarket].present?, hidden: true } %>
-    <%= f.check_box :fibre, { checked: params[:fibre].present?, hidden: true } %>
-    <%= f.check_box :doctor, { checked: params[:doctor].present?, hidden: true } %>
-    <%= f.check_box :secondary_school, { checked: params[:secondary_school].present?, hidden: true } %>
-    <%= f.check_box :primary_school, { checked: params[:primary_school].present?, hidden: true } %>
-    <%= f.check_box :network, { checked: params[:network].present?, hidden: true } %>
-    <%= f.check_box :commodity, { checked: params[:commodity].present?, hidden: true } %>
-    <%#= f.submit "Sauvegarder ces critères" %>
-  <% end %>
-  </div>
 </div>
 
 <div id="map"

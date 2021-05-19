@@ -3,73 +3,76 @@
 <div class="favorite_index">
 
 
-      <% @favorites.each do |search, fav_cities| %>
-        <div class=favorite-container>
-          <div class="search-input">
-            <%= form_tag cities_path, method: :get do %>
-              <%= text_field_tag "location[name]", @city, required: true, placeholder: "Rechercher une ville bretonne" %>
-              <div class="search-bar-main-criterias">
-                <div>
-                A
-                <%= number_field_tag "location[max_distance_km]", @max_distance_km, min: 1, width: 1 %>
-                km
-                </div>
+  <% @favorites.each do |search, fav_cities| %>
+    <%= form_with model: search do |f| %>
 
-                <div>
-                <%= number_field_tag "max_population", @max_population, min: 1, width: 1 %>
-                habitants maximum
-                </div>
+      <div class=favorite-container data-controller="search">
+        <%= link_to saved_search_path(search), method: :delete, data: { confirm: "Supprimer ?" }, class:"saved_search_delete" do %>
+          <i class="fas fa-times"></i>
+        <%end%>
 
-                <div>
-                <%= number_field_tag "max_age_average", @max_age_average, min: 18, width: 1 %>
-                d'âge moyen maximum
-                </div>
-              </div>
-              </div>
+        <div class="search-input">
+          <div class="search-bar-main-criterias">
+              <%= f.text_field :start_city, "data-search-target": "startCity" %>
+            <div>
+              A
+              <%= f.number_field :max_distance_km, "data-search-target": "maxDistanceKm", width: 1 %> km
+            </div>
 
-              <div class="checkboxes pt-3">
+            <div>
+              <%= f.number_field :max_population, "data-search-target": "maxPopulation", width: 1 %> habitants maximum
+            </div>
 
-                <%= check_box_tag "supermarket", 1, params[:supermarket].present?%>
-                <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
-
-                <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %>
-                <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
-
-                <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %>
-                <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
-
-                <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %>
-                <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
-
-                <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %>
-                <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
-
-                <%= check_box_tag "network", 1, (:checked if params[:network].present?) %>
-                <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
-
-                <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %>
-                <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
-              </div>
-
-              <div class="btn" data-action="click->search#navigate">
-                Rechercher à nouveau
-              </div>
-              <%= link_to "Supprimer", saved_search_path(search), method: :delete, data: { confirm: "Supprimer ?" } %>
-
-      <div class="favorite-city">
-        <% fav_cities.each do |fav_city| %>
-          <div class="favorite-card">
-            <div class="fav_city_photo" style="background-image: linear-gradient(3.25deg, #788EC7 38.16%, rgba(255, 255, 255, 0) 131.88%), url(<%= fav_city.city.photo %>)">
-            <%= link_to city_path(fav_city.city) do%>
-                <p> <%= fav_city.city.name %> </p>
-                <% end %>
+            <div>
+              <%= f.number_field :age_average, "data-search-target": "maxAgeAverage", width: 1 %> d'âge moyen maximum
             </div>
           </div>
-        <% end %>
+
+          <div class="checkboxes pt-3">
+
+            <%= f.check_box :supermarket, "data-search-target": "supermarket" %>
+            <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
+
+            <%= f.check_box :fibre, "data-search-target": "fibre" %>
+            <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
+
+            <%= f.check_box :doctor, "data-search-target": "doctor" %>
+            <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+
+            <%= f.check_box :secondary_school, "data-search-target": "secondarySchool" %>
+            <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
+
+            <%= f.check_box :primary_school, "data-search-target": "primarySchool"%>
+            <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
+
+            <%= f.check_box :network, "data-search-target": "network" %>
+            <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
+
+            <%= f.check_box :commodity, "data-search-target": "commodity" %>
+            <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
+
+            <div class="btn-icon" data-action="click->search#navigate">
+              <i class="fas fa-search-location"></i>
+            </div>
+
+          </div>
+
+
         </div>
+
+        <div class="fav-city-container">
+          <% fav_cities.each do |fav_city| %>
+            <div class="fav-city-photo" style="background-image: linear-gradient(3.25deg, #788EC7 38.16%, rgba(255, 255, 255, 0) 131.88%), url(<%= fav_city.city.photo %>)">
+              <%#= link_to city_path(fav_city.city) do%>
+                <p> <%= fav_city.city.name %> </p>
+              <%# end %>
+            </div>
+          <% end %>
+        </div>
+
       </div>
-        <% end %>
-      <% end %>
+    <% end %>
+  <% end %>
 </div>
 
 

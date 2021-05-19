@@ -38,6 +38,6 @@ class FavoritesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
-    redirect_to city_path(@city, params.permit!)
+    redirect_to favorites_path
   end
 end

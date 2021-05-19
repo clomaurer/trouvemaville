@@ -16,6 +16,7 @@
     overflow: hidden;
     flex-direction: column;
     box-shadow: 0px 4px 34px rgba(0, 0, 0, 0.13);
+    z-index: 400;
 
   .commodity_count {
     display: flex;
@@ -82,6 +83,8 @@
     justify-content: flex-end;
     border-bottom: 4px solid $light-grey;
     position: relative;
+    background: center;
+    background-repeat: no-repeat;
   }
 
   .city_name_rating {

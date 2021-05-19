@@ -22,12 +22,32 @@
           <p> <%= compared_city.city.population %> habitants</p>
         </div>
         <div class="features">
-          <p> <%= compared_city.city.age_average %></p>
-          <p> <%= compared_city.city.primary_school %></p>
-          <p> <%= compared_city.city.secondary_school %></p>
-          <p> <%= compared_city.city.supermarket %></p>
-          <p> <%= compared_city.city.doctor %></p>
-          <p> <%= compared_city.city.commodity_count %></p>
+          <p><%= compared_city.city.age_average %></p>
+          <% if compared_city.city.primary_school %>
+            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+          <% else %>
+            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
+          <% end %>
+          <% if compared_city.city.secondary_school %>
+            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+          <% else %>
+            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
+          <% end %>
+          <% if compared_city.city.supermarket %>
+            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+          <% else %>
+            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
+          <% end %>
+          <% if compared_city.city.doctor %>
+            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+          <% else %>
+            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
+          <% end %>
+          <% if compared_city.city.commodity_count %>
+            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+          <% else %>
+            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
+          <% end %>
           <p> <%= compared_city.city.fibre %>%</p>
           <p> <%= compared_city.city.network %>%</p>
         </div>
@@ -41,3 +61,9 @@
 
 
 </div>
+
+<i class="fas fa-times-circle"></i>
+<i class="fas fa-check-circle"></i>
+
+<span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span>
+<span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span>

@@ -9,15 +9,13 @@ class CitiesController < ApplicationController
     @cities = apply_scopes(City).all
 
     @markers = @cities.map do |city|
-
-        if rating(city) >= 75
-        image_url = helpers.asset_url('green-marker.png')
-        elsif rating(city) >= 50
-          image_url = helpers.asset_url('orange-marker.png')
-        elsif rating(city) < 50
-          image_url = helpers.asset_url('red-marker.png')
-        end
-
+      if rating(city) >= 75
+        image_url = helpers.asset_url('green-marker.svg')
+      elsif rating(city) >= 50
+        image_url = helpers.asset_url('orange-marker.svg')
+      elsif rating(city) < 50
+        image_url = helpers.asset_url('red-marker.svg')
+      end
       {
         lat: city.latitude,
         lng: city.longitude,
@@ -44,6 +42,7 @@ class CitiesController < ApplicationController
 
   def show
     @city = City.find(params[:id])
+    @is_compared = ComparedCity.find_by(city: @city, comparator: current_user.comparator).present? if current_user
     @is_favorite = FavoriteCity.find_by(user: current_user, city: @city).present? if current_user
     @city_rating = rating(@city)
 

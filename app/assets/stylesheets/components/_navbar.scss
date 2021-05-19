@@ -8,6 +8,14 @@
   border-radius:6px;
   box-shadow: rgba(0, 0, 0, 0.07) -4px 9px 25px -6px;
 
+  .nav-item {
+    display:flex;
+    }
+
+  .id_photo {
+    justify-content: center;
+  }
+
   .fas {
     color:$our-orange;
   }
@@ -16,7 +24,8 @@
     font-size: 14px;
     font-family: 'Montserrat';
     font-weight: 800;
-    color:$black-blue;
+    color:$blue-lavender;
+    margin-left: 12px;
   }
 
   .nav-link {
@@ -52,3 +61,10 @@
   display: flex;
 }
 
+.logo {
+  color:$black-blue;
+ }
+
+ .navbar-brand {
+  align-items: center;
+ }

@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :favorite_cities
   has_many :saved_searches, through: :favorite_cities
+  has_one :comparator
 end

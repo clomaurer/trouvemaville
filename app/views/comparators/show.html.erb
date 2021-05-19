@@ -1,0 +1,19 @@
+<% @compared_cities.each do |compared_city| %>
+  <h1><%= compared_city.city.name %></h1>
+  <div class="features">
+    <h3>Caractéristiques</h3>
+    <p>Age moyen <%= compared_city.city.age_average %></p>
+    <p>Population <%= compared_city.city.population %></p>
+  </div>
+  <div class="services">
+    <h3>Services</h3>
+    <p>Ecole primaire <%= compared_city.city.primary_school %></p>
+    <p>Enseignement secondaire <%= compared_city.city.secondary_school %></p>
+    <p>Supermarchés <%= compared_city.city.supermarket %></p>
+    <p>Médecins <%= compared_city.city.doctor %></p>
+    <p>Fibre <%= compared_city.city.fibre %>%</p>
+    <p>Commerces <%= compared_city.city.commodity_count %></p>
+    <p>4G <%= compared_city.city.network %>%</p>
+  </div>
+  <%= link_to "Supprimer", compared_city_path(compared_city), method: :delete, data: { confirm: "Supprimer ?" } %>
+<% end %>

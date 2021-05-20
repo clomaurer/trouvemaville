@@ -44,7 +44,6 @@
   }
 
   .compared-city {
-
     border-left:1px solid lighten($light-blue, 18);
     text-align: center;
     width:100%;
@@ -54,6 +53,8 @@
     position: relative;
 
     .compared-city-header {
+      background-size: cover;
+      background-position: center;
       padding:20px 0;
       background-blend-mode:multiply;
       height:160px;

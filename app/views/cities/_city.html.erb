@@ -2,7 +2,7 @@
   <div class="favorite-percent" data-controller="favorite" data-favorite-url-value="<%= city_favorites_path(@city, params.permit!) %>">
     <% if current_user %>
       <div class="city-card-favorite">
-        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-action="click->favorite#toggle"></i>
+        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-city="<%= @city.id %>" data-action="click->favorite#toggle"></i>
         <span class="city_header_stat" data-favorite-target="span"><%= @is_favorite ? "Retirer des favoris" : "Ajouter aux favoris" %></span>
       </div>
     <% else %>

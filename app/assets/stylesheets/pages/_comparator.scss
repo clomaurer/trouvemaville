@@ -1,56 +1,123 @@
 .comparator-wrapper {
   display: flex;
   background:$white;
-  width:85%;
-  margin:0 auto;
+  width:75%;
+  margin:60px auto;
+  border-radius : 10px;
+  font-size:18px;
+  p {
+    padding: 24px 0px;
+    margin:0;
+    height:70px;
+    opacity:.65 ;
+
+    &:hover {
+      opacity:1;
+      transition:.3s;
+    }
+    &:nth-child(2n) {
+      background-color:lighten($light-blue, 22);
+    }
+  }
 
   .legend {
     font-weight: 500;
-    font-size: 14px;
+
     color: $black-blue;
     text-align: left;
 
     .features {
-      padding-left:24px;
-      margin-top: 33px;
+      border-radius: 10px 0px 0px 0px;
+      width: 272px;
+      p {
+        padding-left: 24px;
+        opacity:.7;
+        font-weight:700;
+      }
     }
   }
 
   .hiding {
     background:#EFF6FC;
-    height:100px;
+    height:160px;
     width:100%;
   }
 
   .compared-city {
 
-    padding:0 24px 0 24px;
-    border-left:1px solid $light-blue;
+    border-left:1px solid lighten($light-blue, 18);
     text-align: center;
-    width:25%;
-    font-weight: 500;
-    font-size: 14px;
+    width:100%;
+    font-weight: 700;
+    font-size:18px;
     color: $black-blue;
+    position: relative;
 
     .compared-city-header {
-      padding:24px 0;
-
-        h2 {
+      padding:20px 0;
+      background-blend-mode:multiply;
+      height:160px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      h2 {
         font-family: Montserrat;
         font-weight: 700;
-        font-size: 36px;
+        font-size: 28px;
         line-height: 44px;
-        color: $blue-lavender;
+        color: $white;
+        margin-bottom: -4px;
       }
 
       p {
+        font-family: Inter;
         font-weight: 500;
         font-size: 14px;
-        line-height: 17px;
+        align-items: center;
         letter-spacing: 0.07em;
-        color: $blue-lavender;
+        color: $white;
         opacity: 0.7;
+        margin:0;
+
+      }
+    }
+
+    .compared-city-stat {
+      background:none;
+      padding:0;
+      height:fit-content;
+    }
+
+    .comparator-underline {
+      height:6px;
+      width:48px;
+      margin:0 auto;
+      color:$grey-lavender;
+      opacity:.4;
+      font-size: 20px;
+    }
+
+    .fa-check-circle {
+      font-size:24px;
+    }
+
+    .fa-times {
+      color: $white;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      z-index: 400;
+      opacity:.5;
+
+      &:hover {
+        cursor:pointer;
+        opacity:1;
+        transition:.3s;
+        transform: scale(1.20)
       }
     }
   }
 }
+
+

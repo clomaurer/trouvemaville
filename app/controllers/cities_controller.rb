@@ -47,9 +47,9 @@ class CitiesController < ApplicationController
     @city_rating = rating(@city)
 
     #--------------------                    variables for thresholds                 ---------------------->
-    @network_fibre_threshold = 70       #-- 4G rate at 70% minimum
-    @city_rating_middle_threshold = 75  #-- fibre rate at 75% minimum  -->
-    @commodity_count_threshold = 0      #-- fibre rate at 0 minimum  -->
+    @network_fibre_threshold = City::NETWORK_FIBRE_THRESHOLD #-- 4G rand fibre ate at 70% minimum (see model city.rb)
+    @city_rating_middle_threshold = 75 #-- fibre rate at 75% minimum  -->
+    @commodity_count_threshold = City::COMMODITY_COUNT_THRESHOLD #-- commodity count will be green if > 0 (see model city.rb)-->
     @city_rating_middle_threshold = 75  #-- city rating will be green above or equal to 75% -->
                                         #-- city rating will be orange above or equal to 50% and below 75% -->
     @city_rating_lower_threshold = 50   #-- city rating will be red below 50% -->

@@ -9,3 +9,5 @@ class City < ApplicationRecord
   NETWORK_FIBRE_THRESHOLD = 70
   COMMODITY_COUNT_THRESHOLD = 0
 end
+
+

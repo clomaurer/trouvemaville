@@ -6,3 +6,5 @@ class City < ApplicationRecord
   scope :max_age_average, -> max_age { where("age_average <= ?", max_age) }
   scope :location, -> name, max_distance_km { near(name, max_distance_km) }
 end
+
+

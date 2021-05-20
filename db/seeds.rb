@@ -281,7 +281,6 @@ end
 def average_per_city
   # calcul de la moyenne par ville
   cities_grouped_array = @sold_objects.group_by {|city| city["city_name"]}.values
-
   cities_grouped_array.each do |city_array_of_hashes|
 
     m2_price = 0
@@ -300,8 +299,8 @@ def average_per_city
         @sell_type = city_hash["sell_type"]
         #Je calcul le prix du m2
 
-        if (!surface.nil? && surface.to_f != 0)
-          if (!price.nil? && price.to_i >= 10000 && price.to_i < 1500000)
+        if (surface.present? && surface.to_f != 0)
+          if (price.present? && price.to_i >= 10000 && price.to_i < 1500000)
             m2_price = (price.to_f / surface.to_i).round
           else
             m2_price = 0
@@ -325,21 +324,26 @@ def average_per_city
     p "#{@sell_type} market price in #{@city} city: #{@city_m2_price}€/m2"
 
 
+    # @city == city_name
+    # @city_m2_price == average price
 
     # downcase all cities names in db
-    cities = City.all
-    cities.each do | city |
-      city.name.downcase
-    end
+    # cities = City.all
+    # cities.each do | city |
+    #   city.name.downcase
+    # end
 
     if @sell_type == "Maison"
-      @city_to_update = City.where(name: @city.downcase)
+      @city_to_update = City.where("name ILIKE ?", @city.downcase).first
+
       p "city to update : #{@city_to_update}"
       p "prix m2: #{@city_m2_price}"
 
-      @city_to_update.update(house_marketprice: @city_m2_price)
-      @city_to_update.save!
-      p "#{@@city_to_update} updated"
+      if @city_to_update
+        @city_to_update.house_marketprice = @city_m2_price
+        @city_to_update.save!
+        p "#{@city_to_update} updated"
+      end
 
     # elsif sell_type == "Appartement"
     #   @city_to_update = City.where("name" => @city.capitalize)
@@ -444,20 +448,22 @@ average_per_city
 
 
 
-# p "Fake price market seeds incoming"
-#   cities = City.all
-#   cities.each do |city|
-#     if city.population <= 10000
-#       city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
-#       city.save!
-#     elsif (city.population > 10000 && city.population <= 100000)
-#       city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
-#       city.save!
-#     elsif city.population > 100000
-#       city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
-#       city.save!
-#     end
-#   end
+p "Fake price market seeds incoming"
+cities = City.all
+cities.each do |city|
+  if city.house_marketprice.nil?
+    if city.population <= 10000
+      city.update(house_marketprice: 1600, flat_marketprice: 1400, land_marketprice: 50)
+      city.save!
+    elsif (city.population > 10000 && city.population <= 100000)
+      city.update(house_marketprice: 2800, flat_marketprice: 2000, land_marketprice: 100)
+      city.save!
+    elsif city.population > 100000
+      city.update(house_marketprice: 3500, flat_marketprice: 2200, land_marketprice: 150)
+      city.save!
+    end
+  end
+end
 
 
 

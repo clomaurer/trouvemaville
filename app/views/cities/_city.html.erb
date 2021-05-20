@@ -1,15 +1,22 @@
 <div class="city-card">
   <div class="favorite-percent" data-controller="favorite" data-favorite-url-value="<%= city_favorites_path(@city, params.permit!) %>">
     <% if current_user %>
+      <div class="city-card-favorite">
         <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-action="click->favorite#toggle"></i>
+        <span class="city_header_stat" data-favorite-target="span"><%= @is_favorite ? "Retirer des favoris" : "Ajouter aux favoris" %></span>
+      </div>
     <% else %>
+      <div class="city-card-favorite">
         <%= link_to favorite_path(@city, params.permit!) do%>
         <i class="far fa-star"></i>
+        <span class="city_header_stat">Ajouter aux favoris</span>
+      </div>
       <% end %>
     <% end %>
-    <div data-controller="compared" data-compared-url-value="<%= city_compared_cities_path(@city) %>">
+    <div class="city-card-comparator" data-controller="compared" data-compared-url-value="<%= city_compared_cities_path(@city) %>">
       <% if current_user %>
         <i class="<%= @is_compared ? "fas fa-clipboard-check" : "far fa-clipboard" %>" data-compared-target="clipboard" data-action="click->compared#toggle"></i>
+        <span class="city_header_stat" data-compared-target="span"><%= @is_compared ? "Retirer du comparateur" : "Ajouter au comparateur" %></span>
       <% end %>
     </div>
   </div>
@@ -50,7 +57,7 @@
       </div>
       <div class="wiki_link">
         <% city_wiki_url = "https://fr.wikipedia.org/wiki/#{@city.name}" %>
-        <%= link_to "Plus de description...", city_wiki_url, target: "_blank" %>
+        <%= link_to "En savoir plus...", city_wiki_url, target: "_blank" %>
       </div>
     <div class="city_main_filters">
       <!-- Set commodity criteria color depending on user selection and city match values -->
@@ -61,7 +68,7 @@
 
         <div class="average-age">
           <span class="city_main_filters_titles">Age moyen</span>
-          <span> <%= @city.age_average %></span>
+          <span> <%= @city.age_average %> ans</span>
         </div>
 
       <div class="commodity">
@@ -149,11 +156,11 @@
 
       <% if @primary_school_presence && @city.primary_school %>
         <div class="primary_school">
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Écoles maternelles et primaires </span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Maternelles et primaires </span>
         </div>
       <% elsif @primary_school_presence && @city.primary_school == false %>
         <div class="primary_school">
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Écoles maternelles et primaires </span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Maternelles et primaires </span>
         </div>
       <% end %>
 

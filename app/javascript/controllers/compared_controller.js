@@ -3,7 +3,7 @@ import { csrfToken } from "@rails/ujs"
 
 export default class extends Controller {
 
-  static targets = [ "clipboard" ]
+  static targets = [ "clipboard", "span" ]
   static values = { url: String }
 
 
@@ -20,11 +20,13 @@ export default class extends Controller {
       }
     }).then(reponse => reponse.json()).then(data => {
       if (data.status === "created") {
+        this.spanTarget.innerText = "Retirer du comparateur"
         this.clipboardTarget.classList.add("fas")
         this.clipboardTarget.classList.add("fa-clipboard-check")
         this.clipboardTarget.classList.remove("fa-clipboard")
         this.clipboardTarget.classList.remove("far")
       } else if (data.status === "destroyed") {
+        this.spanTarget.innerText = "Ajouter au comparateur"
         this.clipboardTarget.classList.remove("fas")
         this.clipboardTarget.classList.remove("fa-clipboard-check")
         this.clipboardTarget.classList.add("fa-clipboard")

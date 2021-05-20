@@ -50,7 +50,7 @@
       </div>
       <div class="wiki_link">
         <% city_wiki_url = "https://fr.wikipedia.org/wiki/#{@city.name}" %>
-        <%= link_to "Plus de description...", city_wiki_url, target: "_blank" %>
+        <%= link_to "En savoir plus...", city_wiki_url, target: "_blank" %>
       </div>
     <div class="city_main_filters">
       <!-- Set commodity criteria color depending on user selection and city match values -->
@@ -61,7 +61,7 @@
 
         <div class="average-age">
           <span class="city_main_filters_titles">Age moyen</span>
-          <span> <%= @city.age_average %></span>
+          <span> <%= @city.age_average %> ans</span>
         </div>
 
       <div class="commodity">
@@ -149,11 +149,11 @@
 
       <% if @primary_school_presence && @city.primary_school %>
         <div class="primary_school">
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Écoles maternelles et primaires </span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Maternelles et primaires </span>
         </div>
       <% elsif @primary_school_presence && @city.primary_school == false %>
         <div class="primary_school">
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Écoles maternelles et primaires </span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Maternelles et primaires </span>
         </div>
       <% end %>
 

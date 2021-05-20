@@ -304,7 +304,7 @@
     }
 
     div {
-        margin-top: 16px;
+        margin-top: 8px;
       }
 
       span {
@@ -327,3 +327,15 @@
     opacity:1;
   }
 }
+
+.additionnal_filters {
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  width: 100%;
+  text-align: left;
+  margin-top: 0px;
+}
+
+// .additional_fibre, .additional_network {
+//   margin-left: 5px;
+// }

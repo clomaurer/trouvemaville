@@ -1,7 +1,7 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @favorites = current_user.favorite_cities.group_by { |city| city.saved_search }
+    @favorites = current_user.favorite_cities.order(created_at: :desc).group_by { |city| city.saved_search }
   end
 
   def create

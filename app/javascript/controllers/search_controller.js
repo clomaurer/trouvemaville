@@ -12,12 +12,21 @@ export default class extends Controller {
     "doctor",
     "maxDistanceKm",
     "maxPopulation",
-    "maxAgeAverage"
+    "maxAgeAverage",
+    "favorites"
   ]
   connect() {
+    const query = this.buildQuery()
+    this.favoritesTarget.dataset.query = query
   }
 
   navigate() {
+    const query = this.buildQuery()
+    const url = `/cities${query}`
+    window.location = url
+  }
+
+  buildQuery() {
     const supermarket = this.supermarketTarget.checked ? 'supermarket=1' : ''
 
     const city = `location[name]=${this.startCityTarget.value}`
@@ -36,13 +45,11 @@ export default class extends Controller {
 
     const doctor = this.doctorTarget.checked ? 'doctor=1' : ''
 
-    console.log(this.maxPopulationTarget.values)
-
     const max_population = this.maxPopulationTarget.value === undefined ? '' : `max_population=${this.maxPopulationTarget.value}`
 
     const max_age_average = this.maxAgeAverageTarget.value === undefined ? '' : `max_age_average=${this.maxAgeAverageTarget.value}`
 
-    const url = `/cities?${city}&${maxDisKm}&${com}&${primary}&${secondary}&${fibre}&${network}&${doctor}&${supermarket}&${max_population}&${max_age_average}`
-    window.location = url
+    const query = `?${city}&${maxDisKm}&${com}&${primary}&${secondary}&${fibre}&${network}&${doctor}&${supermarket}&${max_population}&${max_age_average}`
+    return query
   }
 }

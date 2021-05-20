@@ -16,8 +16,9 @@
     justify-content: center;
   }
 
-  .fas {
-    color:$our-orange;
+  .fa-star {
+    color:$blue-lavender;
+
   }
 
   .brand-name {
@@ -28,7 +29,7 @@
     margin-left: 12px;
   }
 
-  .nav-link {
+  .nav-link-favorites {
     font-size:14px;
     color:$black-blue;
     opacity:.7;
@@ -36,11 +37,29 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     transition:.2s;
-    color:$our-orange;
+    color: $blue-lavender;
+    margin-right: 24px;
     &:hover {
       opacity:1;
       transition:.2s;
     }
+  }
+
+   .nav-link-comparator {
+    font-size:14px;
+    color:$black-blue;
+    opacity:.7;
+    transition:.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition:.2s;
+    color: $grey-lavender;
+    margin-right: 24px;
+    &:hover {
+      opacity:1;
+      transition:.2s;
+    }
+
   }
   .user-name {
     color:$black-blue;
@@ -67,4 +86,28 @@
 
  .navbar-brand {
   align-items: center;
+ }
+
+ .search-navbar{
+  display: flex;
+  margin-left: 12px;
+ }
+
+ .searchbar-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: between;
+  width: 300px;
+ }
+
+ .elements-navbar {
+  padding-left: 10px;
+  color: $light-grey;
+ }
+
+ .btn-search {
+  margin-left: 12px !important;
+  background: transparent;
+  border: none;
+  box-shadow: none;
  }

@@ -53,6 +53,7 @@ CSV.foreach(filepath, csv_options) do |row|
 end
 
 
+
 p "Network seeds incoming"
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 filepath = 'db/fixtures/couverture-4G.csv'
@@ -103,8 +104,6 @@ CSV.foreach(filepath, csv_options) do |row|
   # je sauve
   city.save!
 end
-
-
 
 
 p "Population average age seeds incoming"
@@ -178,7 +177,9 @@ p "Primary and secondary schools seeds incoming"
 csv_options = { col_sep: ';', quote_char: '"', headers: :first_row }
 filepath    = 'db/fixtures/ecoles.csv'
 
+# Pour chaque ligne du fichier
 CSV.foreach(filepath, csv_options) do |row|
+
   geocode = row['geocode']
   department_code = [22, 29, 35, 56]
   next unless (department_code.include?(geocode[0..1].to_i) && @geocode_population.include?(geocode))
@@ -200,8 +201,6 @@ CSV.foreach(filepath, csv_options) do |row|
 
   city.save!
 end
-
-
 
 p "Description and photos seeds incoming"
 cities = City.all
@@ -464,6 +463,4 @@ cities.each do |city|
     end
   end
 end
-
-
 

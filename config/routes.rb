@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'pages#home'
+  get "/", to: 'pages#home', as: "home"
   resources :cities, only: [:index, :show] do
     resources :favorites, only: [:create]
     resources :compared_cities, only: [:create]

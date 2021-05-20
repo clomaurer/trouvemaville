@@ -1,19 +1,33 @@
 
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <%= link_to root_path, class: "navbar-brand d-flex" do %>
-    <%= image_tag "logo.svg", class: "logo" %>
-    <span class="brand-name">TrouveMaVille</span>
-  <% end %>
+
   <div class="d-flex align-items-center">
-    <%= link_to favorites_path, class:'nav-link' do %>
-      <i class="fas fa-star"></i>
-      Vos favoris
+    <%= link_to home_path, class: "navbar-brand d-flex" do %>
+      <%= image_tag "logo.svg", class: "logo" %>
+      <span class="brand-name">TrouveMaVille</span>
     <% end %>
 
+    <%= yield :searchbar %>
+  </div>
+<% if user_signed_in? %>
+  <div class="d-flex align-items-center">
+    <div class="favorites-link">
+      <%= link_to favorites_path, class:'nav-link-favorites' do %>
+        <i class="fas fa-star"></i>
+        Favoris
+      <% end %>
+    </div>
+
+    <div class="comparator-link">
+      <%= link_to comparator_path, class:'nav-link-comparator' do %>
+      <i class="fas far fa-clipboard"></i>
+        Comparateur
+      <% end %>
+    </div>
+<% end %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
 
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,15 +38,18 @@
            <%= image_tag "photojerome.jpg", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
 
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+              <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to "Se connecter", new_user_session_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>
     </div>
   </div>
 </div>
+
+<script> </script>
+

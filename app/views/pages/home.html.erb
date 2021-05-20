@@ -4,12 +4,12 @@
   <h1 class="text-center"><span>Découvrez votre</span> <br>futur cocon breton </h1>
   <div class="home-form">
     <div class="form-wrap">
-      <h2>Toutes les informations à portée de clics pour vous installer dans votre endroit rêvé</h2>
-      <div class="field-wrapper">
+      <h2>Toutes les informations à portée de clic pour vous installer dans votre endroit rêvé !</h2>
         <%= form_tag cities_path, method: :get do %>
+      <div class="field-wrapper">
         <div class="d-flex align-items-center justify-content-between">
           <%= text_field_tag "location[name]", nil, required: true,
-           placeholder: "Recherchez une ville bretonne" %>
+           placeholder: "Recherchez une ville bretonne ..." %>
 
           <div class="d-flex align-items-center">
             A
@@ -18,40 +18,44 @@
           </div>
         </div>
 
-        <div class="d-flex pt-3 justify-content-between">
-          <div>
-
-          <%= number_field_tag "max_population", nil, min: 1, width: 1, placeholder: 50000 %>
+        <div class="d-flex pt-3">
+          <div class="mr-4">
+          <%= number_field_tag "max_population", nil, placeholder: 50000, min: 1, width: 1 %>
           habitants maximum
           </div>
-          <div>
 
+          <div>
           <%= number_field_tag "max_age_average", nil, min: 18, width: 1, placeholder: 40 %>
           ans d'âge moyen maximum
           </div>
         </div>
 
-        <div class="checkboxes pt-3">
-          <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%>
-          <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
+        <div class="form-features">
+          <h3>Ajoutez des critères supplémentaires</h3>
+            <div class="checkboxes">
 
-          <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %>
-          <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
 
-          <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %>
-          <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+              <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %>
+              <label for="primary_school"><i class="fas fa-child mr-2"></i>Maternelles et primaires</label>
 
-          <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %>
-          <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
+              <%= check_box_tag "secondary_school", 1, (:checked if params[:secondary_school].present?) %>
+              <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
 
-          <%= check_box_tag "primary_school",1, (:checked if params[:primary_school].present?) %>
-          <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
+              <%= check_box_tag "fibre", 1, (:checked if params[:fibre].present?) %>
+              <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
 
-          <%= check_box_tag "network", 1, (:checked if params[:network].present?) %>
-          <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
+              <%= check_box_tag "network", 1, (:checked if params[:network].present?) %>
+              <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
 
-          <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %>
-          <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
+               <%= check_box_tag "doctor", 1, (:checked if params[:doctor].present?) %>
+              <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+
+              <%= check_box_tag "supermarket", 1, (:checked if params[:supermarket].present?)%>
+              <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
+
+              <%= check_box_tag "commodity", 1, (:checked if params[:commodity].present?) %>
+              <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
+            </div>
       </div>
 
       </div>
@@ -61,4 +65,3 @@
   </div>
 </div>
 
-<script> </script>

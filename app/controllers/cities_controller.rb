@@ -9,13 +9,18 @@ class CitiesController < ApplicationController
     @cities = apply_scopes(City).all
 
     @markers = @cities.map do |city|
-      if rating(city) >= 75
-        image_url = helpers.asset_url('green-marker.png')
-      elsif rating(city) >= 50
-        image_url = helpers.asset_url('orange-marker.png')
-      elsif rating(city) < 50
-        image_url = helpers.asset_url('red-marker.png')
-      end
+      is_favorite = FavoriteCity.find_by(user: current_user, city: city).present? if current_user
+
+        if rating(city) >= 75
+          image_url = helpers.asset_url('green-marker.svg')
+        elsif rating(city) >= 50
+          image_url = helpers.asset_url('orange-marker.svg')
+        elsif rating(city) < 50
+          image_url = helpers.asset_url('red-marker.svg')
+        end
+
+        image_url = helpers.asset_url('favorite-star.svg') if is_favorite
+
       {
         lat: city.latitude,
         lng: city.longitude,
@@ -47,9 +52,9 @@ class CitiesController < ApplicationController
     @city_rating = rating(@city)
 
     #--------------------                    variables for thresholds                 ---------------------->
-    @network_fibre_threshold = 70       #-- 4G rate at 70% minimum
-    @city_rating_middle_threshold = 75  #-- fibre rate at 75% minimum  -->
-    @commodity_count_threshold = 0      #-- fibre rate at 0 minimum  -->
+    @network_fibre_threshold = City::NETWORK_FIBRE_THRESHOLD #-- 4G rand fibre ate at 70% minimum (see model city.rb)
+    @city_rating_middle_threshold = 75 #-- fibre rate at 75% minimum  -->
+    @commodity_count_threshold = City::COMMODITY_COUNT_THRESHOLD #-- commodity count will be green if > 0 (see model city.rb)-->
     @city_rating_middle_threshold = 75  #-- city rating will be green above or equal to 75% -->
                                         #-- city rating will be orange above or equal to 50% and below 75% -->
     @city_rating_lower_threshold = 50   #-- city rating will be red below 50% -->

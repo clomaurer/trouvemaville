@@ -1,7 +1,7 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
   def index
-    @favorites = current_user.favorite_cities.group_by { |city| city.saved_search }
+    @favorites = current_user.favorite_cities.order(created_at: :desc).group_by { |city| city.saved_search }
   end
 
   def create
@@ -22,7 +22,7 @@ class FavoritesController < ApplicationController
     if favorite.present?
       favorite.destroy
       render json: {
-        result: "Favorite destroyed"
+        result: "destroyed"
       }
     else
       @favorite = FavoriteCity.new
@@ -31,13 +31,13 @@ class FavoritesController < ApplicationController
       @favorite.saved_search = @saved_search
       @favorite.save!
       render json: {
-        result: "Favorite created"
+        result: "created"
       }
     end
   end
 
   def show
     @city = City.find(params[:id])
-    redirect_to city_path(@city, params.permit!)
+    redirect_to favorites_path
   end
 end

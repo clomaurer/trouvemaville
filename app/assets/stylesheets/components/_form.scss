@@ -34,6 +34,7 @@ input:focus {
 
 .checkboxes {
   display: inline-block;
+
 }
 
 input[type="checkbox"] {
@@ -45,12 +46,12 @@ input[type="checkbox"] + label {
   cursor: pointer;
   font-size: 0.7rem;
   border-radius: 6px;
-  padding: 0.1rem 0.5rem;
+  padding: 4px 8px;
   background-color: $white;
   color: $grey-lavender;
   border: 1px solid $grey-lavender;
   margin-right: 0.6rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 12px;
 }
 
 input[type="checkbox"]:checked + label {

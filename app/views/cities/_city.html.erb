@@ -1,16 +1,17 @@
 <div class="city-card">
   <div class="favorite-percent" data-controller="favorite" data-favorite-url-value="<%= city_favorites_path(@city, params.permit!) %>">
-    <% if current_user %>
-        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-action="click->favorite#toggle"></i>
-    <% else %>
-        <%= link_to favorite_path(@city, params.permit!) do%>
-        <i class="far fa-star"></i>
-      <% end %>
-    <% end %>
-    <div data-controller="compared" data-compared-url-value="<%= city_compared_cities_path(@city) %>">
-      <% if current_user %>
+
+      <div class="city-card-favorite">
+        <i class="<%= @is_favorite ? "fas" : "far" %> fa-star" data-favorite-target="star" data-city="<%= @city.id %>" data-action="click->favorite#toggle"></i>
+        <span class="city_header_stat" data-favorite-target="span"><%= @is_favorite ? "Retirer des favoris" : "Ajouter aux favoris" %></span>
+      </div>
+
+
+    <div class="city-card-comparator" data-controller="compared" data-compared-url-value="<%= city_compared_cities_path(@city) %>">
+
         <i class="<%= @is_compared ? "fas fa-clipboard-check" : "far fa-clipboard" %>" data-compared-target="clipboard" data-action="click->compared#toggle"></i>
-      <% end %>
+        <span class="city_header_stat" data-compared-target="span"><%= @is_compared ? "Retirer du comparateur" : "Ajouter au comparateur" %></span>
+
     </div>
   </div>
 
@@ -25,10 +26,10 @@
       <div class="city_name_rating">
         <h2><%= @city.name %></h2>
           <!-- Set city rating color depending on user selection and city match values -->
-          <% if @city_rating > @city_rating_middle_threshold %>
+          <% if @city_rating >= @city_rating_middle_threshold %>
             <span style= "background-color:#0A7C06"> <%= @city_rating %> % </span>
 
-          <% elsif @city_rating > @city_rating_lower_threshold && @city_rating < @city_rating_middle_threshold %>
+          <% elsif @city_rating >= @city_rating_lower_threshold && @city_rating < @city_rating_middle_threshold %>
             <span style= "background-color:#D8841D"> <%= @city_rating %> % </span>
 
           <% else %>
@@ -36,17 +37,22 @@
           <% end %>
       </div>
 
-      <% if @city_rating > @city_rating_middle_threshold %>
+      <% if @city_rating >= @city_rating_middle_threshold %>
           <div class="progress-bar" style="width:calc(<%= @city_rating %>% + 36px); background-color:#0A7C06"> </div>
-      <% elsif @city_rating > @city_rating_lower_threshold && @city_rating < @city_rating_middle_threshold %>
+      <% elsif @city_rating >= @city_rating_lower_threshold && @city_rating < @city_rating_middle_threshold %>
           <div class="progress-bar" style="width:calc(<%= @city_rating %>% + 36px); background-color:#D8841D"> </div>
       <% else %>
           <div class="progress-bar" style="width:calc(<%= @city_rating %>% + 36px); background-color:#D94111"> </div>
       <% end %>
     </div>
     <div class="city_show_content">
-      <p><%= @city.description %></p>
-
+      <div class="city_description">
+        <p><%= @city.description %></p>
+      </div>
+      <div class="wiki_link">
+        <% city_wiki_url = "https://fr.wikipedia.org/wiki/#{@city.name}" %>
+        <%= link_to "En savoir plus...", city_wiki_url, target: "_blank" %>
+      </div>
     <div class="city_main_filters">
       <!-- Set commodity criteria color depending on user selection and city match values -->
         <div class="market-price">
@@ -56,7 +62,7 @@
 
         <div class="average-age">
           <span class="city_main_filters_titles">Age moyen</span>
-          <span> <%= @city.age_average %></span>
+          <span> <%= @city.age_average %> ans</span>
         </div>
 
       <div class="commodity">
@@ -96,7 +102,7 @@
 
 
     <!-- Set network criteria color depending on user selection and city match values -->
-      <% if @network_presence && @city.network.to_f > @network_fibre_threshold %>
+      <% if @network_presence && @city.network.to_f >= @network_fibre_threshold %>
         <div class="network">
           <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture 4G </span>
           <% @city.network = 100 if @city.network.to_f > 100 %>
@@ -104,7 +110,7 @@
           <span style= "color:#0A7C06">%</span>
         </div>
 
-      <% elsif @network_presence && @city.network.to_f <= @network_fibre_threshold %>
+      <% elsif @network_presence && @city.network.to_f < @network_fibre_threshold %>
         <div class="network">
           <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture 4G </span>
           <span style= "color:#D94111"><%= (@city.network.to_f).round %></span>
@@ -114,7 +120,7 @@
 
 
     <!-- Set fibre criteria color depending on user selection and city match values -->
-      <% if @fibre_presence && @city.fibre.to_f > @network_fibre_threshold %>
+      <% if @fibre_presence && @city.fibre.to_f >= @network_fibre_threshold %>
         <div class="fibre">
           <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Couverture fibre </span>
           <% @city.fibre = 100 if @city.fibre.to_f > 100 %>
@@ -122,7 +128,7 @@
           <span style= "color:#0A7C06">%</span>
         </div>
 
-      <% elsif @fibre_presence && @city.fibre.to_f <= @network_fibre_threshold  %>
+      <% elsif @fibre_presence && @city.fibre.to_f < @network_fibre_threshold  %>
         <div class="fibre">
           <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Couverture fibre </span>
           <span style= "color:#D94111"><%= (@city.fibre.to_f).round %></span>
@@ -144,11 +150,11 @@
 
       <% if @primary_school_presence && @city.primary_school %>
         <div class="primary_school">
-          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Écoles maternelles et primaires </span>
+          <span style= "color:#0A7C06"><i class="fas fa-check-circle"></i> Maternelles et primaires </span>
         </div>
       <% elsif @primary_school_presence && @city.primary_school == false %>
         <div class="primary_school">
-          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Écoles maternelles et primaires </span>
+          <span style= "color:#D94111"><i class="fas fa-times-circle"></i> Maternelles et primaires </span>
         </div>
       <% end %>
 
@@ -172,7 +178,7 @@
         </div>
         <% end %>
 
-        <% if @network_presence == false && @city.network.to_f > @network_fibre_threshold %>
+        <% if @network_presence == false && @city.network.to_f >= @network_fibre_threshold %>
           <div class="additional_network">
             <span style= "color:#7C94CB"><i class="fas fa-plus-circle"></i> Couverture 4G </span>
             <% @city.network = 100 if @city.network.to_f > 100 %>
@@ -181,7 +187,7 @@
           </div>
         <% end %>
 
-        <% if @fibre_presence == false && @city.fibre.to_f > @network_fibre_threshold %>
+        <% if @fibre_presence == false && @city.fibre.to_f >= @network_fibre_threshold %>
           <div class="additional_fibre">
             <span style= "color:#7C94CB"><i class="fas fa-plus-circle"></i> Couverture fibre </span>
             <% @city.fibre = 100 if @city.fibre.to_f > 100 %>
@@ -210,5 +216,4 @@
 
 
     </div>
-
 </div>

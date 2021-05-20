@@ -1,0 +1,29 @@
+.caption {
+  position: absolute;
+  background: rgba(255,255,255,1);
+  bottom: 24px;
+  padding:12px 16px;
+  left:24px;
+  z-index:9999;
+  border-radius:6px;
+  box-shadow: rgba(0, 0, 0, 0.07) -4px 9px 25px -6px;
+  font-size: 12px;
+  color: $grey-lavender;
+
+  .caption-marker {
+    margin: 0 4px;
+
+    img {
+      width: 16px;
+    }
+  }
+  .caption-markers {
+    display: flex;
+    margin-top: 10px;
+  }
+
+  .caption-title {
+    font-weight: 700;
+  }
+}
+

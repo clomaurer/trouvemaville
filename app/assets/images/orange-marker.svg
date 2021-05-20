@@ -1,3 +1,14 @@
 <svg width="24" height="32" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M12 0C5.3617 0 0 5.22667 0 11.6978C0 20.7644 12 32 12 32C12 32 24 20.7289 24 11.6978C24 5.22667 18.6383 0 12 0ZM12 17.0667C8.97264 17.0667 6.52887 14.6844 6.52887 11.7333C6.52887 8.78222 8.97264 6.4 12 6.4C15.0274 6.4 17.4711 8.78222 17.4711 11.7333C17.4711 14.6844 15.0274 17.0667 12 17.0667Z" fill="#D98233"/>
+<mask id="mask0" mask-type="alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="32">
+<path d="M12 0C5.3617 0 0 5.22667 0 11.6978C0 20.7644 12 32 12 32C12 32 24 20.7289 24 11.6978C24 5.22667 18.6383 0 12 0ZM12 17.0667C8.97264 17.0667 6.52887 14.6844 6.52887 11.7333C6.52887 8.78222 8.97264 6.4 12 6.4C15.0274 6.4 17.4711 8.78222 17.4711 11.7333C17.4711 14.6844 15.0274 17.0667 12 17.0667Z" fill="#D98233"/>
+</mask>
+<g mask="url(#mask0)">
+<g opacity="0.4">
+<rect x="-2" y="52" width="68" height="4" transform="rotate(-90 -2 52)" fill="white"/>
+<rect x="6" y="52" width="68" height="4" transform="rotate(-90 6 52)" fill="white"/>
+<rect x="14" y="52" width="68" height="4" transform="rotate(-90 14 52)" fill="white"/>
+<rect x="22" y="52" width="68" height="4" transform="rotate(-90 22 52)" fill="white"/>
+</g>
+</g>
 </svg>

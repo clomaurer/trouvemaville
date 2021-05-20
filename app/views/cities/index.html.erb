@@ -53,3 +53,22 @@
      data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>">
     <div id="show"> </div>
 </div>
+
+<div class="caption">
+  <span class="caption-title"> Correspondance de vos critères </span>
+  <div class="caption-markers">
+  <div class="caption-marker">
+    <%= image_tag("green-marker.svg") %>
+    <span> > 75% </span>
+  </div>
+
+  <div class="caption-marker">
+    <%= image_tag("orange-marker.svg") %>
+    <span> > 50% </span>
+  </div>
+  <div class="caption-marker">
+    <%= image_tag("red-marker.svg") %>
+    <span> < 50% </span>
+  </div>
+  </div>
+</div>

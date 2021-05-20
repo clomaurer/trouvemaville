@@ -1,20 +1,22 @@
 <% content_for :searchbar do %>
-  <div class="search-navbar">
-    <div class="searchbar-navbar">
-      <%= text_field_tag "location[name]", nil, required: true,
-       placeholder: "Recherchez une ville bretonne..." %>
-    </div>
+<%= form_tag cities_path, method: :get do %>
+    <div class="search-navbar">
+      <div class="searchbar-navbar">
+        <%= text_field_tag "location[name]", nil, required: true,
+         placeholder: "Recherchez une ville bretonne..." %>
+      </div>
 
-    <div class="elements-navbar">
-      A
-      <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
-      km maximum
-    </div>
-    <div class="btn-icon" data-action="click->search#navigate">
-      <i class="fas fa-search-location"></i>
-    </div>
+      <div class="elements-navbar">
+        A
+        <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
+        km maximum
+      </div>
 
-  </div>
+      <button class="btn-icon btn-search" type="submit">
+        <i class="fas fa-search-location"></i>
+      </button>
+    </div>
+  <% end %>
 <% end %>
 
 <div class="text-center">

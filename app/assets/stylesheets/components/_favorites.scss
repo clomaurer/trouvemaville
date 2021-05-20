@@ -20,9 +20,14 @@
     div {
       margin-right:32px;
     }
+
   }
   .search-input {
     flex:3;
+
+    .checkboxes {
+      margin-left:0 !important;
+    }
   }
   .checkboxes {
     flex:2;

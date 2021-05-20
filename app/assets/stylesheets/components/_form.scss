@@ -9,6 +9,8 @@ input[type=text] {
   font-weight: 700;
 }
 
+
+
 input {
   border:none !important;
   height:42px;
@@ -19,11 +21,17 @@ input {
   &::placeholder {
     color:$grey-lavender;
     font-weight:400;
+    opacity:.3;
   }
 }
 
-#location_max_distance_km, #max_age_average {
+#location_max_distance_km {
   width: 45px;
+  padding-left: 11px;
+}
+
+#max_age_average {
+  width: 75px !important;
   padding-left: 11px;
 }
 
@@ -58,3 +66,4 @@ input[type="checkbox"]:checked + label {
   background-color: $grey-lavender;
   color: $white;
 }
+

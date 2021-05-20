@@ -324,6 +324,8 @@ def average_per_city
     end
     p "#{@sell_type} market price in #{@city} city: #{@city_m2_price}€/m2"
 
+
+
     # downcase all cities names in db
     cities = City.all
     cities.each do | city |

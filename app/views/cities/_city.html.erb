@@ -172,6 +172,7 @@
 
      <div class="additional_city_filters">
       <p> Autres atouts présents dans cette ville </p>
+      <div class="additionnal_filters">
         <%if @doctor_presence == false && @city.doctor %>
           <div class="additional_doctor">
             <span style= "color:#7C94CB"><i class="fas fa-plus-circle"></i> Docteurs </span>
@@ -204,7 +205,7 @@
 
         <% if @primary_school_presence == false && @city.primary_school %>
           <div class="additional_primary_school">
-            <span style= "color:#7C94CB"><i class="fas fa-plus-circle"></i> Écoles maternelles et primaires </span>
+            <span style= "color:#7C94CB"><i class="fas fa-plus-circle"></i> Maternelles/Primaires </span>
           </div>
         <% end %>
 
@@ -213,7 +214,7 @@
           <span style= "color:#7C94CB"><i class="fas fa-plus-circle"></i> Collèges et lycées </span>
           </div>
         <% end %>
-
+        </div>
 
     </div>
 </div>

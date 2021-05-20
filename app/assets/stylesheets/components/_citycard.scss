@@ -143,6 +143,7 @@
     position: relative;
     background: center;
     background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .city_name_rating {
@@ -198,7 +199,15 @@
   }
 
   .wiki_link {
-    text-align: right;
+    text-align: initial;
+
+    a {
+      color: #6488DD;
+
+      &:hover {
+        color: #363645;
+      }
+    }
   }
 
   }
@@ -225,9 +234,9 @@
 
 
   .city_filters {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
     border-bottom: 1px solid $light-blue;
     padding-bottom: 18px;
 

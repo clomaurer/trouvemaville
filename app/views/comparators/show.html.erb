@@ -10,6 +10,10 @@
       <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
       km maximum
     </div>
+    <div class="btn-icon" data-action="click->search#navigate">
+      <i class="fas fa-search-location"></i>
+    </div>
+
   </div>
 <% end %>
 

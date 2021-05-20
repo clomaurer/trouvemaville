@@ -22,7 +22,7 @@ class FavoritesController < ApplicationController
     if favorite.present?
       favorite.destroy
       render json: {
-        result: "Favorite destroyed"
+        result: "destroyed"
       }
     else
       @favorite = FavoriteCity.new
@@ -31,7 +31,7 @@ class FavoritesController < ApplicationController
       @favorite.saved_search = @saved_search
       @favorite.save!
       render json: {
-        result: "Favorite created"
+        result: "created"
       }
     end
   end

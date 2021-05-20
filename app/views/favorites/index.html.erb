@@ -45,23 +45,23 @@
 
           <div class="checkboxes pt-3">
 
-            <%= f.check_box :supermarket, "data-search-target": "supermarket" %>
-            <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
-
-            <%= f.check_box :fibre, "data-search-target": "fibre" %>
-            <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
-
-            <%= f.check_box :doctor, "data-search-target": "doctor" %>
-            <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+            <%= f.check_box :primary_school, "data-search-target": "primarySchool"%>
+            <label for="primary_school"><i class="fas fa-child mr-2"></i>Maternelles et primaires</label>
 
             <%= f.check_box :secondary_school, "data-search-target": "secondarySchool" %>
             <label for="secondary_school"><i class="fas fa-book mr-2"></i>Collèges et lycées</label>
 
-            <%= f.check_box :primary_school, "data-search-target": "primarySchool"%>
-            <label for="primary_school"><i class="fas fa-child mr-2"></i>Écoles maternelles et primaires</label>
+            <%= f.check_box :fibre, "data-search-target": "fibre" %>
+            <label for="fibre"><i class="fas fa-wifi mr-2"></i>Fibre</label>
 
             <%= f.check_box :network, "data-search-target": "network" %>
             <label for="network"><i class="fas fa-mobile-alt mr-2"></i>4G</label>
+
+            <%= f.check_box :doctor, "data-search-target": "doctor" %>
+            <label for="doctor"><i class="fas fa-briefcase-medical mr-2"></i>Docteurs</label>
+
+            <%= f.check_box :supermarket, "data-search-target": "supermarket" %>
+            <label for="supermarket"><i class="fas fa-shopping-cart mr-2"></i>Supermarchés</label>
 
             <%= f.check_box :commodity, "data-search-target": "commodity" %>
             <label for="commodity"><i class="fas fa-cash-register mr-2"></i>Commerces</label>
@@ -89,6 +89,10 @@
   <% end %>
   <div id="show"></div>
 </div>
+
+
+
+
 
 
 

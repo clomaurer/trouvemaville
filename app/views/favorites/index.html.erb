@@ -1,3 +1,18 @@
+<% content_for :searchbar do %>
+  <div class="search-navbar">
+    <div class="searchbar-navbar">
+      <%= text_field_tag "location[name]", nil, required: true,
+       placeholder: "Recherchez une ville bretonne..." %>
+    </div>
+
+    <div class="elements-navbar">
+      A
+      <%= number_field_tag "location[max_distance_km]", nil, min: 1, width: 1, value: 10 %>
+      km maximum
+    </div>
+  </div>
+<% end %>
+
 <h1 class="text-center">Vos favoris</h1>
 
 <div class="favorite_index">

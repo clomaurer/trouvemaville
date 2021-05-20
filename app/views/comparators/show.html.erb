@@ -18,71 +18,82 @@
 <% end %>
 
 <div class="text-center">
-  <h1>Mon comparateur</h1>
+
   <div class="comparator-wrapper">
     <div class="legend">
-      <div class="hiding"></div>
+      <div class="hiding">
+      </div>
       <div class="features">
         <p>Age moyen</p>
-        <p>Ecoles primaires et secondaires</p>
+        <p>Maternelles et primaires</p>
         <p>Collèges et lycées</p>
-        <p>Supermarchés</p>
-        <p>Médecins</p>
-        <p>Commerces</p>
         <p>Fibre</p>
         <p>4G</p>
-
+        <p>Docteurs</p>
+        <p>Supermarchés</p>
+        <p>Commerces</p>
       </div>
     </div>
-    <% @compared_cities.each do |compared_city| %>
-      <div class="compared-city">
-        <div class="compared-city-header">
-          <h2><%= compared_city.city.name %></h2>
-          <p> <%= compared_city.city.population %> habitants</p>
-        </div>
-        <div class="features">
-          <p><%= compared_city.city.age_average %></p>
-          <% if compared_city.city.primary_school %>
-            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
-          <% else %>
-            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
-          <% end %>
-          <% if compared_city.city.secondary_school %>
-            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
-          <% else %>
-            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
-          <% end %>
-          <% if compared_city.city.supermarket %>
-            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
-          <% else %>
-            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
-          <% end %>
-          <% if compared_city.city.doctor %>
-            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
-          <% else %>
-            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
-          <% end %>
-          <% if compared_city.city.commodity_count %>
-            <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
-          <% else %>
-            <p><span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span></p>
-          <% end %>
-          <p> <%= compared_city.city.fibre %>%</p>
-          <p> <%= compared_city.city.network %>%</p>
-        </div>
-      <%= link_to "Supprimer", compared_city_path(compared_city), method: :delete, data: { confirm: "Supprimer ?" } %>
-      </div>
-    <% end %>
 
+      <% @compared_cities.each do |compared_city| %>
+        <div class="compared-city">
+          <%= link_to "", compared_city_path(compared_city), method: :delete, data: { confirm: "Supprimer ?" }, class: "fas fa-times" %>
+          <div class="compared-city-header" style="background-image: linear-gradient(3.25deg, #788EC7 38.16%, rgba(255, 255, 255, 0) 131.88%), url(<%= compared_city.city.photo %>)">
+            <div>
+              <h2><%= compared_city.city.name %></h2>
+              <p class="compared-city-stat"> <%= compared_city.city.population %> habitants</p>
+            </div>
+          </div>
+          <div class="features">
+            <p><%= compared_city.city.age_average %> ans</p>
+            <% if compared_city.city.primary_school %>
+              <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+            <% else %>
+              <p><span class="comparator-underline"></span></p>
+            <% end %>
 
+            <% if compared_city.city.secondary_school %>
+              <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+            <% else %>
+              <p><span class="comparator-underline">—</span></p>
+            <% end %>
+
+            <% if compared_city.city.fibre.to_f >= 100 %>
+              <p><span style= "color:#0A7C06"><%=100%>%</span></p>
+            <% elsif compared_city.city.fibre.to_f >= City::NETWORK_FIBRE_THRESHOLD %>
+              <p><span style= "color:#0A7C06"><%= compared_city.city.fibre.to_f.round %>%</span></p>
+            <% else %>
+              <p><span style= "color:#D94111"><%= compared_city.city.fibre.to_f.round %>%</span></p>
+            <% end %>
+
+            <% if compared_city.city.network.to_f >= 100 %>
+              <p><span style= "color:#0A7C06"><%=100%>%</span></p>
+            <% elsif compared_city.city.network.to_f >= City::NETWORK_FIBRE_THRESHOLD %>
+              <p><span style= "color:#0A7C06"><%= compared_city.city.network.to_f.round %>%</span></p>
+            <% else %>
+              <p><span style= "color:#D94111"><%= compared_city.city.network.to_f.round %>%</span></p>
+            <% end %>
+
+            <% if compared_city.city.doctor %>
+              <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+            <% else %>
+              <p><span class="comparator-underline">—</span></p>
+            <% end %>
+
+            <% if compared_city.city.supermarket %>
+              <p><span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span></p>
+            <% else %>
+              <p><span class="comparator-underline">—</span></p>
+            <% end %>
+
+            <% if compared_city.city.commodity_count > City::COMMODITY_COUNT_THRESHOLD %>
+              <p><span style= "color:#0A7C06"><%= compared_city.city.commodity_count%></span></p>
+            <% else %>
+              <p><span class="comparator-underline">—</span></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
   </div>
 
-
-
-</div>
-
-<i class="fas fa-times-circle"></i>
-<i class="fas fa-check-circle"></i>
-
-<span style= "color:#0A7C06"><i class="fas fa-check-circle"></i></span>
-<span style= "color:#B4BCCC"><i class="fas fa-times-circle"></i></span>
+ </div>
